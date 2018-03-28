@@ -8,27 +8,31 @@
    * @date 13-01-2015
    * @copyright GNU Public License
    */
-  
+
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
   #include "game_reader.h"
-  
-  
-  
+
+  #define ILUSTAM 8
+
   /*Funcion que se encarga de cargar los espacios correspondientes dado un fichero determinado*/
   STATUS game_reader_load_spaces(Game* game, char* filename) {
     FILE* file = NULL;
     char line[WORD_SIZE] = "";
     char name[WORD_SIZE] = "";
     char* toks = NULL;
+    char* ilus1 = NULL;
+    char* ilus2 = NULL;
+    char* ilus3 = NULL;
+    char NOilus[ILUSTAM] = "       ";
     Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID;
     Space *space = NULL;
     STATUS status = OK;
-  
+
     /*^^^Inicialización de variables^^^*/
-  
-  
+
+
     /*Controles de errores de game y file*/
     if(!game){
       return ERROR;
@@ -36,12 +40,12 @@
     if (!filename) {
       return ERROR;
     }
-  
+
     file = fopen(filename, "r"); /*Se encarga de abrir el fichero*/
     if (file == NULL) {
       return ERROR;
     }
-    
+
     while (fgets(line, WORD_SIZE, file)) { /*Bucle encargado de leer el fichero de datos referido a los espacios y los objetos*/
   	  if (strncmp("#s:", line, 3) == 0) {
         toks = strtok(line + 3, "|");
@@ -56,8 +60,13 @@
         south = atol(toks);
         toks = strtok(NULL, "|");
         west = atol(toks);
+        ilus1 = strtok(NULL, "|");
+        ilus2 = strtok(NULL, "|");
+        ilus3 = strtok(NULL, "|");
+
+
   #ifdef DEBUG
-        printf("Leido: %ld|%s|%ld|%ld|%ld|%ld\n", id, name, north, east, south, west);
+        printf("Leido: %ld|%s|%ld|%ld|%ld|%ld|%s|%s|%s\n", id, name, north, east, south, west, ilus1, ilus2, ilus3);
   #endif
         space = space_create(id);
         if (space != NULL) {
@@ -66,22 +75,35 @@
   		  space_set_east(space, east);
   		  space_set_south(space, south);
   		  space_set_west(space, west);
+        if(ilus1 != NULL)
+          space_set_ilus1(space, ilus1);
+        else
+          space_set_ilus1(space, NOilus);
+        if(ilus2 != NULL)
+          space_set_ilus2(space, ilus2);
+        else
+          space_set_ilus2(space, NOilus);
+       if(ilus3 != NULL)
+          space_set_ilus3(space, ilus3);
+        else
+          space_set_ilus3(space, NOilus);
+
   		  game_add_space(game, space);
   	  }
     }
   }
-  
+
     if (ferror(file)) {
       status = ERROR;
     }
-  
+
     fclose(file);
-  
+
     return status;
   }
   /*-----------------------------------------------------------------------------------------------------------------------*/
   /*Funcion encargada de leer los objetos de un fichero determinado*/
-  
+
   STATUS game_reader_load_objects(Game* game, char* filename) {
       FILE* file = NULL;
       char line[WORD_SIZE] = "";
@@ -90,10 +112,10 @@
       Id idObject=NO_ID, idspace_object=NO_ID;
       Object *object=NULL;
       STATUS status = OK;
-  
+
       /*^^^Inicialización de variables^^^*/
-  
-  
+
+
       /*Controles de errores de game y file*/
       if(!game){
         return ERROR;
@@ -101,14 +123,14 @@
       if (!filename) {
         return ERROR;
       }
-  
+
       file = fopen(filename, "r"); /*Se encarga de abrir el fichero*/
       if (file == NULL) {
         return ERROR;
       }
-  	
-      while (fgets(line, WORD_SIZE, file)) { /*Bucle encargado de leer el fichero de datos referido a los objetos*/  	  
-    
+
+      while (fgets(line, WORD_SIZE, file)) { /*Bucle encargado de leer el fichero de datos referido a los objetos*/
+
       if (strncmp("#o:", line, 3) == 0) {
     	  toks = strtok(line + 3, "|");
         idObject = atol(toks);
@@ -127,13 +149,12 @@
     	  }
       }
       }
-  	
+
       if (ferror(file)) {
         status = ERROR;
       }
-  
+
       fclose(file);
       return status;
-  		
+
   }
-  

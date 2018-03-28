@@ -14,6 +14,8 @@
 #include <string.h>
 #include "space.h"
 
+#define ILUSTAM 20
+
 /*COMENTADO*/
 /*Estructura que determina los elementos de un espacio, entre ellos se encuentra los id's del espacio,
 su id norte, sur, este y oeste, ademas del nombre del espacio y el conjunto de objetos pertenecientes a los espacios*/
@@ -25,6 +27,9 @@ struct _Space {
 	Id east;
 	Id west;
 	Set* objects;
+	char ilus1[ILUSTAM];
+	char ilus2[ILUSTAM];
+	char ilus3[ILUSTAM];
 };
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -44,9 +49,9 @@ Space* space_create(Id id) {
 	if (newSpace == NULL) {
 		return NULL;
 	}
-  
+
 	/*Asignaciones de los valores de newSpace*/
- 
+
 	newSpace->id = id;
 
 	newSpace->name[0] = '\0';
@@ -68,13 +73,13 @@ STATUS space_destroy(Space* space) {
 	if (!space) {
 		return ERROR;
 	}
-  
+
 	/*^^^Control de errores space^^^*/
 	set_destroy(space->objects);
 	free(space);
 
 	/*Se libera el espacio y se devuelve OK si no ha habido ningún error en la función entera*/
-  
+
 	return OK;
 }
 
@@ -87,7 +92,7 @@ STATUS space_set_name(Space* space, char* name) {
 	}
 
 	/*^^^Control de errores space y name^^^*/
-  
+
 	if (!strcpy(space->name, name)) {
 		return ERROR;
 	}
@@ -102,8 +107,8 @@ STATUS space_set_name(Space* space, char* name) {
 STATUS space_set_north(Space* space, Id id) {
 	if (!space || id == NO_ID) {
 		return ERROR;
-	}  
-	/*^^^Control de errores arriba y asignación debajo^^^*/  
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
 	space->north = id;
 	return OK;
 }
@@ -115,7 +120,7 @@ STATUS space_set_south(Space* space, Id id) {
 	if (!space || id == NO_ID) {
 		return ERROR;
 	}
-	/*^^^Control de errores arriba y asignación debajo^^^*/  
+	/*^^^Control de errores arriba y asignación debajo^^^*/
 	space->south = id;
 	return OK;
 }
@@ -127,7 +132,7 @@ STATUS space_set_east(Space* space, Id id) {
 	if (!space || id == NO_ID) {
 		return ERROR;
 	}
-	/*^^^Control de errores arriba y asignación debajo^^^*/  
+	/*^^^Control de errores arriba y asignación debajo^^^*/
 	space->east = id;
 	return OK;
 }
@@ -139,8 +144,44 @@ STATUS space_set_west(Space* space, Id id) {
 	if (!space || id == NO_ID) {
 		return ERROR;
 	}
-	/*^^^Control de errores arriba y asignación debajo^^^*/  
+	/*^^^Control de errores arriba y asignación debajo^^^*/
 	space->west = id;
+	return OK;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte sueprior de la ilus3acion*/
+
+STATUS space_set_ilus1(Space* space, char* ilus1) {
+	if (!space || !ilus1) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus1, ilus1);
+	return OK;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte media de la ilus3acion*/
+
+STATUS space_set_ilus2(Space* space, char* ilus2) {
+	if (!space || !ilus2) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus2, ilus2);
+	return OK;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte inferior de la ilus3acion*/
+
+STATUS space_set_ilus3(Space* space, char* ilus3) {
+	if (!space || !ilus3) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus3, ilus3);
 	return OK;
 }
 
@@ -223,6 +264,39 @@ Id space_get_west(Space* space) {
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilus3acion superior*/
+
+char* space_get_ilus1(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilus3acion (debajo)^^^*/
+	return &(space->ilus1[ILUSTAM]);
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilus3acion del medio*/
+
+char* space_get_ilus2(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilus3acion (debajo)^^^*/
+	return &(space->ilus2[ILUSTAM]);
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilus3acion inferior*/
+
+char* space_get_ilus3(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilus3acion(debajo)^^^*/
+	return &(space->ilus3[ILUSTAM]);
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención del objeto en un espacio*/
 
 int space_get_object(Space* space){
@@ -232,18 +306,18 @@ int space_get_object(Space* space){
 	if(set_get_top(space->objects)!=NO_ID){
 		return set_get_top(space->objects);
 	}
-	else 
-		return -1;    
+	else
+		return -1;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion que sirve para obtener el id de un objeto */
 
 Id space_get_object_id(Space* space, int i){
-    
+
 	if(space==NULL){
 		return NO_ID;
 	}
-    
+
 	return set_get_id(space->objects, i);
 
 }
@@ -251,11 +325,11 @@ Id space_get_object_id(Space* space, int i){
 /*Funcion que se encarga de eliminar un objeto de un espacio*/
 
 STATUS space_destroy_object(Space* space, Id IdObject) {
-    
+
 	if (!space||IdObject==NO_ID) {
 		return ERROR;
 	}
-    
+
 	set_destroy_id(space->objects, IdObject);
 	return OK;
 }
@@ -270,13 +344,13 @@ BOOL space_find_id(Space *space, Id IdObject){
 
 	/*comprueba que se encuentre el  Id del objeto entre los ids de los conjuntos de objetos*/
 	/*si devuelve >-1 significa que ese id del objeto se encuentra*/
-		
-	if(set_find_id(space->objects, IdObject) > -1){ 
+
+	if(set_find_id(space->objects, IdObject) > -1){
 		return TRUE;
 	}
-	else 
+	else
 		return FALSE;
-    
+
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función que imprime el estado de un espacio*/
@@ -288,11 +362,11 @@ STATUS space_print(Space* space) {
 		return ERROR;
 	}
 	/*^^^Control de errores space^^^*/
-  
+
 	fprintf(stdout, "--> Space (Id: %ld; Name: %s)\n", space->id, space->name);
 
 	/*Se busca un link en el norte y si existe se muestra por pantalla*/
-  
+
 	idaux = space_get_north(space);
 	if (NO_ID != idaux) {
 		fprintf(stdout, "---> North link: %ld.\n", idaux);
@@ -301,14 +375,14 @@ STATUS space_print(Space* space) {
 	}
 
 	/*Se busca un link en el sur y si existe se muestra por pantalla*/
-  
+
 	idaux = space_get_south(space);
 	if (NO_ID != idaux) {
 		fprintf(stdout, "---> South link: %ld.\n", idaux);
 	} else {
 		fprintf(stdout, "---> No south link.\n");
 	}
-  
+
 	/*Se busca un link en el este y si existe se muestra por pantalla*/
 
 	idaux = space_get_east(space);
@@ -317,7 +391,7 @@ STATUS space_print(Space* space) {
 	} else {
 		fprintf(stdout, "---> No east link.\n");
 	}
-  
+
 	/*Se busca un link en el oeste y si existe se muestra por pantalla*/
 
 	idaux = space_get_west(space);
@@ -328,7 +402,7 @@ STATUS space_print(Space* space) {
 	}
 
 	/*Se busca un objeto en la posición actual y si existe se muestra por pantalla*/
-  
+
 	if (space_get_object(space)) {
 		fprintf(stdout, "---> Object in the space.\n");
 	} else {

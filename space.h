@@ -1,8 +1,8 @@
-/** 
+/**
  * @brief It defines a space
- * 
+ *
  * @file space.h
- * @version 1.0 
+ * @version 1.0
  * @date 13-01-2015
  * @copyright GNU Public License
  */
@@ -13,6 +13,7 @@
 #ifndef SPACE_H
 #define SPACE_H
 
+#include <string.h>
 #include "types.h"
 #include "set.h"
 
@@ -140,6 +141,60 @@ Id space_get_west(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
+ * @brief Asigna la parte superior de la ilus3acion leida a un espacio
+ * @author Juan Martin
+ * @param Puntero a Space y cadena de caracteres a establecer
+ * @return Devuelve un status segun el exito de la funcion
+ */
+STATUS space_set_ilus1(Space* space, char* ilus1);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Asigna la parte superior de la ilus3acion leida a un espacio
+ * @author Juan Martin
+ * @param Puntero a Space y cadena de caracteres a establecer
+ * @return Devuelve un status segun el exito de la funcion
+ */
+char* space_get_ilus1(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Asigna la parte media de la ilus3acion leida a un espacio
+ * @author Juan Martin
+ * @param Puntero a Space y cadena de caracteres a establecer
+ * @return Devuelve un status segun el exito de la funcion
+ */
+STATUS space_set_ilus2(Space* space, char *ilus2);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Asigna la parte superior de la ilus3acion leida a un espacio
+ * @author Juan Martin
+ * @param Puntero a Space y cadena de caracteres a establecer
+ * @return Devuelve un status segun el exito de la funcion
+ */
+char* space_get_ilus2(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Asigna la parte inferior de una ilus3acion leida a un espacio
+ * @author Juan Martin
+ * @param Puntero a Space y cadena de caracteres a establecer
+ * @return Devuelve un status segun el exito de la funcion
+ */
+STATUS space_set_ilus3(Space* space, char *ilus3);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Asigna la parte superior de la ilus3acion leida a un espacio
+ * @author Juan Martin
+ * @param Puntero a Space y cadena de caracteres a establecer
+ * @return Devuelve un status segun el exito de la funcion
+ */
+char* space_get_ilus3(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
  * @brief Asigna el Id que se le proporciona a un objeto determinado en un espacio
  * @author Profesores PPROG
  * @param Puntero a Space el cual se quiere asignar el Id, y el Id determinado que se le quiere dar
@@ -150,7 +205,7 @@ STATUS space_set_object(Space* space, Id value);
 /*-----------------------------------------------------------------------------------------------------*/
 /**
  * @brief Obtiene el Id de un objeto en el espacio determinado
- * @author Gonzalo Martinez 
+ * @author Gonzalo Martinez
  * @param Puntero a Space el cual se quiere obtener el Id del objeto
  * @return Devuelve el Id del objeto seleccionado
  */
@@ -193,4 +248,3 @@ STATUS space_destroy_object(Space* space, Id IdObject);
 STATUS space_print(Space* space);
 
 #endif
-
