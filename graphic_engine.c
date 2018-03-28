@@ -88,15 +88,13 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 			screen_area_puts(ge->map, str);
 			for(i=1; i<=MAX_OBJ; i++){
 				if(game_get_object_location(game, i) == id_back){
-					id=object_get_id(game->ob[i-1]);
-					sprintf(str, "  |           O: %ld      |",id);
+					sprintf(str, "  |           O: %s    |",game_get_name_object(game,i));
 					screen_area_puts(ge->map, str);
 				}
 
 			}
 			if (id==NO_ID){
-				id=0;
-				sprintf(str, "  |           O: %ld      |",id);
+				sprintf(str, "  |                     |");
 				screen_area_puts(ge->map, str);
 			}
 
@@ -125,21 +123,19 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 			screen_area_puts(ge->map, str);
 			for(i=1; i<=MAX_OBJ; i++){
 				if(game_get_object_location(game, i) == id_act){
-					id=object_get_id(game->ob[i-1]);
-					sprintf(str, "  |           O: %ld      |",id);
+					sprintf(str, "  |           O: %s    |",game_get_name_object(game,i));
 					screen_area_puts(ge->map, str);
 				}
 			}
 			if (id==NO_ID){
-				id=0;
-				sprintf(str, "  |           O: %ld      |",id);
+				sprintf(str, "  |                     |");
 				screen_area_puts(ge->map, str);
 			}
 			sprintf(str, "  |%s              |", ilus1);
 			screen_area_puts(ge->map, str);
 			sprintf(str, "  |%s              |", ilus2);
 			screen_area_puts(ge->map, str);
-			sprintf(str, "  |%s              |", ilus3);
+			sprintf(str, "  |%s                     |", ilus3);
 			screen_area_puts(ge->map, str);
 			sprintf(str, "  +---------------------+");
 			screen_area_puts(ge->map, str);
@@ -155,14 +151,12 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 			screen_area_puts(ge->map, str);
 			for(i=1; i<=MAX_OBJ; i++){
 				if(game_get_object_location(game, i) == id_next){
-					id=object_get_id(game->ob[i-1]);
-					sprintf(str, "  |           O: %ld      |",id);
+					sprintf(str, "  |           O: %s    |",game_get_name_object(game,i));
 					screen_area_puts(ge->map, str);
 				}
 			}
 			if (id==NO_ID){
-				id=0;
-				sprintf(str, "  |           O: %ld      |",id);
+				sprintf(str, "  |                     |");
 				screen_area_puts(ge->map, str);
 			}
 
@@ -176,7 +170,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	screen_area_puts(ge->descript, str);
 	for(i=1; i<=MAX_OBJ; i++){
 		if(game_get_object_location(game, i) != NO_ID){
-			sprintf(str, "   %s esta en espacio %ld",object_get_name(game->ob[i-1]), game_get_object_location(game, i));
+			sprintf(str, "   %s esta en espacio %ld",game_get_name_object(game,i), game_get_object_location(game, i));
 			screen_area_puts(ge->descript, str);
 		}
 	}

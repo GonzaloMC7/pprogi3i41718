@@ -8,13 +8,14 @@
    * @date 13-01-2015
    * @copyright GNU Public License
    */
-
+  
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
   #include "game_reader.h"
 
-  #define ILUSTAM 8
+  
+#define ILUSTAM 8
 
   /*Funcion que se encarga de cargar los espacios correspondientes dado un fichero determinado*/
   STATUS game_reader_load_spaces(Game* game, char* filename) {
@@ -158,3 +159,4 @@
       return status;
 
   }
+  

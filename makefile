@@ -90,7 +90,7 @@ tar:
 	
 game_loop_test:
 	@echo Ejecutando game_loop
-	@ valgrind --leak-check=full ./game_loop new_data.dat
+	@./game_loop new_data.dat
 
 set_test_:
 	@echo Ejecutando set_test

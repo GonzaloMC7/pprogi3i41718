@@ -12,13 +12,13 @@
 
 /*COMENTADO*/
 
-#include "space.h"
-#include "game.h"
-#include "types.h"
 
 #ifndef _GAME_READER_H
 #define _GAME_READER_H
-
+#include "game.h"
+#include "space.h"
+#include "object.h"
+#include "player.h"
 
 
 /*-----------------------------------------------------------------------------------------------------*/

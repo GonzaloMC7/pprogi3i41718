@@ -23,18 +23,9 @@
 
 
 /*Estructura de los elementos del juego, como son el jugador, el objeto y los espacios, o el último comando introducido*/
-typedef struct _Game{
-  Player * pl; /*Jugador*/
-  Object * ob[MAX_OBJ+1]; /*Objetos del jugador*/
-  Space* spaces[MAX_SPACES + 1]; /*Espacios del juego*/
-  T_Command last_cmd; /*Último comando introducido*/
-  Die * die; /*Dado que se utiliza en el juego*/
-} Game;
+typedef struct _Game Game;
 
 /*Primitivas de las funciones de game.c*/
-
-
-
 
 /*---------------------------------------------------------------------------------------------*/
 /**
@@ -68,7 +59,7 @@ STATUS game_add_space(Game* game, Space* space);
  * @param Se le pasa una variable Game creada en el game_loop.c
  * @return Devuelve OK si se ha creado correctamente y ERROR si se ha producido algún fallo
  */
- STATUS game_create(Game* game);
+ Game *game_create();
 /*-----------------------------------------------------------------------------------------------------*/
 /**
  * @brief Función de creación del juego en el archivo que se va a mostrar por pantalla

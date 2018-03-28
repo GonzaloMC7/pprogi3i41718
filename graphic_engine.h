@@ -11,11 +11,9 @@
 #ifndef __GRAPHIC_ENGINE__
 #define __GRAPHIC_ENGINE__
 
-#include "game.h"
 #include "screen.h"
-#include "types.h"
-#include "die.h"
-
+#include "space.h"
+#include "game.h"
 
 typedef struct _Graphic_engine Graphic_engine;
 

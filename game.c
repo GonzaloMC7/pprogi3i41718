@@ -16,6 +16,7 @@
 #include "game_reader.h"
 
 
+
 #define N_CALLBACK 9
 
 
@@ -23,7 +24,13 @@
 Define the function type for the callbacks
 */
 typedef void (*callback_fn)(Game* game);
-
+struct _Game{
+  Player * pl; /*Jugador*/
+  Object * ob[MAX_OBJ+1]; /*Objetos del jugador*/
+  Space* spaces[MAX_SPACES + 1]; /*Espacios del juego*/
+  T_Command last_cmd; /*Último comando introducido*/
+  Die * die; /*Dado que se utiliza en el juego*/
+};
 /**
 List of callbacks for each command in the game
 */
@@ -141,11 +148,12 @@ Game interface implementation
 */
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
-STATUS game_create(Game* game) {
+Game *game_create() {
 	int i;
-
+	Game *game=NULL;
+	game =(Game*)malloc(sizeof(Game));
 	if(!game){
-		return ERROR;
+		return NULL;
 	}
 	/*^^^Control de errores game^^^*/
   
@@ -168,13 +176,13 @@ STATUS game_create(Game* game) {
 	game->die = die_create();
 
 	/*Se devuelve OK si el juego se ha creado correctamente (falta control de errores)*/
-	return OK;
+	return game;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
 STATUS game_create_from_file(Game* game, char* filename) {
-
+	
 	if(!game){
 		return ERROR;
 	}
@@ -183,8 +191,6 @@ STATUS game_create_from_file(Game* game, char* filename) {
 	}
 	/*^^^Controles de errores game y file^^^*/
 	/*Se crea el juego correspondiente*/
-	if (game_create(game) == ERROR)
-		return ERROR;
 
 	/*Se encarga de cargar los espacios y los objetos mediante un fichero de datos dado y el juego creado anteriormente*/
 	if (game_reader_load_spaces(game, filename) == ERROR)
@@ -743,3 +749,5 @@ void game_callback_roll(Game* game) {
 	die_roll(game->die);
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
+
+
