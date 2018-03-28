@@ -27,9 +27,9 @@ struct _Space {
 	Id east;
 	Id west;
 	Set* objects;
-	char ilus1[ILUSTAM];
-	char ilus2[ILUSTAM];
-	char ilus3[ILUSTAM];
+	char ilus1[WORD_SIZE];
+	char ilus2[WORD_SIZE];
+	char ilus3[WORD_SIZE];
 };
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -266,34 +266,34 @@ Id space_get_west(Space* space) {
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención de la ilus3acion superior*/
 
-char* space_get_ilus1(Space* space) {
+const char * space_get_ilus1(Space* space) {
 	if (!space) {
 		return NULL;
 	}
 	/*^^^Control de errores arriba y se devuelve la ilus3acion (debajo)^^^*/
-	return &(space->ilus1[ILUSTAM]);
+	return space->ilus1;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención de la ilus3acion del medio*/
 
-char* space_get_ilus2(Space* space) {
+const char * space_get_ilus2(Space* space) {
 	if (!space) {
 		return NULL;
 	}
 	/*^^^Control de errores arriba y se devuelve la ilus3acion (debajo)^^^*/
-	return &(space->ilus2[ILUSTAM]);
+	return space->ilus2;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención de la ilus3acion inferior*/
 
-char* space_get_ilus3(Space* space) {
+const char * space_get_ilus3(Space* space) {
 	if (!space) {
 		return NULL;
 	}
 	/*^^^Control de errores arriba y se devuelve la ilus3acion(debajo)^^^*/
-	return &(space->ilus3[ILUSTAM]);
+	return space->ilus3;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/

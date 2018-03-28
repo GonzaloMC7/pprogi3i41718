@@ -23,10 +23,9 @@
     char line[WORD_SIZE] = "";
     char name[WORD_SIZE] = "";
     char* toks = NULL;
-    char* ilus1 = NULL;
-    char* ilus2 = NULL;
-    char* ilus3 = NULL;
-    char NOilus[ILUSTAM] = "       ";
+    char ilus1[WORD_SIZE] = "";
+    char ilus2[WORD_SIZE] = "";
+    char ilus3[WORD_SIZE] = "";
     Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID;
     Space *space = NULL;
     STATUS status = OK;
@@ -61,9 +60,12 @@
         south = atol(toks);
         toks = strtok(NULL, "|");
         west = atol(toks);
-        ilus1 = strtok(NULL, "|");
-        ilus2 = strtok(NULL, "|");
-        ilus3 = strtok(NULL, "|");
+        toks = strtok(NULL, "|");
+		strcpy(ilus1,toks);
+        toks = strtok(NULL, "|");
+		strcpy(ilus2,toks);
+        toks = strtok(NULL, "|");
+		strcpy(ilus3,toks);
 
 
   #ifdef DEBUG
@@ -76,19 +78,10 @@
   		  space_set_east(space, east);
   		  space_set_south(space, south);
   		  space_set_west(space, west);
-        if(ilus1 != NULL)
-          space_set_ilus1(space, ilus1);
-        else
-          space_set_ilus1(space, NOilus);
-        if(ilus2 != NULL)
-          space_set_ilus2(space, ilus2);
-        else
-          space_set_ilus2(space, NOilus);
-       if(ilus3 != NULL)
-          space_set_ilus3(space, ilus3);
-        else
-          space_set_ilus3(space, NOilus);
-
+		  space_set_ilus1(space, ilus1);
+	  	  space_set_ilus2(space, ilus2);
+	  	  space_set_ilus3(space, ilus3);
+			 
   		  game_add_space(game, space);
   	  }
     }

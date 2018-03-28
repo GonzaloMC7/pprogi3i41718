@@ -155,7 +155,7 @@ STATUS space_set_ilus1(Space* space, char* ilus1);
  * @param Puntero a Space y cadena de caracteres a establecer
  * @return Devuelve un status segun el exito de la funcion
  */
-char* space_get_ilus1(Space* space);
+const char* space_get_ilus1(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
@@ -173,7 +173,7 @@ STATUS space_set_ilus2(Space* space, char *ilus2);
  * @param Puntero a Space y cadena de caracteres a establecer
  * @return Devuelve un status segun el exito de la funcion
  */
-char* space_get_ilus2(Space* space);
+const char* space_get_ilus2(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
@@ -191,7 +191,7 @@ STATUS space_set_ilus3(Space* space, char *ilus3);
  * @param Puntero a Space y cadena de caracteres a establecer
  * @return Devuelve un status segun el exito de la funcion
  */
-char* space_get_ilus3(Space* space);
+const char* space_get_ilus3(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**

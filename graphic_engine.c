@@ -61,9 +61,6 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	Id id_act = NO_ID, id_back = NO_ID, id_next = NO_ID, ply_loc = NO_ID, id = NO_ID, id_west = NO_ID, id_east = NO_ID;
 	Space* space_act = NULL;
 	char str[999];
-	char* ilus1;
-	char* ilus2;
-	char* ilus3;
 	int i=0;
 	T_Command last_cmd = UNKNOWN;
 	extern char *cmd_to_str[];
@@ -77,9 +74,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 		id_next = space_get_south(space_act);
 		id_east = space_get_east(space_act);
 		id_west = space_get_west(space_act);
-		ilus1 = space_get_ilus1(space_act);
-		ilus2 = space_get_ilus2(space_act);
-		ilus3 = space_get_ilus3(space_act);
+
 
 		id=NO_ID;
 
@@ -131,11 +126,11 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 				sprintf(str, "  |                     |");
 				screen_area_puts(ge->map, str);
 			}
-			sprintf(str, "  |%s              |", ilus1);
+			sprintf(str, "  |        %s      |", space_get_ilus1(space_act));
 			screen_area_puts(ge->map, str);
-			sprintf(str, "  |%s              |", ilus2);
+			sprintf(str, "  |        %s      |", space_get_ilus2(space_act));
 			screen_area_puts(ge->map, str);
-			sprintf(str, "  |%s                     |", ilus3);
+			sprintf(str, "  |        %s      |", space_get_ilus3(space_act));
 			screen_area_puts(ge->map, str);
 			sprintf(str, "  +---------------------+");
 			screen_area_puts(ge->map, str);
