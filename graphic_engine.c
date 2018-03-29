@@ -74,7 +74,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 		id_next = space_get_south(space_act);
 		id_east = space_get_east(space_act);
 		id_west = space_get_west(space_act);
-
+		
 
 		id=NO_ID;
 
@@ -125,7 +125,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 			if (id==NO_ID){
 				sprintf(str, "  |                     |");
 				screen_area_puts(ge->map, str);
-			}
+			}				
 			sprintf(str, "  |        %s      |", space_get_ilus1(space_act));
 			screen_area_puts(ge->map, str);
 			sprintf(str, "  |        %s      |", space_get_ilus2(space_act));
@@ -189,11 +189,12 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	screen_area_puts(ge->help, str);
 	sprintf(str, " following/f, previous/p, exit/e, take/t, drop/d, move/m(die), left/l, right/r");
 	screen_area_puts(ge->help, str);
-
+	
 	/* Paint the in the feedback area */
-	last_cmd = game_get_last_command(game);
+	last_cmd = command_get_type(game_get_last_command(game));
 	sprintf(str, " %s", cmd_to_str[last_cmd-NO_CMD]);
 	screen_area_puts(ge->feedback, str);
+	
 
 	/* Dump to the terminal */
 	screen_paint();

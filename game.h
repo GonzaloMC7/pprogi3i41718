@@ -72,10 +72,10 @@ STATUS game_add_space(Game* game, Space* space);
 /**
  * @brief Actualiza el juego con el nuevo comando
  * @author Profesores PPROG
- * @param El juego creado anteriormente y el comando introducido
+ * @param El juego creado anteriormente 
  * @return Devuelve OK si se ha creado correctamente y ERROR si se ha producido algún fallo
  */
- STATUS game_update(Game* game, T_Command cmd);
+ STATUS game_update(Game* game);
 /*-----------------------------------------------------------------------------------------------------*/
 /**
  * @brief Función para destruir el juego cuando se vaya a salir de él o se produzca algún error
@@ -156,7 +156,7 @@ Die * game_get_die(Game* game);
  * @param El juego creado anteriormente
  * @return Devuelve una variable de tipo T_Command
  */
- T_Command game_get_last_command(Game* game);
+ Command *game_get_last_command(Game* game);
  /*-----------------------------------------------------------------------------------------------------*/
 /**
  * @brief Obtiene el nombre del objeto al que se refiere 

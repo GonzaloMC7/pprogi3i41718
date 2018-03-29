@@ -28,7 +28,7 @@ struct _Game{
   Player * pl; /*Jugador*/
   Object * ob[MAX_OBJ+1]; /*Objetos del jugador*/
   Space* spaces[MAX_SPACES + 1]; /*Espacios del juego*/
-  T_Command last_cmd; /*Último comando introducido*/
+  Command *cmd; /*comando */
   Die * die; /*Dado que se utiliza en el juego*/
 };
 /**
@@ -172,7 +172,7 @@ Game *game_create() {
   
 	/*Inicialización del último comando a ninguno ya que no ha habido un comando anterior*/
 
-	game->last_cmd = NO_CMD;
+	game->cmd = command_ini();
 	game->die = die_create();
 
 	/*Se devuelve OK si el juego se ha creado correctamente (falta control de errores)*/
@@ -228,6 +228,8 @@ STATUS game_destroy(Game* game) {
 	
 	/*Se destruye el dado*/
 	die_destroy(game->die);
+	
+	command_destroy(game->cmd);
 
 	/*Se devuelve OK si se ha destruido el juego correctamente (falta control de errores)*/
 	return OK;
@@ -430,19 +432,16 @@ Die * game_get_die(Game * game) {
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de actualizar el juego dependiendo del comando introducido*/
 
-STATUS game_update(Game* game, T_Command cmd) {
+STATUS game_update(Game* game) {
 
+	T_Command cmd_type;
+	
 	if(!game){
 		return ERROR;
 	}
-	if(cmd==NO_CMD){
-		return ERROR;
-	}
 	/*^^^Controles de errores game y cmd^^^*/
-
-	/*Se asigna al último comando el comando introducido*/
-	game->last_cmd = cmd;
-	(*game_callback_fn_list[cmd])(game);
+	cmd_type = command_get_type(game->cmd);
+	(*game_callback_fn_list[cmd_type])(game);
 
 	/*Se devuelve OK si no se ha producido ningún error*/
 	return OK;
@@ -451,16 +450,13 @@ STATUS game_update(Game* game, T_Command cmd) {
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de obtener el ultimo comando introducido*/
 
-T_Command game_get_last_command(Game* game){
+Command * game_get_last_command(Game* game) {
+    if (game == NULL)
+        return NULL;
 
-	if(!game){
-		return NO_CMD;
-	}
-	/*^^^Control de errores game^^^*/
-
-	/*Se devuelve el último comando introducido*/
-	return game->last_cmd;
+    return game->cmd;
 }
+
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de imprimir por pantalla los datos del juego tales como espacios, objetos o jugadores*/
@@ -549,7 +545,7 @@ void game_callback_exit(Game* game) {
 
 void game_callback_take(Game* game){
   
-	char obj[MAX_OBJ];
+
 	int i=0;
 	Id id_object=NO_ID;
 	Id space_id_player = NO_ID;
@@ -561,15 +557,15 @@ void game_callback_take(Game* game){
 		return ;
 	}
 	
-	printf("Escribe el nombre del objeto que quieras coger: ");
-	scanf("%s", obj);
+
 	for(i=0;game->ob[i]!=NULL;i++){
-		if(strcmp(game_get_name_object(game, i+1),obj)==0){
+		if(strcmp(game_get_name_object(game, i+1),command_get_ob(game->cmd))==0){
 			break;
 		}
 	}
 	
 	if(game->ob[i]==NULL){
+		command_interpret_input(game->cmd,command_get_ob(game->cmd));
 		return ;
 	}
 	
@@ -581,6 +577,7 @@ void game_callback_take(Game* game){
 		return ;
 	}
 	else{
+		command_interpret_input(game->cmd,command_get_ob(game->cmd));
 		return ;	
 	}
 }

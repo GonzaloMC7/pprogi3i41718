@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "graphic_engine.h"
+#include "command.h"
+
 
 
 
@@ -22,7 +24,6 @@
 
 int main(int argc, char *argv[]){
   Game *game=NULL;
-  T_Command command = NO_CMD;
   Graphic_engine *gengine;
   game=game_create();
   if (!game){
@@ -40,10 +41,10 @@ int main(int argc, char *argv[]){
     game_destroy(game);
     return 1;
   }
-  while (command!=EXIT && !game_is_over(game)){ /*BUCLE DE JUEGO: mientras el comando no sea exit o gameisover no se produzca, se mantiene el bucle de juego*/
+  while (command_get_type(game_get_last_command(game))!=EXIT && !game_is_over(game)){ /*BUCLE DE JUEGO: mientras el comando no sea exit o gameisover no se produzca, se mantiene el bucle de juego*/
     graphic_engine_paint_game(gengine, game);
-    command = get_user_input();
-    game_update(game, command);
+    command_get_user_input(game_get_last_command(game));
+	game_update(game); 
 	}
     game_destroy(game);
 	graphic_engine_destroy(gengine);
