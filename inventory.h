@@ -6,11 +6,13 @@
  * @version 1.0
  * @date 12/03/2018
  */
+ #ifndef INVENTORY_H
+ #define INVENTORY_H
 
 #include <stdio.h>
 #include <stdio.h>
 #include <string.h>
-#include "inventory.h"
+#include "set.h"
 #include "types.h"
 
 
@@ -58,6 +60,14 @@ STATUS inventory_push_id(Inventory * inv, Id id);
 STATUS inventory_pop_id(Inventory * inv, Id id);
 /*-----------------------------------------------------------------------------------------------*/
 /**
+ * @brief Extrae un elemento del Inventory y devuelve su id
+ * @author Juan Martin
+ * @param El Inventory creado anteriormente y el Id a extraer
+ * @return devuelve la id extraida
+ */
+Id inventory_get_id(Inventory * inv, Id id);
+/*-----------------------------------------------------------------------------------------------*/
+/**
  * @brief Imprime la información de un Inventory
  * @author Gonzalo Martinez
  * @param El FILE donde se va a imprimir y el Inventory creado anteriormente
@@ -65,3 +75,5 @@ STATUS inventory_pop_id(Inventory * inv, Id id);
  */
 STATUS inventory_print(FILE * fp, Inventory * inv);
 /*-----------------------------------------------------------------------------------------------*/
+
+#endif
