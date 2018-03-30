@@ -138,10 +138,11 @@ Id player_get_location (Player * pl){
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
-Id player_get_object (Player * pl){
+Id player_get_object (Player * pl, Id id){
   if(!pl) return NO_ID;
   /*^^^Control de errores player^^^*/
-  return pl->object;
+
+  return inventory_get_id(pl->object, id);
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
