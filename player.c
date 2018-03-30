@@ -14,14 +14,12 @@
 #include <string.h>
 #include "player.h"
 
-#define inv_tam 5
-
 
 /*Estructura de un jugador, con su nombre, el id, el id del objeto que puede portar, y su localización*/
 struct _Player {
   char name[NAME_SIZE]; /*Nombre del jugador*/
   Id id; /*Id deul jugador*/
-  Inventory* object; /*Id del objeto que porta el jugador*/
+  Id object; /*Id del objeto que porta el jugador*/
   Id location; /*Id de la localización del jugador*/
 };
 
@@ -40,7 +38,7 @@ Player * player_create (Id id){
   /*Asignaciones campos player*/
   newpl->id=id; /*El id que se recibe se le asigna al nuevo jugador*/
   newpl->location=NO_ID;
-  newpl->object=inventory_ini(inv_tam);
+  newpl->object=NO_ID;
   newpl->name[0]='\0';
 
   return newpl;
@@ -53,7 +51,6 @@ STATUS player_destroy (Player * pl){
   /*^^^Control de errores player^^^*/
 
   /*Liberación player*/
-  inventory_destroy(pl->object);
   free(pl);
   pl=NULL;
 
@@ -105,11 +102,9 @@ STATUS player_set_location (Player * pl, Id location){
 STATUS player_set_object (Player * pl, Id id){
   if(!pl) return ERROR;
   /*^^^Control de errores player^^^*/
-
-  if(inventory_push_id(pl->object, id)==ERROR)
-    return ERROR;
-
-
+  
+  /*Asignación de la localización recibida en la localización de player*/
+  pl->object=id;
   return OK;
 }
 
@@ -138,11 +133,10 @@ Id player_get_location (Player * pl){
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
-Id player_get_object (Player * pl, Id id){
+Id player_get_object (Player * pl){
   if(!pl) return NO_ID;
   /*^^^Control de errores player^^^*/
-
-  return inventory_get_id(pl->object, id);
+  return pl->object;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/

@@ -12,6 +12,8 @@
 #include <string.h>
 #include "inventory.h"
 
+
+
 struct _Inventory{
   Set * ids;
   int max_ids;
@@ -24,9 +26,9 @@ Inventory * inventory_ini(int max){
 
   inv = (Inventory*)malloc(sizeof(Inventory));
   if(!inv) return NULL;
-
+  
   inv->ids = NULL;
-  inv->max_ids = max;
+  inv max_ids = max;
 
   return inv;
 }
@@ -73,20 +75,6 @@ STATUS inventory_pop_id(Inventory * inv, Id id){
   }
   set_destroy_id(inv->ids,id);
   return OK;
-}
-
-/*-----------------------------------------------------------------------------------------------*/
-
-Id inventory_get_id(Inventory * inv, Id id){
-  Id auxid;
-
-  if(!inv) return ERROR;
-  if(set_find_id(inv->ids,id)==-1){
-    return ERROR;
-  }
-  auxid = set_get_id(inv->ids, set_find_id(inv->ids, id));
-  set_destroy_id(inv->ids,id);
-  return auxid;
 }
 
 /*-----------------------------------------------------------------------------------------------*/

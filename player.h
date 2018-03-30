@@ -13,7 +13,6 @@
  #define PLAYER_H
 
  #include "types.h"
- #include "inventory.h"
 
 
  typedef struct _Player Player;
@@ -68,13 +67,13 @@
  */
 
  STATUS player_set_location (Player * pl, Id location);
-
+ 
  /*-----------------------------------------------------------------------------------------------------*/
  /**
- * @brief
+ * @brief 
  * @author Gonzalo Martinez
- * @param
- * @return
+ * @param 
+ * @return 
  */
  STATUS player_set_object (Player * pl, Id id);
 
@@ -109,13 +108,13 @@
  Id player_get_location (Player * pl);
  /*-----------------------------------------------------------------------------------------------------*/
  /**
- * @brief
+ * @brief 
  * @author Gonzalo Martinez
- * @param
- * @return
+ * @param 
+ * @return 
  */
-
- Id player_get_object (Player * pl, Id id);
+ 
+ Id player_get_object (Player * pl);
 
  /*-----------------------------------------------------------------------------------------------------*/
  /**
@@ -128,3 +127,4 @@
  STATUS player_print(Player * pl);
 
 #endif
+ 
