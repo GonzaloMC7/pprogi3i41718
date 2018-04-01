@@ -26,6 +26,12 @@ int main(int argc, char *argv[]){
   Game *game=NULL;
   Graphic_engine *gengine;
   game=game_create();
+  STATUS estado;
+  FILE *fp;
+  extern char *cmd_to_str[];
+  
+  fp=fopen(argv[3],"w");
+  
   if (!game){
 	  return 1;
   }
@@ -44,9 +50,16 @@ int main(int argc, char *argv[]){
   while (command_get_type(game_get_last_command(game))!=EXIT && !game_is_over(game)){ /*BUCLE DE JUEGO: mientras el comando no sea exit o gameisover no se produzca, se mantiene el bucle de juego*/
     graphic_engine_paint_game(gengine, game);
     command_get_user_input(game_get_last_command(game));
-	game_update(game); 
+	game_update(game);
+	estado=game_estado(game);
+	if (estado==ERROR){
+		fprintf(fp, "%s:ERROR\n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD]);
+	}else{
+		fprintf(fp, "%s:OK\n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD]);
+	}
 	}
     game_destroy(game);
 	graphic_engine_destroy(gengine);
+	fclose(fp);
   return 0;
 }

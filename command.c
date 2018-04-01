@@ -85,14 +85,14 @@ STATUS command_interpret_input(Command* cmd, char* input) {
         cmd->command = EXIT;
 		strcpy(cmd->vrb,"exit");
 		
-    } else if ((strncmp("following", input, 9) == 0)
-            || (strncmp("f", input, 1) == 0) || (strncmp("F", input, 1) == 0)) {
+    } else if ((strcmp(input, "following")==0)
+            || (strcmp(input, "f")==0) || (strcmp(input, "F")==0)) {
 
         cmd->command = FOLLOWING;
         strcpy(cmd->vrb,"following");
 
-    } else if ((strncmp("previous", input, 8) == 0)
-            || (strncmp("p ", input, 1) == 0) || (strncmp("P ", input, 1) == 0)) {
+    } else if ((strcmp(input, "previous")==0)
+            || (strcmp(input, "p")==0) || (strcmp(input, "P")==0)){
 
         cmd->command = PREVIOUS;
         strcpy(cmd->vrb,"previous");
@@ -118,20 +118,20 @@ STATUS command_interpret_input(Command* cmd, char* input) {
         cmd->command = MOVE;
 		strcpy(cmd->vrb,"move");
 		
-    } else if ((strncmp("drop", input, 4) == 0)
-            || (strncmp("d", input, 1) == 0) || (strncmp("D", input, 1) == 0)) {
+    } else if ((strcmp(input, "drop")==0)
+            || (strcmp(input, "d")==0)|| (strcmp(input, "D")==0)) {
 
         cmd->command = DROP;
        	strcpy(cmd->vrb,"drop");
 
-    } else if ((strncmp("left", input, 4) == 0)
-            || (strncmp("l", input, 1) == 0) || (strncmp("L", input, 1) == 0)) {
+    } else if ((strcmp(input, "left")==0)
+            || (strcmp(input, "l")==0)|| (strcmp(input, "L")==0)) {
 
         cmd->command = LEFT;
         strcpy(cmd->vrb,"left");
 
-    } else if ((strncmp("right", input, 5) == 0)
-            || (strncmp("r", input, 1) == 0) || (strncmp("R", input, 1) == 0)) {
+    } else if ((strcmp(input, "right")==0)
+            || (strcmp(input, "r")==0) || (strcmp(input, "R")==0)) {
 
         cmd->command = RIGHT;
        	strcpy(cmd->vrb,"right");

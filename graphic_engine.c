@@ -60,10 +60,11 @@ void graphic_engine_destroy(Graphic_engine *ge){
 void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	Id id_act = NO_ID, id_back = NO_ID, id_next = NO_ID, ply_loc = NO_ID, id = NO_ID, id_west = NO_ID, id_east = NO_ID;
 	Space* space_act = NULL;
-	char str[999], respuesta[10];
+	char str[999];
 	int i=0;
 	T_Command last_cmd = UNKNOWN;
 	extern char *cmd_to_str[];
+	STATUS estado;
 
 
 	/* Paint the in the map area */
@@ -191,17 +192,18 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	screen_area_puts(ge->help, str);
 	
 	/* Paint the in the feedback area */
-	last_cmd = command_get_type(game_get_last_command(game));
 	
-	if (last_cmd == NO_CMD || last_cmd == UNKNOWN){
-		strcpy(respuesta, "ERROR");
+	
+	last_cmd = command_get_type(game_get_last_command(game));
+	estado=game_estado(game);
+	if (estado==ERROR){
+		sprintf(str, " %s: ERROR", cmd_to_str[last_cmd-NO_CMD]);
+		screen_area_puts(ge->feedback, str);
+	}else{
+		sprintf(str, " %s: OK", cmd_to_str[last_cmd-NO_CMD]);
+		screen_area_puts(ge->feedback, str);
 	}
-
-	else{
-		strcpy(respuesta, "OK");
-	}
-	sprintf(str, " %s : %s", cmd_to_str[last_cmd-NO_CMD], respuesta);
-	screen_area_puts(ge->feedback, str);
+	
 	
 
 	/* Dump to the terminal */

@@ -30,6 +30,7 @@ struct _Game{
   Space* spaces[MAX_SPACES + 1]; /*Espacios del juego*/
   Command *cmd; /*comando */
   Die * die; /*Dado que se utiliza en el juego*/
+  STATUS estado;
 };
 /**
 List of callbacks for each command in the game
@@ -435,13 +436,14 @@ Die * game_get_die(Game * game) {
 STATUS game_update(Game* game) {
 
 	T_Command cmd_type;
+
 	
 	if(!game){
 		return ERROR;
 	}
 	/*^^^Controles de errores game y cmd^^^*/
 	cmd_type = command_get_type(game->cmd);
-	(*game_callback_fn_list[cmd_type])(game);
+	game->estado=(*game_callback_fn_list[cmd_type])(game);
 
 	/*Se devuelve OK si no se ha producido ningún error*/
 	return OK;
@@ -449,6 +451,14 @@ STATUS game_update(Game* game) {
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de obtener el ultimo comando introducido*/
+
+STATUS game_estado(Game* game){
+    if (game == NULL)
+        return ERROR;
+
+    return game->estado;
+}
+
 
 Command * game_get_last_command(Game* game) {
     if (game == NULL)
@@ -532,7 +542,7 @@ Callbacks implementation for each action
 /*Llamada a funcion que no se sabe el comando introducido*/
 
 STATUS game_callback_unknown(Game* game) {
-	return OK;
+	return ERROR;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -579,7 +589,7 @@ STATUS game_callback_take(Game* game){
 		return OK;
 	}
 	else{
-		command_interpret_input(game->cmd,command_get_ob(game->cmd));
+		
 		return ERROR;	
 	}
 }

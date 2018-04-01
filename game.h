@@ -157,6 +157,7 @@ Die * game_get_die(Game* game);
  * @return Devuelve una variable de tipo T_Command
  */
  Command *game_get_last_command(Game* game);
+ STATUS game_estado(Game* game);
  /*-----------------------------------------------------------------------------------------------------*/
 /**
  * @brief Obtiene el nombre del objeto al que se refiere 
