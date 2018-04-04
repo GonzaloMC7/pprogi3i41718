@@ -114,6 +114,15 @@ STATUS player_set_object (Player * pl, Id id){
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
+STATUS player_del_object(Player *pl, Id IdObject){
+    if(pl == NULL){
+        return ERROR;
+    }
+
+    return inventory_del_object(pl->object, IdObject);
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+
 
 char * player_get_name (Player * pl){
   if(!pl) return NULL;
@@ -130,7 +139,14 @@ Id player_get_id (Player * pl){
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-
+BOOL player_comprueba_objeto(Player *player, Id IdObject){
+    if(player==NULL){
+        return FALSE;
+    }
+    printf("%ld",IdObject);
+    return inventory_comprueba_objeto(player->object, IdObject);
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
 Id player_get_location (Player * pl){
   if(!pl) return NO_ID;
   /*^^^Control de errores player^^^*/

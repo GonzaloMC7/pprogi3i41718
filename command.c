@@ -42,7 +42,7 @@ void command_get_user_input(Command* cmd) {
         fgets(input, CMD_LENGTH - 1, stdin);
         x = strlen(input);
     } while (x <= 1);
-	
+
     input[x - 1] = '\0';
     command_interpret_input(cmd, input);
 }
@@ -50,9 +50,9 @@ void command_get_user_input(Command* cmd) {
 
 Command *command_ini(){
 	Command *c=NULL;
-	
+
 	c=(Command*)malloc(sizeof(Command));
-	
+
 	if (!c){
 		return NULL;
 	}
@@ -84,7 +84,7 @@ STATUS command_interpret_input(Command* cmd, char* input) {
     if (!strcmp(input, "E") || !strcmp(input, "e") || !strcmp(input, "exit")) {
         cmd->command = EXIT;
 		strcpy(cmd->vrb,"exit");
-		
+
     } else if ((strcmp(input, "following")==0)
             || (strcmp(input, "f")==0) || (strcmp(input, "F")==0)) {
 
@@ -101,7 +101,7 @@ STATUS command_interpret_input(Command* cmd, char* input) {
             || (strncmp("t", input, 1) == 0) || (strncmp("T", input, 1) == 0)) {
 
         cmd->command = TAKE;
-		
+
 		for (i=0;input[i]!=' ';i++){
 			cont++;
 		}
@@ -117,14 +117,25 @@ STATUS command_interpret_input(Command* cmd, char* input) {
     } else if (!strcmp(input, "M") || !strcmp(input, "m") || !strcmp(input, "move")) {
         cmd->command = MOVE;
 		strcpy(cmd->vrb,"move");
-		
-    } else if ((strcmp(input, "drop")==0)
-            || (strcmp(input, "d")==0)|| (strcmp(input, "D")==0)) {
+
+	} else if ((strncmp("drop", input, 4) == 0)
+            || (strncmp("d", input, 1) == 0) || (strncmp("D", input, 1) == 0)) {
 
         cmd->command = DROP;
-       	strcpy(cmd->vrb,"drop");
 
-    } else if ((strcmp(input, "left")==0)
+		for (i=0;input[i]!=' ';i++){
+			cont++;
+		}
+		cont++;
+		if (input[cont]!='O'){
+			cmd->command = UNKNOWN;
+		}
+		else{
+			strcpy(cmd->vrb,"drop");
+			strcpy(cmd->ob,input+cont);
+		}
+
+    }else if ((strcmp(input, "left")==0)
             || (strcmp(input, "l")==0)|| (strcmp(input, "L")==0)) {
 
         cmd->command = LEFT;
@@ -135,7 +146,7 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 
         cmd->command = RIGHT;
        	strcpy(cmd->vrb,"right");
-		
+
     }  else {
         cmd->command = UNKNOWN;
     }
@@ -166,4 +177,3 @@ char* command_get_vrb(Command* cmd) {
     }
     return cmd->vrb;
 }
-

@@ -34,7 +34,7 @@ typedef struct _Game Game;
  * @param Puntero a las EdD Game, Id del espacio determinado y Id del objeto determinado
  * @return OK si el espacio ha sido añadido correctamente o ERROR en caso contrario
  */
-
+BOOL game_comprueba_player_object(Game* game, Id IdObject);
 STATUS game_set_object_location(Game* game, Id idSpace, Id IdObject);
 /*---------------------------------------------------------------------------------------------*/
 /**
@@ -72,7 +72,7 @@ STATUS game_add_space(Game* game, Space* space);
 /**
  * @brief Actualiza el juego con el nuevo comando
  * @author Profesores PPROG
- * @param El juego creado anteriormente 
+ * @param El juego creado anteriormente
  * @return Devuelve OK si se ha creado correctamente y ERROR si se ha producido algún fallo
  */
  STATUS game_update(Game* game);
@@ -160,7 +160,7 @@ Die * game_get_die(Game* game);
  STATUS game_estado(Game* game);
  /*-----------------------------------------------------------------------------------------------------*/
 /**
- * @brief Obtiene el nombre del objeto al que se refiere 
+ * @brief Obtiene el nombre del objeto al que se refiere
  * @author Javier Martin
  * @param El juego creado y el numero del objeto al que se refiere
  * @return Devuelve la cadena de caracteres que pertenece al objeto que se busca

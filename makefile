@@ -97,7 +97,7 @@ tar:
 
 game_loop_test:
 	@echo Ejecutando game_loop
-	@./game_loop new_data.dat
+	@ ./game_loop new_data.dat -l comandos.log
 
 set_test_:
 	@echo Ejecutando set_test

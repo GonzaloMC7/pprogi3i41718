@@ -116,7 +116,8 @@
  */
 
  Id player_get_object (Player * pl, Id id);
-
+BOOL player_comprueba_objeto(Player *player, Id IdObject);
+STATUS player_del_object(Player *player, Id IdObject);
  /*-----------------------------------------------------------------------------------------------------*/
  /**
  * @brief Imprime la información del Player

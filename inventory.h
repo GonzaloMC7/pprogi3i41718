@@ -66,6 +66,8 @@ STATUS inventory_pop_id(Inventory * inv, Id id);
  * @return devuelve la id extraida
  */
 Id inventory_get_id(Inventory * inv, Id id);
+BOOL inventory_comprueba_objeto(Inventory* inventory, Id IdObject);
+STATUS inventory_del_object(Inventory* inventory, Id IdObject);
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Imprime la información de un Inventory

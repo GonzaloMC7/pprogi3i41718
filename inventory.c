@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "inventory.h"
 
 struct _Inventory{
@@ -25,7 +26,7 @@ Inventory * inventory_ini(int max){
   inv = (Inventory*)malloc(sizeof(Inventory));
   if(!inv) return NULL;
 
-  inv->ids = NULL;
+  inv->ids = set_create();
   inv->max_ids = max;
 
   return inv;
@@ -60,7 +61,7 @@ STATUS inventory_push_id(Inventory * inv, Id id){
 	if (inventory_isFull(inv)==TRUE) return ERROR;
 
 	set_add_id(inv->ids,id);
-
+  set_print(inv->ids);
 	return OK;
 }
 
@@ -74,7 +75,15 @@ STATUS inventory_pop_id(Inventory * inv, Id id){
   set_destroy_id(inv->ids,id);
   return OK;
 }
+/*-----------------------------------------------------------------------------------------------*/
 
+STATUS inventory_del_object(Inventory* inventory, Id IdObject) {
+
+    if (!inventory) {
+        return ERROR;
+    }
+    return set_destroy_id(inventory->ids, IdObject);
+}
 /*-----------------------------------------------------------------------------------------------*/
 
 Id inventory_get_id(Inventory * inv, Id id){
@@ -85,12 +94,25 @@ Id inventory_get_id(Inventory * inv, Id id){
     return ERROR;
   }
   auxid = set_get_id(inv->ids, set_find_id(inv->ids, id));
-  set_destroy_id(inv->ids,id);
+  /*set_destroy_id(inv->ids,id);*/
   return auxid;
 }
 
 /*-----------------------------------------------------------------------------------------------*/
+BOOL inventory_comprueba_objeto(Inventory* inventory, Id IdObject){
 
+    if(inventory==NULL){
+        return FALSE;
+    }
+
+    if(set_find_id(inventory->ids, IdObject) > -1){
+        return TRUE;
+    }
+    else
+        return FALSE;
+
+}
+/*-----------------------------------------------------------------------------------------------*/
 STATUS inventory_print(FILE * fp, Inventory * inv){
   int i=0;
 

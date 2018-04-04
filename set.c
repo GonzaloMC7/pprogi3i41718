@@ -1,9 +1,9 @@
 /**
 * @brief Interfaz de set
-* 
+*
 * Se encarga de implementar el conjunto (set)
 * @file set.c
-* @author: Javier Martin 
+* @author: Javier Martin
 * @version: 2.0
 * @date: 5-3-2018
 */
@@ -27,28 +27,28 @@ Set * set_create() {
 
 	int i;
 	Set* set= NULL;
-  
+
 	set = (Set *) malloc (sizeof(Set));
 	if(!set){
 		return NULL;
 	}
-  
+
 	set->top = 0;
 	for(i=0; i< MAX_IDS; i++){
 		set->id[i] = 0;
 	}
-  
+
 	return set;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de destruir el conjunto definido*/
 
 STATUS set_destroy(Set * set){
-    
+
 	if(!set){
 		return ERROR;
 	}
-    
+
 	free(set);
 	return OK;
 }
@@ -56,18 +56,20 @@ STATUS set_destroy(Set * set){
 /*Funcion encargada de añadir un ID al conjunto que estamos definiendo(array de ID's)*/
 
 Set* set_add_id(Set * set, Id id) {
-    
+
+
 	if (!set) {
 		return NULL;
 	}
+
 	if (id ==  NO_ID) {
 		return NULL;
 	}
+	
+  set->id[set->top] = id;
 
-	set->id[set->top] = id;
-    
 	set->top++;
-    
+
 	return set;
 }
 
@@ -79,7 +81,7 @@ STATUS set_destroy_id(Set * set, Id id) {
 	if (!set||id==NO_ID) {
 		return ERROR;
 	}
-  
+
 	if(set_find_id(set, id) == -1){
 		return ERROR;
 	}
@@ -90,7 +92,7 @@ STATUS set_destroy_id(Set * set, Id id) {
 		set->id[set->top]=0;
 		set->top--;
 	}
-    
+
 	return OK;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -100,25 +102,25 @@ Id set_get_id(Set *set, int i){
 	if(!set){
 		return NO_ID;
 	}
-    
-	return set->id[i];    
+
+	return set->id[i];
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de devolver la posicion del array en la que se encuentra el ID*/
 
 int set_find_id(Set *set, Id id){
-    
+
 	int i;
 	if(!set||id==NO_ID){
 		return -1;
 	}
-  
+
 	for(i=0; i<MAX_IDS; i++){
 		if(set_get_id(set, i)==id){
 			return i;
 		}
-        
+
 	}
 	return -1;
 }
@@ -129,7 +131,7 @@ int set_get_top(Set *set){
 	if(!set){
 		return -1;
 	}
-    
+
 	return set->top;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -140,11 +142,11 @@ STATUS set_print(Set * set) {
 	if(set == NULL){
 		return ERROR;
 	}
-    
-    
+
+
 	for(i=set->top; i>=0; i--){
 		printf("[%ld]",set->id[i]);
 	}
-    
+
 	return OK;
 }

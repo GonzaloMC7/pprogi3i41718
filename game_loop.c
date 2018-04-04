@@ -25,10 +25,12 @@
 int main(int argc, char *argv[]){
   Game *game=NULL;
   Graphic_engine *gengine;
-  game=game_create();
   STATUS estado;
   FILE *fp;
   extern char *cmd_to_str[];
+  
+  game=game_create();
+  
   
   fp=fopen(argv[3],"w");
   
