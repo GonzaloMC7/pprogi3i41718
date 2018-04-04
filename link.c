@@ -18,6 +18,7 @@ struct _Link {
   Id id; /*Id del link que se crea*/
   Id id1; /*Id del espacio1 a conectar*/
   Id id2; /*Id del espacio2 a conectar*/
+  Id idopenclose; /*Indica si es un enlace abierto o cerrado */
 };
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -31,6 +32,7 @@ Link * link_ini(Id id){
   l->id1=NO_ID;
   l->id2=NO_ID;
   l->id=id;
+  l->idopenclose=NO_ID;
 
   return l;
 }
@@ -66,7 +68,36 @@ Link * link_set_name(Link * l, char * name){
 }
 
 /*-----------------------------------------------------------------------------------------------*/
+Link * link_set_id1(Link * l, Id id){
+  if(!l) return NULL;
+  if(id==NO_ID) return NULL;
 
+  l->id1=id;
+
+  return l;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+Link * link_set_id2(Link * l, Id id){
+  if(!l) return NULL;
+  if(id==NO_ID) return NULL;
+
+  l->id2=id;
+
+  return l;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+Link * link_set_idopenclose(Link * l, Id id){
+  if(!l) return NULL;
+  if(id==NO_ID) return NULL;
+
+  l->idopenclose=id;
+
+  return l;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
 Id link_get_id(Link * l){
   if(!l) return NO_ID;
 
@@ -95,6 +126,13 @@ Link * link_get_id2(Link * l){
   if(!l) return NULL;
 
   return l->id2;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+Link * link_get_idopenclose(Link * l){
+  if(!l) return NULL;
+
+  return l->idopenclose;
 }
 
 /*-----------------------------------------------------------------------------------------------*/

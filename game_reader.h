@@ -39,6 +39,15 @@ STATUS game_reader_load_spaces(Game* game, char* filename);
  */
 
 STATUS game_reader_load_objects(Game* game, char* filename);
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Se encarga de cargar los enlaces correspondientes de un fichero dado
+ * @author Javi Martin
+ * @param Puntero a las EdD Game y puntero al nombre de un archivo determinado
+ * @return OK si los espacios han sido cargados del fichero correctamente o ERROR en caso contrario
+ */
+
+STATUS game_reader_load_links(Game* game, char* filename);
 
 
 #endif

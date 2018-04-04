@@ -10,7 +10,8 @@
 #include <stdio.h>
 #include <stdio.h>
 #include <string.h>
-#include "link.h"
+
+#define MAX_LINK 100
 
 
 typedef struct _Link Link;
@@ -81,10 +82,42 @@ Id link_get_id1(Link * l);
 Id link_get_id2(Link * l);
 /*-----------------------------------------------------------------------------------------------*/
 /**
+ * @brief Obtiene el id del segundo de los espacios a linkear
+ * @author Gonzalo Martinez
+ * @param El Link creado anteriormente
+ * @return Devuelve el id de este espacio
+ */
+Id link_get_idopenclose(Link * l);
+/*-----------------------------------------------------------------------------------------------*/
+/**
  * @brief Imprime la información de un Link
  * @author Gonzalo Martinez
  * @param El Inventory creado anteriormente y el archivo en donde se va a imprimir
  * @return Devuelve el número de caracteres que se han escrito correctamente
  */
 int link_print(FILE * fp, Link * l);
+/*-----------------------------------------------------------------------------------------------*/
+/**
+ * @brief Asigna un Id al link
+ * @author Gonzalo Martinez
+ * @param El Link creado anteriormente y el Id a asignar
+ * @return Devuelve el Link con el nuevo id1
+ */
+Link * link_set_id1(Link * l, Id id);
+/*-----------------------------------------------------------------------------------------------*/
+/**
+ * @brief Asigna un Id al link
+ * @author Gonzalo Martinez
+ * @param El Link creado anteriormente y el Id a asignar
+ * @return Devuelve el Link con el nuevo id2
+ */
+Link * link_set_id2(Link * l, Id id);
+/*-----------------------------------------------------------------------------------------------*/
+/**
+ * @brief Asigna un Id al link
+ * @author Gonzalo Martinez
+ * @param El Link creado anteriormente y el Id a asignar
+ * @return Devuelve el Link con el nuevo idopenclose
+ */
+Link * link_set_idopenclose(Link * l, Id id);
 /*-----------------------------------------------------------------------------------------------*/

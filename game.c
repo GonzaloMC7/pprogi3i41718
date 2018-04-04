@@ -28,6 +28,7 @@ struct _Game{
   Player * pl; /*Jugador*/
   Object * ob[MAX_OBJ+1]; /*Objetos del jugador*/
   Space* spaces[MAX_SPACES + 1]; /*Espacios del juego*/
+  Link *link[MAX_LINK + 1]; /*Enlaces del juego */
   Command *cmd; /*comando */
   Die * die; /*Dado que se utiliza en el juego*/
   STATUS estado;
@@ -297,6 +298,39 @@ STATUS game_add_object(Game* game, Object* object) {
 
 	/*Se sitúa en el último objeto añadido*/
 	game->ob[i] = object;
+
+	/*Se devuelve OK si se ha añadido el objeto correctamente*/
+	return OK;
+}
+
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función para añadir un objeto adicional*/
+
+STATUS game_add_link(Game* game, Link * link) {
+	int i = 0;
+
+	/*^^^Control de errores game^^^*/
+	if (game == NULL) {
+		return ERROR;
+	}
+
+	/*Control de errores object*/
+	if (link == NULL) {
+		return ERROR;
+	}
+	/*Ir al último objeto, para ello buscamos el primero menor que MAX_OBJ que sea igual a NULL, es decir, que este vacío*/
+	while ((i < MAX_LINK) && (game->link[i] != NULL)){
+		i++;
+	}
+
+	/*Se devuelve error si ha habido un problema y el número del último espacio supera a la macro MAX_OBJ*/
+	if (i >= MAX_LINK) {
+		return ERROR;
+	}
+
+	/*Se sitúa en el último objeto añadido*/
+	game->link[i] = link;
 
 	/*Se devuelve OK si se ha añadido el objeto correctamente*/
 	return OK;

@@ -20,6 +20,7 @@
 #include "object.h"
 #include "types.h"
 #include "die.h"
+#include "link.h"
 
 
 /*Estructura de los elementos del juego, como son el jugador, el objeto y los espacios, o el último comando introducido*/
@@ -53,6 +54,14 @@ STATUS game_add_object(Game* game, Object* object);
  */
 STATUS game_add_space(Game* game, Space* space);
 /*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Se encarga de añadir un enlace adicional
+ * @author Javier Martin
+ * @param Puntero a las EdD Game y Object
+ * @return OK si el objeto ha sido añadido correctamente o ERROR en caso contrario
+ */
+STATUS game_add_link(Game* game, Link* link);
+/*---------------------------------------------------------------------------------------------*/
 /**
  * @brief Crea el juego en sí
  * @author Profesores PPROG
