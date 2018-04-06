@@ -1,0 +1,13 @@
+CC = gcc
+OBJ = link_test.o link.o
+CFLAGS = -ansi -pedantic -Wall
+DEPS = test.h types.h link.h link_test.h
+
+all: link_test
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+link_test: $(OBJ)
+	gcc -o $@ $^
+
