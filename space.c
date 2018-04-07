@@ -1,7 +1,7 @@
 /**
 * @brief It implements the functions to the space.c module, which creates the game space
 *
-* @file types.h
+* @file space.c
 * @author Profesores PPROG
 * @version 1.0
 * @date 13-01-2015
