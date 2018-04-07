@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdio.h>
 #include <string.h>
+#include "space.h"
 
 #define MAX_LINK 100
 

@@ -8,7 +8,7 @@
 */
 
 #include <stdio.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "link.h"
 
@@ -114,23 +114,23 @@ char * link_get_name(Link * l){
 
 /*-----------------------------------------------------------------------------------------------*/
 
-Link * link_get_id1(Link * l){
-  if(!l) return NULL;
+Id link_get_id1(Link * l){
+  if(!l) return NO_ID;
 
   return l->id1;
 }
 
 /*-----------------------------------------------------------------------------------------------*/
 
-Link * link_get_id2(Link * l){
-  if(!l) return NULL;
+Id link_get_id2(Link * l){
+  if(!l) return NO_ID;
 
   return l->id2;
 }
 
 /*-----------------------------------------------------------------------------------------------*/
-Link * link_get_idopenclose(Link * l){
-  if(!l) return NULL;
+Id link_get_idopenclose(Link * l){
+  if(!l) return NO_ID;
 
   return l->idopenclose;
 }
@@ -143,13 +143,13 @@ int link_print(FILE * fp, Link * l){
 
   if(!l||!fp) return -1;
 
-  i=fprintf(f,"  Link: Nombre: %s,\n         Id: %li\n",l->name,l->id);
+  i=fprintf(fp,"  Link: Nombre: %s,\n         Id: %li\n",l->name,l->id);
   suma+=i;
   i=0;
-  i=fprintf(f,"  Id prev. space: %li\n", l->id1);
+  i=fprintf(fp,"  Id prev. space: %li\n", l->id1);
   suma+=i;
   i=0;
-  i+=fprintf(f,"  Id next space: %li\n", l->id2);
+  i+=fprintf(fp,"  Id next space: %li\n", l->id2);
   suma+=i;
 
   return suma;
