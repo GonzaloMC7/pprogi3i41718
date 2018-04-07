@@ -88,7 +88,7 @@ Id link_get_id2(Link * l);
  * @param El Link creado anteriormente
  * @return Devuelve el id de este espacio
  */
-Id link_get_idopenclose(Link * l);
+BOOL link_get_idopenclose(Link * l);
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Imprime la información de un Link

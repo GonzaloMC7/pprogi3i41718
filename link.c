@@ -18,7 +18,7 @@ struct _Link {
   Id id; /*Id del link que se crea*/
   Id id1; /*Id del espacio1 a conectar*/
   Id id2; /*Id del espacio2 a conectar*/
-  Id idopenclose; /*Indica si es un enlace abierto o cerrado */
+  BOOL idopenclose; /*Indica si es un enlace abierto o cerrado */
 };
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -32,7 +32,7 @@ Link * link_ini(Id id){
   l->id1=NO_ID;
   l->id2=NO_ID;
   l->id=id;
-  l->idopenclose=NO_ID;
+  l->idopenclose=FALSE;
 
   return l;
 }
@@ -129,8 +129,8 @@ Id link_get_id2(Link * l){
 }
 
 /*-----------------------------------------------------------------------------------------------*/
-Id link_get_idopenclose(Link * l){
-  if(!l) return NO_ID;
+BOOL link_get_idopenclose(Link * l){
+  if(!l) return FALSE;
 
   return l->idopenclose;
 }
