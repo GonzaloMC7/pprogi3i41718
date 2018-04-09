@@ -1,0 +1,12 @@
+CC = gcc
+OBJ = inv_test.o inventory.o set.o space.o
+CFLAGS = -ansi -pedantic -Wall
+DEPS = test.h types.h inventory.h inv_test.h set.h space.h
+
+all: inv_test
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+inv_test: $(OBJ)
+	gcc -o $@ $^
