@@ -16,8 +16,8 @@
 
 /*Estructura de datos que recoge un array de ids y el numero del id en el array*/
 struct _Set {
-	Id id[MAX_IDS]; /*Array con los ids del juego*/
-	int top; /*int que indica el número de ids guardados*/
+	Id id[MAX_IDS]; /*!<Array con los ids del juego*/
+	int top; /*!<int que indica el número de ids guardados*/
 };
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -37,7 +37,6 @@ Set * set_create() {
 	for(i=0; i< MAX_IDS; i++){
 		set->id[i] = 0;
 	}
-
 	return set;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -57,7 +56,6 @@ STATUS set_destroy(Set * set){
 
 Set* set_add_id(Set * set, Id id) {
 
-
 	if (!set) {
 		return NULL;
 	}
@@ -65,11 +63,8 @@ Set* set_add_id(Set * set, Id id) {
 	if (id ==  NO_ID) {
 		return NULL;
 	}
-	
   set->id[set->top] = id;
-
 	set->top++;
-
 	return set;
 }
 
@@ -102,7 +97,6 @@ Id set_get_id(Set *set, int i){
 	if(!set){
 		return NO_ID;
 	}
-
 	return set->id[i];
 }
 
@@ -131,7 +125,6 @@ int set_get_top(Set *set){
 	if(!set){
 		return -1;
 	}
-
 	return set->top;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/

@@ -1,19 +1,20 @@
 CC = gcc -ansi -pedantic -g
 CFLAGS = -Wall
-EXE = game_loop set_test die_test
+EXE = game_loop set_test die_test space_test
 
 all : $(EXE)
 
 .PHONY : clean
 clean :
 	rm -f *.o core $(EXE)
+	rm -f *.log
 
-$(EXE) : % : %.o command.o game.o graphic_engine.o screen.o space.o game_reader.o player.o object.o set.o die.o inventory.o
+$(EXE) : % : %.o command.o game.o graphic_engine.o screen.o space.o game_reader.o player.o object.o set.o die.o inventory.o link.o
 	@echo "#---------------------------"
 	@echo "# Generando $@ "
 	@echo "# Depende de $^"
 	@echo "# Ha cambiado $<"
-	$(CC) $(CFLAGS) -o $@ $@.o command.o game.o graphic_engine.o screen.o space.o game_reader.o player.o object.o set.o die.o inventory.o
+	$(CC) $(CFLAGS) -o $@ $@.o command.o game.o graphic_engine.o screen.o space.o game_reader.o player.o object.o set.o die.o inventory.o link.o
 
  command.o : command.c command.h
 	@echo "#---------------------------"
@@ -92,8 +93,17 @@ inventory.o : inventory.c inventory.h
 	@echo "# Ha cambiado $<"
 	$(CC) $(CFLAGS) -c $<
 
+link.o : link.c link.h
+	@echo "#---------------------------"
+	@echo "# Generando $@"
+	@echo "# Depende de $^"
+	@echo "# Ha cambiado $<"
+	$(CC) $(CFLAGS) -c $<
+
+
+
 tar:
-	tar -zcvf I2_Grupo2161_JavierMartin_GonzaloMartinez.tar.gz *.h *.c *.dat *.txt makefile README.txt
+	tar -zcvf I2_Grupo2161_JavierMartin_GonzaloMartinez.tar.gz *.h *.c *.dat *.log *.txt makefile README.txt
 
 game_loop_test:
 	@echo Ejecutando game_loop
@@ -101,8 +111,16 @@ game_loop_test:
 
 set_test_:
 	@echo Ejecutando set_test
-	@ valgrind --leak-check=full ./set_test
+	@ ./set_test
 
 die_test_:
 	@echo Ejecutando set_die
-	@ valgrind --leak-check=full ./die_test
+	@ ./die_test
+
+space_test_:
+		@echo Ejecutando space_test
+		@ ./space_test
+
+doxy:
+	doxygen -g
+	doxygen Doxyfile

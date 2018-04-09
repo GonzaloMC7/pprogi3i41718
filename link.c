@@ -33,7 +33,7 @@ Link * link_ini(Id id){
   l->id2=NO_ID;
   l->id=id;
   l->idopenclose=FALSE;
-
+  l->name[0]='\0';
   return l;
 }
 
@@ -57,14 +57,14 @@ Link * link_set_id(Link * l, Id id){
 
 /*-----------------------------------------------------------------------------------------------*/
 
-Link * link_set_name(Link * l, char * name){
-  if(!l) return NULL;
-  if(!name) return NULL;
-  if(strlen(name)>(WORD_SIZE-1)) return NULL;
+STATUS link_set_name(Link * l, char * name){
+  if(!l) return ERROR;
+  if(!name) return ERROR;
+  if(strlen(name)>(WORD_SIZE-1)) return ERROR;
 
-  if(!strcpy(l->name,name)) return NULL;
+  if(!strcpy(l->name,name)) return ERROR;
 
-  return l;
+  return OK;
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -88,13 +88,13 @@ Link * link_set_id2(Link * l, Id id){
 }
 
 /*-----------------------------------------------------------------------------------------------*/
-Link * link_set_idopenclose(Link * l, Id id){
-  if(!l) return NULL;
-  if(id==NO_ID) return NULL;
+STATUS link_set_idopenclose(Link * l, BOOL value){
+  if(!l) return ERROR;
 
-  l->idopenclose=id;
 
-  return l;
+  l->idopenclose=value;
+
+  return OK;
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -106,7 +106,7 @@ Id link_get_id(Link * l){
 
 /*-----------------------------------------------------------------------------------------------*/
 
-char * link_get_name(Link * l){
+const char * link_get_name(Link * l){
   if(!l) return NULL;
 
   return l->name;

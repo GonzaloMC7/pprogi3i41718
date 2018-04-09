@@ -14,21 +14,21 @@
 
 
 struct _Die {
-  Id id;
-  int num;
+  Id id; /*!< id*/
+  int num; /*!< numero*/
 };
 
 /*-----------------------------------------------------------------------------------------------------*/
 Die * die_create(){
   Die * die = (Die*)malloc(sizeof(Die));
   srand(time(NULL));
-  
+
   if (die!= NULL){
     die->id=NO_ID;
     die->num=0;
     return die;
   }else return NULL;
-  
+
 }
 
 /*-----------------------------------------------------------------------------------------------------*/

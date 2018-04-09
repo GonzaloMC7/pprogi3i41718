@@ -21,58 +21,84 @@ typedef struct _Inventory Inventory;
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Crea un inventario
+ *
+ * inventory_ini(int max);
  * @author Gonzalo Martinez
- * @param Recibe el número de elementos máximo que queremos en nuestro inventario
+ * @param max Recibe el número de elementos máximo que queremos en nuestro inventario
  * @return El Inventory creado
  */
 Inventory * inventory_ini(int max);
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Destruye un inventario
+ *
+ * inventory_destroy(Inventory * inv);
  * @author Gonzalo Martinez
- * @param El Inventory creado anteriormente
+ * @param inv El Inventory creado anteriormente
  * @return Devuelve OK si se ha destruido correctamente y ERROR si se ha producido algún fallo
  */
 STATUS inventory_destroy(Inventory * inv);
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Comprueba si el inventario está lleno
+ *
+ * inventory_isFull(Inventory * inv);
  * @author Gonzalo Martinez
- * @param El Inventory creado anteriormente
+ * @param inv El Inventory creado anteriormente
  * @return Devuelve TRUE si el inventario está lleno y si no devuelve FALSE
  */
 BOOL inventory_isFull(Inventory * inv);
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Introduce un nuevo elemento en el inventario
+ *
+ * inventory_push_id(Inventory * inv, Id id);
  * @author Gonzalo Martinez
- * @param El Inventory creado anteriormente y el Id a introducir
+ * @param inv El Inventory creado anteriormente
+ * @param id el Id a introducir
  * @return Devuelve OK si se ha incluido correctamente y ERROR si se ha producido algún fallo
  */
 STATUS inventory_push_id(Inventory * inv, Id id);
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Extrae un elemento del Inventory
+ *
+ * inventory_pop_id(Inventory * inv, Id id);
  * @author Gonzalo Martinez
- * @param El Inventory creado anteriormente y el Id a extraer
+ * @param inv El Inventory creado anteriormente
+ * @param id el Id a extraer
  * @return Devuelve OK si se ha extraído correctamente y ERROR si se ha producido algún fallo
  */
 STATUS inventory_pop_id(Inventory * inv, Id id);
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Extrae un elemento del Inventory y devuelve su id
+ *
+ * inventory_get_id(Inventory * inv, Id id);
  * @author Juan Martin
- * @param El Inventory creado anteriormente y el Id a extraer
+ * @param inv El Inventory creado anteriormente
+ * @param id el Id a extraer
  * @return devuelve la id extraida
  */
 Id inventory_get_id(Inventory * inv, Id id);
-BOOL inventory_comprueba_objeto(Inventory* inventory, Id IdObject);
-STATUS inventory_del_object(Inventory* inventory, Id IdObject);
+/*-----------------------------------------------------------------------------------------------*/
+/**
+ * @brief Comprueba que exista un id determinado en el conjunto (inventario)
+ * inventory_find_id(Inventory* inv, Id id);
+ *
+ * @author Javier Martin
+ * @param inv El Inventory creado anteriormente
+ * @param id el Id a buscar
+ * @return TRUE en caso de que se haya encontrado o FALSE en caso contrario
+ */
+BOOL inventory_find_id(Inventory* inv, Id id);
+
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Imprime la información de un Inventory
  * @author Gonzalo Martinez
- * @param El FILE donde se va a imprimir y el Inventory creado anteriormente
+ * @param fp FILE donde se va a imprimir
+ * @param inv el Inventory creado anteriormente
  * @return Devuelve OK si se ha imprimido correctamente y ERROR si se ha producido algún fallo
  */
 STATUS inventory_print(FILE * fp, Inventory * inv);

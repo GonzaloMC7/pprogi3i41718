@@ -77,5 +77,4 @@ STATUS object_print(Object* object);
  * @return OK si se ha asignado correctamente y ERROR si no se ha asignado correctamente
  */
 STATUS object_set_id(Object* object, Id id);
-
 #endif

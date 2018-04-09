@@ -17,8 +17,6 @@
 #include "command.h"
 
 
-
-
 /*-------------------------------------------------------------------------------------------------------------------*/
 /*Esta función va a ser el bucle de juego, y por tanto es el archivo main de todo el juego*/
 
@@ -28,16 +26,16 @@ int main(int argc, char *argv[]){
   STATUS estado;
   FILE *fp;
   extern char *cmd_to_str[];
-  
+
   game=game_create();
-  
-  
+
+
   fp=fopen(argv[3],"w");
-  
+
   if (!game){
 	  return 1;
   }
-  
+
   if (argc < 2){
     fprintf(stderr, "Use: %s <new_data.dat>\n", argv[0]); /*Abre el archivo data.dat*/
     return 1;
@@ -53,7 +51,7 @@ int main(int argc, char *argv[]){
     graphic_engine_paint_game(gengine, game);
     command_get_user_input(game_get_last_command(game));
 	game_update(game);
-	estado=game_estado(game);
+	estado=game_get_estado(game);
 	if (estado==ERROR){
 		fprintf(fp, "%s:ERROR\n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD]);
 	}else{

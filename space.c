@@ -1,7 +1,7 @@
 /**
 * @brief It implements the functions to the space.c module, which creates the game space
 *
-* @file space.c
+* @file types.h
 * @author Profesores PPROG
 * @version 1.0
 * @date 13-01-2015
@@ -104,48 +104,48 @@ STATUS space_set_name(Space* space, char* name) {
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de asignación de la posición norte*/
 
-STATUS space_set_north(Space* space, Id id) {
-	if (!space || id == NO_ID) {
+STATUS space_set_north_link(Space* space, Id idlink) {
+	if (!space || idlink == NO_ID) {
 		return ERROR;
 	}
 	/*^^^Control de errores arriba y asignación debajo^^^*/
-	space->north = id;
+	space->north = idlink;
 	return OK;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de asignación de la posición sur*/
 
-STATUS space_set_south(Space* space, Id id) {
-	if (!space || id == NO_ID) {
+STATUS space_set_south_link(Space* space, Id idlink) {
+	if (!space || idlink == NO_ID) {
 		return ERROR;
 	}
 	/*^^^Control de errores arriba y asignación debajo^^^*/
-	space->south = id;
+	space->south = idlink;
 	return OK;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de asignación de la posición este*/
 
-STATUS space_set_east(Space* space, Id id) {
-	if (!space || id == NO_ID) {
+STATUS space_set_east_link(Space* space, Id idlink) {
+	if (!space || idlink == NO_ID) {
 		return ERROR;
 	}
 	/*^^^Control de errores arriba y asignación debajo^^^*/
-	space->east = id;
+	space->east = idlink;
 	return OK;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de asignación de la posición oeste*/
 
-STATUS space_set_west(Space* space, Id id) {
-	if (!space || id == NO_ID) {
+STATUS space_set_west_link(Space* space, Id idlink) {
+	if (!space || idlink == NO_ID) {
 		return ERROR;
 	}
 	/*^^^Control de errores arriba y asignación debajo^^^*/
-	space->west = id;
+	space->west = idlink;
 	return OK;
 }
 
@@ -222,7 +222,7 @@ Id space_get_id(Space* space) {
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención de la posición norte de un espacio*/
 
-Id space_get_north(Space* space) {
+Id space_get_north_link(Space* space) {
 	if (!space) {
 		return NO_ID;
 	}
@@ -233,7 +233,7 @@ Id space_get_north(Space* space) {
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención de la posición sur de un espacio*/
 
-Id space_get_south(Space* space) {
+Id space_get_south_link(Space* space) {
 	if (!space) {
 		return NO_ID;
 	}
@@ -244,7 +244,7 @@ Id space_get_south(Space* space) {
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención de la posición este de un espacio*/
 
-Id space_get_east(Space* space) {
+Id space_get_east_link(Space* space) {
 	if (!space) {
 		return NO_ID;
 	}
@@ -255,7 +255,7 @@ Id space_get_east(Space* space) {
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención de la posición oeste de un espacio*/
 
-Id space_get_west(Space* space) {
+Id space_get_west_link(Space* space) {
 	if (!space) {
 		return NO_ID;
 	}
@@ -367,7 +367,7 @@ STATUS space_print(Space* space) {
 
 	/*Se busca un link en el norte y si existe se muestra por pantalla*/
 
-	idaux = space_get_north(space);
+	idaux = space_get_north_link(space);
 	if (NO_ID != idaux) {
 		fprintf(stdout, "---> North link: %ld.\n", idaux);
 	} else {
@@ -376,7 +376,7 @@ STATUS space_print(Space* space) {
 
 	/*Se busca un link en el sur y si existe se muestra por pantalla*/
 
-	idaux = space_get_south(space);
+	idaux = space_get_south_link(space);
 	if (NO_ID != idaux) {
 		fprintf(stdout, "---> South link: %ld.\n", idaux);
 	} else {
@@ -385,7 +385,7 @@ STATUS space_print(Space* space) {
 
 	/*Se busca un link en el este y si existe se muestra por pantalla*/
 
-	idaux = space_get_east(space);
+	idaux = space_get_east_link(space);
 	if (NO_ID != idaux) {
 		fprintf(stdout, "---> East link: %ld.\n", idaux);
 	} else {
@@ -394,7 +394,7 @@ STATUS space_print(Space* space) {
 
 	/*Se busca un link en el oeste y si existe se muestra por pantalla*/
 
-	idaux = space_get_west(space);
+	idaux = space_get_west_link(space);
 	if (NO_ID != idaux) {
 		fprintf(stdout, "---> West link: %ld.\n", idaux);
 	} else {

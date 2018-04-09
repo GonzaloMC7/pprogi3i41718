@@ -14,8 +14,8 @@
 #include "inventory.h"
 
 struct _Inventory{
-  Set * ids;
-  int max_ids;
+  Set * ids; /*!< conjunto de objetos que se llevan*/
+  int max_ids; /*!<maximo numero de objetos*/
 };
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -38,6 +38,7 @@ STATUS inventory_destroy(Inventory * inv){
   if(!inv){
     return ERROR;
   }
+  set_destroy(inv->ids);
   free(inv);
 
   return OK;
@@ -61,7 +62,7 @@ STATUS inventory_push_id(Inventory * inv, Id id){
 	if (inventory_isFull(inv)==TRUE) return ERROR;
 
 	set_add_id(inv->ids,id);
-  set_print(inv->ids);
+
 	return OK;
 }
 
@@ -74,15 +75,6 @@ STATUS inventory_pop_id(Inventory * inv, Id id){
   }
   set_destroy_id(inv->ids,id);
   return OK;
-}
-/*-----------------------------------------------------------------------------------------------*/
-
-STATUS inventory_del_object(Inventory* inventory, Id IdObject) {
-
-    if (!inventory) {
-        return ERROR;
-    }
-    return set_destroy_id(inventory->ids, IdObject);
 }
 /*-----------------------------------------------------------------------------------------------*/
 
@@ -99,18 +91,16 @@ Id inventory_get_id(Inventory * inv, Id id){
 }
 
 /*-----------------------------------------------------------------------------------------------*/
-BOOL inventory_comprueba_objeto(Inventory* inventory, Id IdObject){
+BOOL inventory_find_id(Inventory* inv, Id id){
 
-    if(inventory==NULL){
+    if(!inv){
         return FALSE;
     }
-
-    if(set_find_id(inventory->ids, IdObject) > -1){
+    if(set_find_id(inv->ids, id) > -1){
         return TRUE;
     }
     else
         return FALSE;
-
 }
 /*-----------------------------------------------------------------------------------------------*/
 STATUS inventory_print(FILE * fp, Inventory * inv){

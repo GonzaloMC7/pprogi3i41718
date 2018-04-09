@@ -60,6 +60,8 @@ void graphic_engine_destroy(Graphic_engine *ge){
 void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	Id id_act = NO_ID, id_back = NO_ID, id_next = NO_ID, ply_loc = NO_ID, id = NO_ID, id_west = NO_ID, id_east = NO_ID;
 	Space* space_act = NULL;
+	Space* space_next=NULL;
+	Space *space_back=NULL;
 	char str[999];
 	int i=0;
 	T_Command last_cmd = UNKNOWN;
@@ -71,17 +73,38 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	screen_area_clear(ge->map);
 	if ((id_act = game_get_player_location(game)) != NO_ID){
 		space_act = game_get_space(game, id_act);
-		id_back = space_get_north(space_act);
-		id_next = space_get_south(space_act);
-		id_east = space_get_east(space_act);
-		id_west = space_get_west(space_act);
-		
+		printf("ESTO ES ES ESPACIO ACTUAL %s\n",space_get_name(space_act));
+		if(id_act == link_get_id1(game_get_link(game, space_get_north_link(space_act)))){
+      id_back = link_get_id2(game_get_link(game, space_get_north_link(space_act)));
+    }else{
+      id_back = link_get_id1(game_get_link(game, space_get_north_link(space_act)));
+    }
+	printf("ESTO Es el id_back  %ld \n",id_back);
+
+		if(id_act == link_get_id1(game_get_link(game, space_get_south_link(space_act)))){
+      id_next = link_get_id2(game_get_link(game, space_get_south_link(space_act)));
+    }else{
+      id_next = link_get_id1(game_get_link(game, space_get_south_link(space_act)));
+    }
+		printf("ESTO Es el id_next  %ld \n",id_next);
+		printf("ESTO Es el id_act  %ld \n",id_act);
+
+    space_back = game_get_space(game, id_back);
+    space_next = game_get_space(game, id_next);
+	printf("ESTO ES ES ESPACIO anterior %s\n",space_get_name(space_back));
+	printf("ESTO ES ES ESPACIO sigueinte %s\n\n",space_get_name(space_next));
+
+	printf("ESTO ES LINK al ESTE %ld\n",space_get_east_link(space_act));
+	printf("ESTO ES LINK al OESTE %ld\n",space_get_west_link(space_act));
+	printf("ESTO ES LINK al NORTE %ld\n",space_get_north_link(space_act));
+	printf("ESTO ES LINK al SUR %ld\n",space_get_south_link(space_act));
 
 		id=NO_ID;
-
-		if (id_back != NO_ID) {
-			sprintf(str, "  |                   %2d|",(int) id_back);
+		if (space_back!=NULL){
+			sprintf(str, "  |                   %ld|",id_act);
 			screen_area_puts(ge->map, str);
+		/*	sprintf(str, "  |                   %2d|",(int) id_back);
+			screen_area_puts(ge->map, str);*/
 			for(i=1; i<=MAX_OBJ; i++){
 				if(game_get_object_location(game, i) == id_back){
 					sprintf(str, "  |           O: %s    |",game_get_name_object(game,i));
@@ -101,20 +124,29 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 		}
 		id=NO_ID;
 
+		id_east=space_get_east_link(space_act);
+		id_west=space_get_west_link(space_act);
+
 		if (id_act != NO_ID) {
 			sprintf(str, "  +---------------------+");
 			screen_area_puts(ge->map, str);
 			if(id_east == NO_ID && id_west == NO_ID){
-				sprintf(str, "  | 8D                %2d|",(int) id_act);
+				sprintf(str, "  | 8D                %2ld|",id_act);
 			}
 			else if(id_east != NO_ID && id_west == NO_ID){
-				sprintf(str, "  | 8D                %2d|>",(int) id_act);
+				sprintf(str, "  |                     |%ld",game_get_link_id2(game,id_east));
+					screen_area_puts(ge->map, str);
+				sprintf(str, "  | 8D                %2ld|->%ld ",id_act,id_east);
 			}
 			else if(id_east != NO_ID && id_west != NO_ID){
-				sprintf(str, " <| 8D                %2d|>",(int) id_act);
+				sprintf(str, " %ld|                     |%ld",game_get_link_id2(game, id_west),game_get_link_id2(game,id_east));
+					screen_area_puts(ge->map, str);
+				sprintf(str, "%ld| 8D                %2ld|->%ld",id_west,id_act,id_east);
 			}
 			else{
-				sprintf(str, " <| 8D                %2d|",(int) id_act);
+				sprintf(str, " %ld |                     |",game_get_link_id2(game, id_west));
+					screen_area_puts(ge->map, str);
+				sprintf(str, "%ld <-| 8D                %2ld|",id_west,id_act);
 			}
 			screen_area_puts(ge->map, str);
 			for(i=1; i<=MAX_OBJ; i++){
@@ -126,7 +158,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 			if (id==NO_ID){
 				sprintf(str, "  |                     |");
 				screen_area_puts(ge->map, str);
-			}				
+			}
 			sprintf(str, "  |        %s      |", space_get_ilus1(space_act));
 			screen_area_puts(ge->map, str);
 			sprintf(str, "  |        %s      |", space_get_ilus2(space_act));
@@ -143,7 +175,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 			screen_area_puts(ge->map, str);
 			sprintf(str, "  +---------------------+");
 			screen_area_puts(ge->map, str);
-			sprintf(str, "  |                   %2d|",(int) id_next);
+			sprintf(str, "  |                   %2ld|",id_next);
 			screen_area_puts(ge->map, str);
 			for(i=1; i<=MAX_OBJ; i++){
 				if(game_get_object_location(game, i) == id_next){
@@ -190,12 +222,12 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	screen_area_puts(ge->help, str);
 	sprintf(str, " following/f, previous/p, exit/e, take/t, drop/d, move/m(die), left/l, right/r");
 	screen_area_puts(ge->help, str);
-	
+
 	/* Paint the in the feedback area */
-	
-	
+
+
 	last_cmd = command_get_type(game_get_last_command(game));
-	estado=game_estado(game);
+	estado=game_get_estado(game);
 	if (estado==ERROR){
 		sprintf(str, " %s: ERROR", cmd_to_str[last_cmd-NO_CMD]);
 		screen_area_puts(ge->feedback, str);
@@ -203,8 +235,8 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 		sprintf(str, " %s: OK", cmd_to_str[last_cmd-NO_CMD]);
 		screen_area_puts(ge->feedback, str);
 	}
-	
-	
+
+
 
 	/* Dump to the terminal */
 	screen_paint();

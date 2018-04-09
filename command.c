@@ -23,9 +23,9 @@
 char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit", "Following", "Previous","Take","Drop","Move","Left","Right"};
 
 struct _Command{
-	char vrb[MAX]; /*cadena de caracteres referido al comando enumerado que introduce el usuario*/
-	char ob[MAX]; /* cadena de caracteres que se introduce al complementar un comando*/
-	T_Command command; /*tipo enumerado de comando*/
+	char vrb[MAX]; /*!< cadena de caracteres referido al comando enumerado que introduce el usuario*/
+	char ob[MAX]; /*!< cadena de caracteres que se introduce al complementar un comando*/
+	T_Command command; /*!<tipo enumerado de comando*/
 };
 
 
@@ -61,7 +61,7 @@ Command *command_ini(){
 	c->ob[0]='\0';
 	return c;
 }
-
+/*-----------------------------------------------------------------------------------------------------*/
 void command_destroy(Command* cmd) {
     if (!cmd) {
         return;
@@ -81,24 +81,24 @@ STATUS command_interpret_input(Command* cmd, char* input) {
     strcpy(cmd->ob, "");
 	strcpy(cmd->vrb,"");
 
-    if (!strcmp(input, "E") || !strcmp(input, "e") || !strcmp(input, "exit")) {
+    if (!strcmp(input, "E") || !strcmp(input, "e") || !strcmp(input, "exit")|| !strcmp(input, "Exit")) {
         cmd->command = EXIT;
 		strcpy(cmd->vrb,"exit");
 
     } else if ((strcmp(input, "following")==0)
-            || (strcmp(input, "f")==0) || (strcmp(input, "F")==0)) {
+            || (strcmp(input, "f")==0) || (strcmp(input, "F")==0)||(strcmp(input, "Following")==0)) {
 
         cmd->command = FOLLOWING;
         strcpy(cmd->vrb,"following");
 
     } else if ((strcmp(input, "previous")==0)
-            || (strcmp(input, "p")==0) || (strcmp(input, "P")==0)){
+            || (strcmp(input, "p")==0) || (strcmp(input, "P")==0)||(strcmp(input, "Previous")==0)){
 
         cmd->command = PREVIOUS;
         strcpy(cmd->vrb,"previous");
 
     } else if ((strncmp("take", input, 4) == 0)
-            || (strncmp("t", input, 1) == 0) || (strncmp("T", input, 1) == 0)) {
+            || (strncmp("t", input, 1) == 0) || (strncmp("T", input, 1) == 0)||(strcmp(input, "Take")==0)) {
 
         cmd->command = TAKE;
 
@@ -114,12 +114,12 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			strcpy(cmd->ob,input+cont);
 		}
 
-    } else if (!strcmp(input, "M") || !strcmp(input, "m") || !strcmp(input, "move")) {
+	} else if (!strcmp(input, "M") || !strcmp(input, "m") || !strcmp(input, "move")||(strcmp(input, "Move")==0)) {
         cmd->command = MOVE;
 		strcpy(cmd->vrb,"move");
 
 	} else if ((strncmp("drop", input, 4) == 0)
-            || (strncmp("d", input, 1) == 0) || (strncmp("D", input, 1) == 0)) {
+            || (strncmp("d", input, 1) == 0) || (strncmp("D", input, 1) == 0)||(strcmp(input, "Drop")==0)) {
 
         cmd->command = DROP;
 
@@ -136,13 +136,13 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		}
 
     }else if ((strcmp(input, "left")==0)
-            || (strcmp(input, "l")==0)|| (strcmp(input, "L")==0)) {
+            || (strcmp(input, "l")==0)|| (strcmp(input, "L")==0)||(strcmp(input, "Left")==0)) {
 
         cmd->command = LEFT;
         strcpy(cmd->vrb,"left");
 
     } else if ((strcmp(input, "right")==0)
-            || (strcmp(input, "r")==0) || (strcmp(input, "R")==0)) {
+            || (strcmp(input, "r")==0) || (strcmp(input, "R")==0)||(strcmp(input, "Right")==0)) {
 
         cmd->command = RIGHT;
        	strcpy(cmd->vrb,"right");

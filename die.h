@@ -53,11 +53,11 @@ int die_get_lastroll(Die * die);
 /**
  * @brief Imprime el último valor del dado
  * @author Gonzalo Martinez
- * @param El FILE f donde se va a imprimir el Die y el Die a imprimir
+ * @param f FILE donde se va a imprimir el Die
+ * @param die dado a imprimir
  * @return Devuelve el número de caracteres que se han escrito en el archivo correctamente
  */
 int die_print(FILE * f, const Die * die);
 /*-----------------------------------------------------------------------------------------------------*/
 
 #endif /* DIE_H */
-

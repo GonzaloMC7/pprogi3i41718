@@ -74,7 +74,7 @@ const char* space_get_name(Space* space);
  * @param Puntero a Space el cual se quiere asignar el Id, y el Id determinado que se le quiere dar
  * @return Devuelve OK si se ha asignado correctamente, o ERROR en caso contrario
  */
-STATUS space_set_north(Space* space, Id id);
+STATUS space_set_north_link(Space* space, Id idlink);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
@@ -83,7 +83,7 @@ STATUS space_set_north(Space* space, Id id);
  * @param Puntero a Space el cual se quiere obtener el Id
  * @return Devuelve el Id norte del espacio seleccionado
  */
-Id space_get_north(Space* space);
+Id space_get_north_link(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
@@ -92,7 +92,7 @@ Id space_get_north(Space* space);
  * @param Puntero a Space el cual se quiere asignar el Id, y el Id determinado que se le quiere dar
  * @return Devuelve OK si se ha asignado correctamente, o ERROR en caso contrario
  */
-STATUS space_set_south(Space* space, Id id);
+STATUS space_set_south_link(Space* space, Id idlink);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
@@ -101,7 +101,7 @@ STATUS space_set_south(Space* space, Id id);
  * @param Puntero a Space el cual se quiere obtener el Id
  * @return Devuelve el Id sur del espacio seleccionado
  */
-Id space_get_south(Space* space);
+Id space_get_south_link(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
@@ -110,7 +110,7 @@ Id space_get_south(Space* space);
  * @param Puntero a Space el cual se quiere asignar el Id, y el Id determinado que se le quiere dar
  * @return Devuelve OK si se ha asignado correctamente, o ERROR en caso contrario
  */
-STATUS space_set_east(Space* space, Id id);
+STATUS space_set_east_link(Space* space, Id id);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
@@ -119,7 +119,7 @@ STATUS space_set_east(Space* space, Id id);
  * @param Puntero a Space el cual se quiere obtener el Id
  * @return Devuelve el Id este del espacio seleccionado
  */
-Id space_get_east(Space* space);
+Id space_get_east_link(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
@@ -128,7 +128,7 @@ Id space_get_east(Space* space);
  * @param Puntero a Space el cual se quiere asignar el Id, y el Id determinado que se le quiere dar
  * @return Devuelve OK si se ha asignado correctamente, o ERROR en caso contrario
  */
-STATUS space_set_west(Space* space, Id id);
+STATUS space_set_west_link(Space* space, Id id);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
@@ -137,7 +137,7 @@ STATUS space_set_west(Space* space, Id id);
  * @param Puntero a Space el cual se quiere obtener el Id
  * @return Devuelve el Id este del espacio seleccionado
  */
-Id space_get_west(Space* space);
+Id space_get_west_link(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**

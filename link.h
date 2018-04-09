@@ -7,8 +7,11 @@
 * @date: 18/3/2018
 */
 
+#ifndef LINK_H
+#define LINK_H
+
 #include <stdio.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "space.h"
 
@@ -48,7 +51,7 @@ Link * link_set_id(Link * l, Id id);
  * @param El Link creado anteriormente y el nombre a asignar
  * @return Devuelve el Link con el nuevo nombre
  */
-Link * link_set_name(Link * l, char * name);
+STATUS link_set_name(Link * l, char * name);
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Obtiene el id del link
@@ -64,7 +67,7 @@ Id link_get_id(Link * l);
  * @param El Link creado anteriormente
  * @return Devuelve el nombre del link que se obtiene en la funcion
  */
-char * link_get_name(Link * l);
+const char * link_get_name(Link * l);
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief Obtiene el id de uno de los espacios a linkear
@@ -120,5 +123,7 @@ Link * link_set_id2(Link * l, Id id);
  * @param El Link creado anteriormente y el Id a asignar
  * @return Devuelve el Link con el nuevo idopenclose
  */
-Link * link_set_idopenclose(Link * l, Id id);
+STATUS link_set_idopenclose(Link * l, BOOL value);
 /*-----------------------------------------------------------------------------------------------*/
+
+#endif

@@ -1,5 +1,5 @@
 /**
- * @brief  Implementa las funciones para crear un nuevo objeto y las funciones para asignar 
+ * @brief  Implementa las funciones para crear un nuevo objeto y las funciones para asignar
  * y obtener sus diferentes campos, asi como una función para imprimir la info de estos campos.
  *
  * @file object.c
@@ -37,10 +37,7 @@ Object* object_create(Id id) {
     return NULL;
   }
   newObject->id = id;
-
   newObject->name[0] = '\0';
-
-
   return newObject;
 }
 
@@ -50,10 +47,7 @@ STATUS object_destroy(Object* object) {
   if (!object) {
     return ERROR;
   }
-
   free(object);
-  object = NULL;
-
   return OK;
 }
 
@@ -67,7 +61,6 @@ STATUS object_set_name(Object* object, char* name) {
   if (!strcpy(object->name, name)) {
     return ERROR;
   }
-
   return OK;
 }
 
@@ -96,19 +89,17 @@ STATUS object_set_id(Object* object, Id id) {
     return ERROR;
   }
   object->id=id;
-
   return OK;
 }
+
 
 /*-----------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de imprimir el objeto por pantalla*/
 STATUS object_print(Object* object) {
- 
+
   if (!object) {
     return ERROR;
   }
-
   fprintf(stdout, "--> Object (Id: %ld; Name: %s)\n", object->id, object->name);
-
   return OK;
 }
