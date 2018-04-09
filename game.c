@@ -16,7 +16,7 @@
 #include "game_reader.h"
 
 
-#define N_CALLBACK 9
+#define N_CALLBACK 10
 
 
 /**
@@ -29,6 +29,7 @@ struct _Game{
   Space* spaces[MAX_SPACES + 1]; /*!<Espacios del juego*/
   Link *link[MAX_LINK + 1]; /*!<Enlaces del juego */
   Command *cmd; /*!<comando */
+  char check_info[WORD_SIZE + 1];
   Die * die; /*!<Dado que se utiliza en el juego*/
   STATUS estado;/*!<estado del comando*/
 };
@@ -109,6 +110,14 @@ STATUS game_callback_left(Game* game);
  * @return No devuelve nada al ser una función void
  */
 STATUS game_callback_right(Game* game);
+/*---------------------------------------------------------------------------------------------*/
+/**
+ * @brief Muestra la descripcion del objeto indicado
+ * @author Juan Martin
+ * @param Game game creado anteriormente
+ * @return No devuelve nada al ser una función void
+ */
+STATUS game_callback_check(Game* game);
 
 /*Lista de comando que se pueden dar*/
 static callback_fn game_callback_fn_list[N_CALLBACK]={
@@ -120,7 +129,8 @@ static callback_fn game_callback_fn_list[N_CALLBACK]={
 	game_callback_drop,
 	game_callback_roll,
 	game_callback_left,
-	game_callback_right
+	game_callback_right,
+  game_callback_check
 };
 
 /**
@@ -170,12 +180,12 @@ Game *game_create() {
   game->estado=ERROR;
 	game->cmd = command_ini();
 	game->die = die_create();
+  game->check_info[0]='\0';
 	/*Se devuelve OK si el juego se ha creado correctamente (falta control de errores)*/
 	return game;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-
 STATUS game_create_from_file(Game* game, char* filename) {
 
 	if(!game||!filename){
@@ -221,6 +231,7 @@ STATUS game_destroy(Game* game) {
   free(game);
 	return OK;
 }
+
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función para añadir un espacio adicional*/
@@ -446,6 +457,17 @@ STATUS game_get_estado(Game* game){
     if (!game) return ERROR;
     return game->estado;
 }
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Funcion que se encarga de devolver la descricion almacenada en game*/
+const char *game_get_info (Game* game) {
+  if (!game) {
+    return NULL;
+  }
+
+  return game->check_info;
+}
+
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de obtener el ultimo comando introducido*/
 
@@ -767,3 +789,31 @@ STATUS game_callback_roll(Game* game) {
 	return OK;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
+STATUS game_callback_check(Game* game) {
+  Id space_id_player = NO_ID;
+	Id space_id_object = NO_ID;
+  Id id_object=NO_ID;
+  int i=0, obj=0;
+
+  space_id_player = game_get_player_location(game);
+
+  for(i=0;game->ob[i]!=NULL;i++){
+		if(strcmp(game_get_name_object(game, i+1),command_get_ob(game->cmd))==0){
+			obj = i;
+		}
+	}
+
+	if(game->ob[obj]==NULL){
+		command_interpret_input(game->cmd,command_get_ob(game->cmd));
+		return ERROR;
+	}
+  id_object = object_get_id(game->ob[obj]);
+  space_id_object=game_get_object_location(game, id_object);
+
+  if(space_id_player==space_id_object){
+  strcpy(game->check_info, object_get_description(game->ob[obj]));
+  return OK;
+}
+return ERROR;
+
+}

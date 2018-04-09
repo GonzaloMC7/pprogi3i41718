@@ -16,11 +16,11 @@
 #include "command.h"
 
 #define CMD_LENGTH 999
-#define N_CMD 10 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 5*/
+#define N_CMD 11 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 5*/
 #define MAX 200
 
 /*Enumeración de los posibles comandos a introducir y debajo sus correspondientes abreviaturas, incluido el incorrrecto*/
-char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit", "Following", "Previous","Take","Drop","Move","Left","Right"};
+char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit", "Following", "Previous","Take","Drop","Move","Left","Right","Check"};
 
 struct _Command{
 	char vrb[MAX]; /*!< cadena de caracteres referido al comando enumerado que introduce el usuario*/
@@ -114,7 +114,24 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			strcpy(cmd->ob,input+cont);
 		}
 
-	} else if (!strcmp(input, "M") || !strcmp(input, "m") || !strcmp(input, "move")||(strcmp(input, "Move")==0)) {
+	}else if ((strncmp("check", input, 4) == 0)
+					|| (strncmp("c", input, 1) == 0) || (strncmp("C", input, 1) == 0)||(strcmp(input, "Check")==0)) {
+
+			cmd->command = CHECK;
+
+	for (i=0;input[i]!=' ';i++){
+		cont++;
+	}
+	cont++;
+	if (input[cont]!='O'){
+		cmd->command = UNKNOWN;
+	}
+	else{
+		strcpy(cmd->vrb,"check");
+		strcpy(cmd->ob,input+cont);
+	}
+
+} else if (!strcmp(input, "M") || !strcmp(input, "m") || !strcmp(input, "move")||(strcmp(input, "Move")==0)) {
         cmd->command = MOVE;
 		strcpy(cmd->vrb,"move");
 

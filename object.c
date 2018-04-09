@@ -20,6 +20,7 @@
 struct _Object {
   Id id; /*Id del objeto*/
   char name[WORD_SIZE + 1]; /*Nombre del objeto*/
+  char description[WORD_SIZE];
 };
 
 /*-----------------------------------------------------------------------------------------------------*/
@@ -38,6 +39,7 @@ Object* object_create(Id id) {
   }
   newObject->id = id;
   newObject->name[0] = '\0';
+  newObject->description[0]= '\0';
   return newObject;
 }
 
@@ -80,6 +82,28 @@ Id object_get_id(Object* object) {
     return NO_ID;
   }
   return object->id;
+}
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que establece una descripcion al objeto deseado*/
+STATUS object_set_description(Object* object, char* description) {
+  if (!object || !description) {
+    return ERROR;
+  }
+
+  if (!strcpy(object->description, description)) {
+    return ERROR;
+  }
+
+  return OK;
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que devuelve la descripcion de un objeto, el cual se recibe por argumento.*/
+const char * object_get_description(Object* object) {
+  if (!object) {
+    return NULL;
+  }
+  return object->description;
 }
 
 /*-----------------------------------------------------------------------------------------------------*/

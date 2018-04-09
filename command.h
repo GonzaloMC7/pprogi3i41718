@@ -31,8 +31,9 @@ typedef enum enum_Command {
   DROP, /*!<Dejar un objeto*/
   MOVE, /*!<Rodar el dado*/
   LEFT, /*!<Posición siguiente de oca*/
-  RIGHT /*!<Posición anterior de oca*/
-} T_Command;
+  RIGHT, /*!<Posición anterior de oca*/
+  CHECK 
+  } T_Command;
 
 /*---------------------------------------------------------------------------------------------*/
 /**

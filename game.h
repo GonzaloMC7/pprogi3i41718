@@ -269,6 +269,13 @@ Die * game_get_die(Game* game);
  * @return OK si el objeto se encuentra con el jugador o ERROR si no se encuentra con el jugador
  */
 BOOL game_find_player_object(Game* game, Id IdObject);
-
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Obtiene la descricion almacenada en el juego indicado
+ * @author Juan Martin
+ * @param El juego creado
+ * @return Devuelve la descricion almacenada en game
+ */
+const char *game_get_info (Game* game);
 
 #endif

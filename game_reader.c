@@ -99,11 +99,11 @@
   /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de leer los objetos de un fichero determinado*/
 
-
-  STATUS game_reader_load_objects(Game* game, char* filename) {
+STATUS game_reader_load_objects(Game* game, char* filename) {
       FILE* file = NULL;
       char line[WORD_SIZE] = "";
       char name[WORD_SIZE] = "";
+      char description[WORD_SIZE] = "";
       char* toks = NULL;
       Id idObject=NO_ID, idspace_object=NO_ID;
       Object *object=NULL;
@@ -134,14 +134,17 @@
         strcpy(name, toks);
     	  toks = strtok(NULL, "|");
     	  idspace_object = atol(toks);
+        toks = strtok(NULL, "|");
+		    strcpy(description,toks);
     #ifdef DEBUG
-    	  printf("Leido: %ld|%s|%ld\n", idObject, name, idspace_object);
+    	  printf("Leido: %ld|%s|%ld|%s\n", idObject, name, idspace_object,description);
     #endif
   	  object= object_create(idObject);
     	  if (object != NULL) {
-    		  object_set_name(object,name);
+    		  object_set_name(object, name);
+          object_set_description(object, description);
     		  game_set_object_location(game, idspace_object, idObject);
-  		  game_add_object(game, object);
+  		    game_add_object(game, object);
     	  }
       }
       }
@@ -153,6 +156,7 @@
       fclose(file);
       return status;
   }
+
   /*-----------------------------------------------------------------------------------------------------------------------*/
  /*Funcion que se encarga de cargar los enlaces correspondientes dado un fichero determinado*/
 

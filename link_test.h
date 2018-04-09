@@ -2,7 +2,7 @@
  * @brief It declares the tests for the link module
  *
  * @file link_test.h
- * @author Gonzalo Martinez Carrera
+ * @author Gonzalo Martinez
  * @version 1.0
  * @date 28/03/2018
  * @copyright GNU Public License

@@ -23,11 +23,11 @@
 #s:23|Casilla 23|22|-1|23|-1|       |       |       |
 #s:24|Casilla 24|23|-1|24|-1|       |       |       |
 #s:25|Casilla 25|24|-1|-1|-1|       |       |       |
-#o:1|Ob1|1|
-#o:2|Ob2|2|
-#o:3|Ob3|3|
-#o:4|Ob4|8|
-#o:5|Ob5|3|
+#o:1|Ob1|1|Este es el objeto 1|
+#o:2|Ob2|2|Este es el objeto 2|
+#o:3|Ob3|3|Este es el objeto 3|
+#o:4|Ob4|8|Este es el objeto 4|
+#o:5|Ob5|3|Este es el objeto 5|
 #l:1|Lnk 1|1|2|1|
 #l:2|Lnk 2|2|3|1|
 #l:3|Lnk 3|3|4|1|

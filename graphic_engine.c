@@ -119,7 +119,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 
 			sprintf(str, "  +---------------------+");
 			screen_area_puts(ge->map, str);
-			sprintf(str, "        ^");
+			sprintf(str, "        ^ %ld",space_get_north_link(space_act));
 			screen_area_puts(ge->map, str);
 		}
 		id=NO_ID;
@@ -171,7 +171,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 
 		id=NO_ID;
 		if (id_next != NO_ID) {
-			sprintf(str, "        v");
+			sprintf(str, "        v %ld",space_get_south_link(space_act));
 			screen_area_puts(ge->map, str);
 			sprintf(str, "  +---------------------+");
 			screen_area_puts(ge->map, str);
@@ -212,6 +212,19 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	}
 	sprintf(str, "  Last roll:%d", game_get_die_lastroll(game));
 	screen_area_puts(ge->descript, str);
+	sprintf(str, "  Descripcion:");
+	screen_area_puts(ge->descript, str);
+	sprintf(str, "  %s",game_get_info (game));
+	screen_area_puts(ge->descript, str);
+	sprintf(str, "  Player inventory:");
+	screen_area_puts(ge->descript, str);
+
+	for(i=1; i<=MAX_OBJ;i++){
+    if(game_find_player_object(game, i) != FALSE){
+      sprintf(str, " %s", game_get_name_object(game, i));
+      screen_area_puts(ge->descript, str);
+    }
+  }
 
 	/* Paint the in the banner area */
 	screen_area_puts(ge->banner, " The game of the Goose ");
