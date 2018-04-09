@@ -69,7 +69,7 @@ void test3_link_set_id2();
 
 void test1_link_get_id1();
 
-void test2_link_get_id1()
+void test2_link_get_id1();
 
 /*----------------------------------------------------------------------------------*/
 
