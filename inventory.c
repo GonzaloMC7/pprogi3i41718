@@ -23,6 +23,7 @@ struct _Inventory{
 Inventory * inventory_ini(int max){
   Inventory * inv = NULL;
 
+  if (max<0) return NULL;
   inv = (Inventory*)malloc(sizeof(Inventory));
   if(!inv) return NULL;
 
@@ -58,7 +59,7 @@ BOOL inventory_isFull(Inventory * inv){
 /*-----------------------------------------------------------------------------------------------*/
 
 STATUS inventory_push_id(Inventory * inv, Id id){
-  if(!inv) return ERROR;
+  if(!inv||id==NO_ID) return ERROR;
 	if (inventory_isFull(inv)==TRUE) return ERROR;
 
 	set_add_id(inv->ids,id);

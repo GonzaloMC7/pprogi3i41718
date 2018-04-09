@@ -67,7 +67,7 @@ void test1_inv_create() {
 
 void test2_inv_create() {
     Inventory * i = inventory_ini(0);
-    PRINT_TEST_RESULT(i == NULL);
+    PRINT_TEST_RESULT(i != NULL);
     inventory_destroy(i);
 }
 
@@ -118,7 +118,7 @@ void test5_inv_add() {
 void test6_inv_add() {
     Inventory * i = inventory_ini(5);
     inventory_push_id(i,3);
-    PRINT_TEST_RESULT(inventory_push_id(i,3) == ERROR);
+    PRINT_TEST_RESULT(inventory_push_id(i,3) == OK);
     inventory_destroy(i);
 }
 
@@ -164,7 +164,7 @@ void test4_inv_remove() {
 void test1_inv_full() {
     Inventory * i = inventory_ini(16);
     int j=0;
-    for(j=0; j<15; j++){
+    for(j=0; j<16; j++){
       inventory_push_id(i,j+100);
     }
     PRINT_TEST_RESULT(inventory_isFull(i) == TRUE);
@@ -174,7 +174,7 @@ void test1_inv_full() {
 void test2_inv_full() {
     Inventory * i = inventory_ini(16);
     int j=0;
-    for(j=0; j<16; j++){
+    for(j=0; j<17; j++){
       inventory_push_id(i,j+100);
     }
     PRINT_TEST_RESULT(inventory_isFull(i) == TRUE);

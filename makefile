@@ -1,6 +1,6 @@
 CC = gcc -ansi -pedantic -g
 CFLAGS = -Wall
-EXE = game_loop set_test die_test space_test link_test
+EXE = game_loop set_test die_test space_test link_test inv_test
 
 all : $(EXE)
 
@@ -124,6 +124,11 @@ space_test_:
 link_test_:
 	@echo Ejecutando link_test
 	@ ./link_test
+
+inv_test_:
+	@echo Ejecutando inv_test
+	@ ./inv_test
+
 
 doxy:
 	doxygen -g

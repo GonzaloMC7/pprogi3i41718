@@ -1,9 +1,9 @@
-/** 
+/**
  * @brief It implements the functions to define a screen
- * 
+ *
  * @file screen.c
  * @author Profesores PPROG
- * @version 1.0 
+ * @version 1.0
  * @date 11-01-2017
  * @copyright GNU Public License
  */
@@ -78,11 +78,11 @@ void screen_paint(){
   int i=0;
 
   memset(dest, 0, COLUMNS + 1);
-  
+
   if (__data){
     /* puts(__data); */ /*Vuelca la información directamente en la terminal*/
     /*Funcionará correctamente si el tamaño de la ventana de la terminal es el adecuado*/
-    
+
     puts("\033[2J"); /*Despejar la terminal*/
     for (src=__data; src < (__data + TOTAL_DATA - 1); src+=COLUMNS){
       memcpy(dest, src, COLUMNS);
@@ -123,7 +123,7 @@ Area* screen_area_init(int x, int y, int width, int height){
     for (i=0; i < area->height; i++)
       memset(ACCESS(area->cursor, 0, i), (int) FG_CHAR, (size_t) area->width);
   }
-	
+
 	/*Se devuelve el área creado en esta función*/
   return area;
 }
@@ -144,7 +144,7 @@ void screen_area_clear(Area* area){
 
   if (area){
     screen_area_reset_cursor(area);
-    
+
     for (i=0; i < area->height; i++)
       memset(ACCESS(area->cursor, 0, i), (int) FG_CHAR, (size_t) area->width);
   }
@@ -167,7 +167,7 @@ void screen_area_puts(Area* area, char *str){
 
   if (screen_area_cursor_is_out_of_bounds(area))
     screen_area_scroll_up(area);
-  
+
   screen_utils_replaces_special_chars(str);
 
   for (ptr = str; ptr < (str + strlen(str)); ptr+=area->width){
