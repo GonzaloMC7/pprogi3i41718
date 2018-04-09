@@ -40,9 +40,9 @@ int main(int argc, char** argv){
     }
 
 
-    if (all || test == 1)  test1_link_create();
-    if (all || test == 2)  test2_link_create();
-    if (all || test == 3)  test3_link_create();
+    if (all || test == 1)  test1_link_ini();
+    if (all || test == 2)  test2_link_ini();
+    if (all || test == 3)  test3_link_ini();
 
     if (all || test == 4)  test1_link_set_name();
     if (all || test == 5)  test2_link_set_name();
@@ -85,19 +85,19 @@ int main(int argc, char** argv){
 
 /*----------------------------------------------------------------------------------*/
 
-void test1_link_create(){
-  int res = link_create(5)!=NULL;
+void test1_link_ini(){
+  int res = link_ini(5)!=NULL;
   PRINT_TEST_RESULT(res);
 }
 
-void test2_link_create(){
+void test2_link_ini(){
     Link * l;
-    l = link_create(4);
+    l = link_ini(4);
     PRINT_TEST_RESULT(link_get_id(l) == 4);
 }
 
-void test3_link_create(){
-  int res = link_create(-3)!=NULL;
+void test3_link_ini(){
+  int res = link_ini(-3)!=NULL;
   PRINT_TEST_RESULT(res);
 }
 
@@ -105,7 +105,7 @@ void test3_link_create(){
 
 void test1_link_set_name(){
     Link * l;
-    l = link_create(5);
+    l = link_ini(5);
     PRINT_TEST_RESULT(link_set_name(l,"prueba")==OK);
 }
 
@@ -117,9 +117,9 @@ void test2_link_set_name(){
 /*----------------------------------------------------------------------------------*/
 void test1_link_get_name() {
   Link * l;
-  l = link_create(1);
+  l = link_ini(1);
   link_set_name(l,"prueba");
-  PRINT_TEST_RESULT(strcmp(link_get_name(s),"prueba")==0);
+  PRINT_TEST_RESULT(strcmp(link_get_name(l),"prueba")==0);
 
 }
 
@@ -132,20 +132,20 @@ void test2_link_get_name() {
 
 void test1_link_set_id(){
   Link * l;
-  l = link_create(5);
-  PRINT_TEST_RESULT(link_set_id(l,4)==OK);
+  l = link_ini(5);
+  PRINT_TEST_RESULT(link_set_id(l,5)!=NULL);
 }
 
 void test2_link_set_id(){
   Link * l= NULL;
-  PRINT_TEST_RESULT(link_set_id(l,4)==ERROR);
+  PRINT_TEST_RESULT(link_set_id(l,4)==NULL);
 }
 
 /*----------------------------------------------------------------------------------*/
 
 void test1_link_get_id(){
   Link * l;
-  l = link_create(5);
+  l = link_ini(5);
   link_set_id(l, 4);
   PRINT_TEST_RESULT(link_get_id(l)==4);
 }
@@ -159,49 +159,49 @@ void test2_link_get_id(){
 
 void test1_link_set_id1(){
   Link * l=NULL;
-  l=link_create(5);
+  l=link_ini(5);
   link_set_id1(l,4);
-  PRINT_TEST_RESULT(link_set_id2(l,5) == OK);
+  PRINT_TEST_RESULT(link_set_id2(l,5)!=NULL);
 }
 
 void test2_link_set_id1(){
   Link * l = NULL;
   link_set_id1(l,4);
-  PRINT_TEST_RESULT(link_set_id2(l,5) == ERROR);
+  PRINT_TEST_RESULT(link_set_id2(l,5) == NULL);
 }
 
 void test3_link_set_id1(){
   Link * l = NULL;
-  l= link_create(5);
-  PRINT_TEST_RESULT(link_set_id1(l,NO_ID) == ERROR);
+  l= link_ini(5);
+  PRINT_TEST_RESULT(link_set_id1(l,NO_ID) == NULL);
 }
 
 /*----------------------------------------------------------------------------------*/
 
 void test1_link_set_id2(){
   Link * l=NULL;
-  l=link_create(5);
+  l=link_ini(5);
   link_set_id2(l,6);
-  PRINT_TEST_RESULT(link_set_id1(l,5) == OK);
+  PRINT_TEST_RESULT(link_set_id1(l,5)!=NULL);
 }
 
 void test2_link_set_id2(){
   Link * l = NULL;
   link_set_id2(l,4);
-  PRINT_TEST_RESULT(link_set_id1(l,3) == ERROR);
+  PRINT_TEST_RESULT(link_set_id1(l,3) == NULL);
 }
 
 void test3_link_set_id2(){
   Link * l=NULL;
-  l= link_create(5);
-  PRINT_TEST_RESULT(link_set_id2(l,NO_ID) == ERROR);
+  l= link_ini(5);
+  PRINT_TEST_RESULT(link_set_id2(l,NO_ID) == NULL);
 }
 
 /*----------------------------------------------------------------------------------*/
 
 void test1_link_get_id1(){
   Link * l;
-  l = link_create(5);
+  l = link_ini(5);
   link_set_id1(l,5);
   PRINT_TEST_RESULT(link_get_id1(l) == 5);
 }
@@ -215,7 +215,7 @@ void test2_link_get_id1(){
 
 void test1_link_get_id2(){
   Link * l;
-  l = link_create(5);
+  l = link_ini(5);
   link_set_id2(l,5);
   PRINT_TEST_RESULT(link_get_id2(l) == 5);
 }
@@ -229,28 +229,28 @@ void test2_link_get_id2(){
 
 void test1_link_set_open(){
   Link * l =NULL;
-  PRINT_TEST_RESULT(link_set_open(l,TRUE) == FALSE);
+  PRINT_TEST_RESULT(link_set_idopenclose(l,TRUE) == FALSE);
 }
 
 void test2_link_set_open(){
   Link * l =NULL;
-  l = link_create(5);
-  PRINT_TEST_RESULT(link_set_open(l,TRUE) == link);
+  l = link_ini(5);
+  PRINT_TEST_RESULT(link_set_idopenclose(l,TRUE) == OK);
 }
 
 /*----------------------------------------------------------------------------------*/
 
 void test1_link_get_open(){
   Link * l=NULL;
-  link_set_open(link,TRUE);
-  PRINT_TEST_RESULT(link_get_open(l) == FALSE);
+  link_set_idopenclose(l,TRUE);
+  PRINT_TEST_RESULT(link_get_idopenclose(l) == FALSE);
 }
 
 void test2_link_get_open(){
   Link * l=NULL;
-  l=link_create(5);
-  link_set_open(link,TRUE);
-  PRINT_TEST_RESULT(link_get_open(l) == TRUE);
+  l=link_ini(5);
+  link_set_idopenclose(l,TRUE);
+  PRINT_TEST_RESULT(link_get_idopenclose(l) == TRUE);
 }
 
 /*----------------------------------------------------------------------------------*/
