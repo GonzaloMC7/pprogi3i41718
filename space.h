@@ -193,6 +193,22 @@ STATUS space_set_ilus3(Space* space, char *ilus3);
  */
 const char* space_get_ilus3(Space* space);
 
+/**
+ * @brief Establece una descripcion a un espacio determinado
+ * @author Juan Martin
+ * @param espacio y descripcion a establecer
+ * @return OK si se ha asignado correctamente y ERROR si no se ha asignado correctamente
+ */
+ STATUS space_set_description(Space* space, char* description1);
+
+ /**
+  * @brief Devuelve la descrición de un espacio determinado
+  * @author Juan Martin
+  * @param espacio del que se quiere la descrición
+  * @return la descripción del espacio
+  */
+ const char * space_get_description(Space* space);
+
 /*-----------------------------------------------------------------------------------------------------*/
 /**
  * @brief Asigna el Id que se le proporciona a un objeto determinado en un espacio

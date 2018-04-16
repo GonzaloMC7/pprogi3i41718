@@ -26,6 +26,7 @@
     char ilus1[WORD_SIZE] = "";
     char ilus2[WORD_SIZE] = "";
     char ilus3[WORD_SIZE] = "";
+    char description[WORD_SIZE] = "";
     Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID;
     Space *space = NULL;
     STATUS status = OK;
@@ -67,6 +68,8 @@
 		strcpy(ilus2,toks);
         toks = strtok(NULL, "|");
 		strcpy(ilus3,toks);
+        toks = strtok(NULL, "|");
+    strcpy(description,toks);
 
 
   #ifdef DEBUG
@@ -82,6 +85,7 @@
 		    space_set_ilus1(space, ilus1);
 	  	  space_set_ilus2(space, ilus2);
 	  	  space_set_ilus3(space, ilus3);
+        space_set_description(space, description);
 
   		  game_add_space(game, space);
   	  }

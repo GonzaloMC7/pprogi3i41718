@@ -16,11 +16,11 @@
 #include "command.h"
 
 #define CMD_LENGTH 999
-#define N_CMD 11 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 5*/
+#define N_CMD 8 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 5*/
 #define MAX 200
 
 /*Enumeración de los posibles comandos a introducir y debajo sus correspondientes abreviaturas, incluido el incorrrecto*/
-char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit", "Following", "Previous","Take","Drop","Move","Left","Right","Check"};
+char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check"};
 
 struct _Command{
 	char vrb[MAX]; /*!< cadena de caracteres referido al comando enumerado que introduce el usuario*/
@@ -85,18 +85,6 @@ STATUS command_interpret_input(Command* cmd, char* input) {
         cmd->command = EXIT;
 		strcpy(cmd->vrb,"exit");
 
-    } else if ((strcmp(input, "following")==0)
-            || (strcmp(input, "f")==0) || (strcmp(input, "F")==0)||(strcmp(input, "Following")==0)) {
-
-        cmd->command = FOLLOWING;
-        strcpy(cmd->vrb,"following");
-
-    } else if ((strcmp(input, "previous")==0)
-            || (strcmp(input, "p")==0) || (strcmp(input, "P")==0)||(strcmp(input, "Previous")==0)){
-
-        cmd->command = PREVIOUS;
-        strcpy(cmd->vrb,"previous");
-
     } else if ((strncmp("take", input, 4) == 0)
             || (strncmp("t", input, 1) == 0) || (strncmp("T", input, 1) == 0)||(strcmp(input, "Take")==0)) {
 
@@ -114,7 +102,7 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			strcpy(cmd->ob,input+cont);
 		}
 
-	}else if ((strncmp("check", input, 4) == 0)
+	}else if ((strncmp("check", input, 5) == 0)
 					|| (strncmp("c", input, 1) == 0) || (strncmp("C", input, 1) == 0)||(strcmp(input, "Check")==0)) {
 
 			cmd->command = CHECK;
@@ -123,13 +111,27 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		cont++;
 	}
 	cont++;
-	if (input[cont]!='O'){
-		cmd->command = UNKNOWN;
+	if (input[cont]!='O' && input[cont]!='s'){/*Esa O hay que cambiarla si se cambia el nombre de los objetos por uno que no empiece por O*/
+	cmd->command = UNKNOWN;
 	}
 	else{
 		strcpy(cmd->vrb,"check");
 		strcpy(cmd->ob,input+cont);
 	}
+
+} else if ((strncmp("go", input, 2) == 0)
+				|| (strncmp("g", input, 1) == 0) || (strncmp("G", input, 1) == 0)||(strcmp(input, "Go")==0)) {
+
+		cmd->command = GO;
+
+for (i=0;input[i]!=' ';i++){
+	cont++;
+}
+cont++;
+
+	strcpy(cmd->vrb,"go");
+	strcpy(cmd->ob,input+cont);
+
 
 } else if (!strcmp(input, "M") || !strcmp(input, "m") || !strcmp(input, "move")||(strcmp(input, "Move")==0)) {
         cmd->command = MOVE;
@@ -152,19 +154,7 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			strcpy(cmd->ob,input+cont);
 		}
 
-    }else if ((strcmp(input, "left")==0)
-            || (strcmp(input, "l")==0)|| (strcmp(input, "L")==0)||(strcmp(input, "Left")==0)) {
-
-        cmd->command = LEFT;
-        strcpy(cmd->vrb,"left");
-
-    } else if ((strcmp(input, "right")==0)
-            || (strcmp(input, "r")==0) || (strcmp(input, "R")==0)||(strcmp(input, "Right")==0)) {
-
-        cmd->command = RIGHT;
-       	strcpy(cmd->vrb,"right");
-
-    }  else {
+    } else {
         cmd->command = UNKNOWN;
     }
 

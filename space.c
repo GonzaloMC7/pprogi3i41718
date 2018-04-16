@@ -30,6 +30,7 @@ struct _Space {
 	char ilus1[WORD_SIZE];
 	char ilus2[WORD_SIZE];
 	char ilus3[WORD_SIZE];
+	char description[WORD_SIZE];
 };
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -185,6 +186,20 @@ STATUS space_set_ilus3(Space* space, char* ilus3) {
 	return OK;
 }
 
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que establece una descripcion al espacio deseado*/
+STATUS space_set_description(Space* space, char* description) {
+  if (!space || !description) {
+    return ERROR;
+  }
+
+  if (!strcpy(space->description, description)) {
+    return ERROR;
+  }
+
+  return OK;
+}
+
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de asignación del objeto en una posición*/
 
@@ -294,6 +309,15 @@ const char * space_get_ilus3(Space* space) {
 	}
 	/*^^^Control de errores arriba y se devuelve la ilus3acion(debajo)^^^*/
 	return space->ilus3;
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que devuelve la descripcion de un espacio, el cual se recibe por argumento.*/
+const char * space_get_description(Space* space) {
+  if (!space) {
+    return NULL;
+  }
+  return space->description;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/

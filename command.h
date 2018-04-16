@@ -25,14 +25,11 @@ typedef enum enum_Command {
   NO_CMD = -1,
   UNKNOWN, /*!<No reconocido*/
   EXIT, /*!<Salir del juego*/
-  FOLLOWING, /*!<Siguiente posición*/
-  PREVIOUS, /*!<Anterior posición*/
   TAKE, /*!<Coger un objeto*/
   DROP, /*!<Dejar un objeto*/
   MOVE, /*!<Rodar el dado*/
-  LEFT, /*!<Posición siguiente de oca*/
-  RIGHT, /*!<Posición anterior de oca*/
-  CHECK 
+  GO,
+  CHECK
   } T_Command;
 
 /*---------------------------------------------------------------------------------------------*/

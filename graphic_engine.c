@@ -73,31 +73,24 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	screen_area_clear(ge->map);
 	if ((id_act = game_get_player_location(game)) != NO_ID){
 		space_act = game_get_space(game, id_act);
-		printf("ESTO ES ES ESPACIO ACTUAL %s\n",space_get_name(space_act));
+
 		if(id_act == link_get_id1(game_get_link(game, space_get_north_link(space_act)))){
       id_back = link_get_id2(game_get_link(game, space_get_north_link(space_act)));
     }else{
       id_back = link_get_id1(game_get_link(game, space_get_north_link(space_act)));
     }
-	printf("ESTO Es el id_back  %ld \n",id_back);
+
 
 		if(id_act == link_get_id1(game_get_link(game, space_get_south_link(space_act)))){
       id_next = link_get_id2(game_get_link(game, space_get_south_link(space_act)));
     }else{
       id_next = link_get_id1(game_get_link(game, space_get_south_link(space_act)));
     }
-		printf("ESTO Es el id_next  %ld \n",id_next);
-		printf("ESTO Es el id_act  %ld \n",id_act);
+
 
     space_back = game_get_space(game, id_back);
     space_next = game_get_space(game, id_next);
-	printf("ESTO ES ES ESPACIO anterior %s\n",space_get_name(space_back));
-	printf("ESTO ES ES ESPACIO sigueinte %s\n\n",space_get_name(space_next));
 
-	printf("ESTO ES LINK al ESTE %ld\n",space_get_east_link(space_act));
-	printf("ESTO ES LINK al OESTE %ld\n",space_get_west_link(space_act));
-	printf("ESTO ES LINK al NORTE %ld\n",space_get_north_link(space_act));
-	printf("ESTO ES LINK al SUR %ld\n",space_get_south_link(space_act));
 
 		id=NO_ID;
 		if (space_back!=NULL){
@@ -134,19 +127,19 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 				sprintf(str, "  | 8D                %2ld|",id_act);
 			}
 			else if(id_east != NO_ID && id_west == NO_ID){
-				sprintf(str, "  |                     |%ld",game_get_link_id2(game,id_east));
+				sprintf(str, "  |                     |%ld",id_east);
 					screen_area_puts(ge->map, str);
-				sprintf(str, "  | 8D                %2ld|->%ld ",id_act,id_east);
+				sprintf(str, "  | 8D                %2ld|->%ld ",id_act,game_get_link_id2(game,id_east));
 			}
 			else if(id_east != NO_ID && id_west != NO_ID){
-				sprintf(str, " %ld|                     |%ld",game_get_link_id2(game, id_west),game_get_link_id2(game,id_east));
+				sprintf(str, " %ld|                    |%ld",id_west,id_east);
 					screen_area_puts(ge->map, str);
-				sprintf(str, "%ld| 8D                %2ld|->%ld",id_west,id_act,id_east);
+				sprintf(str, "%ld<-| 8D               %2ld|->%ld",game_get_link_id2(game, id_west),id_act,game_get_link_id2(game,id_east));
 			}
 			else{
-				sprintf(str, " %ld |                     |",game_get_link_id2(game, id_west));
+				sprintf(str, " %ld |                     |",id_west);
 					screen_area_puts(ge->map, str);
-				sprintf(str, "%ld <-| 8D                %2ld|",id_west,id_act);
+				sprintf(str, "%ld <-| 8D                %2ld|",game_get_link_id2(game, id_west),id_act);
 			}
 			screen_area_puts(ge->map, str);
 			for(i=1; i<=MAX_OBJ; i++){
@@ -235,7 +228,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	screen_area_puts(ge->help, str);
 	sprintf(str, " following/f, previous/p, exit/e, take/t, drop/d");
 	screen_area_puts(ge->help, str);
-	sprintf(str, " move/m(die), left/l, right/r, check/c");
+	sprintf(str, " move/m(die), go/g ");
 
 	screen_area_puts(ge->help, str);
 

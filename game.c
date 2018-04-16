@@ -16,7 +16,7 @@
 #include "game_reader.h"
 
 
-#define N_CALLBACK 10
+#define N_CALLBACK 7
 
 
 /**
@@ -54,22 +54,9 @@ STATUS game_callback_unknown(Game* game);
  * @return No devuelve nada al ser una función void
  */
 STATUS game_callback_exit(Game* game);
-/*---------------------------------------------------------------------------------------------*/
-/**
- * @brief Sitúa al jugador en la siguiente posición
- * @author Profesores PPROG
- * @param Game game creado anteriormente
- * @return No devuelve nada al ser una función void
- */
-STATUS game_callback_following(Game* game);
-/*---------------------------------------------------------------------------------------------*/
-/**
- * @brief Sitúa al jugador en la posición previa
- * @author Profesores PPROG
- * @param Game game creado anteriormente
- * @return No devuelve nada al ser una función void
- */
-STATUS game_callback_previous(Game* game);
+
+STATUS game_callback_go(Game *game);
+
 /*---------------------------------------------------------------------------------------------*/
 /**
  * @brief Coge un objeto y lo asigna al jugador hasta que se haga un drop
@@ -94,22 +81,7 @@ STATUS game_callback_drop(Game* game);
  * @return No devuelve nada al ser una función void
  */
 STATUS game_callback_roll(Game* game);
-/*---------------------------------------------------------------------------------------------*/
-/**
- * @brief Sitúa al jugador en la anterior posición de una oca
- * @author Gonzalo Martinez
- * @param Game game creado anteriormente
- * @return No devuelve nada al ser una función void
- */
-STATUS game_callback_left(Game* game);
-/*---------------------------------------------------------------------------------------------*/
-/**
- * @brief Sitúa al jugador en la siguiente posición de una oca
- * @author Gonzalo Martinez
- * @param Game game creado anteriormente
- * @return No devuelve nada al ser una función void
- */
-STATUS game_callback_right(Game* game);
+
 /*---------------------------------------------------------------------------------------------*/
 /**
  * @brief Muestra la descripcion del objeto indicado
@@ -123,13 +95,11 @@ STATUS game_callback_check(Game* game);
 static callback_fn game_callback_fn_list[N_CALLBACK]={
 	game_callback_unknown,
 	game_callback_exit,
-	game_callback_following,
-	game_callback_previous,
+
 	game_callback_take,
 	game_callback_drop,
 	game_callback_roll,
-	game_callback_left,
-	game_callback_right,
+  game_callback_go,
   game_callback_check
 };
 
@@ -334,7 +304,7 @@ Id game_get_link_id2(Game* game, Id id) {
 	if(!game){
 		return NO_ID;
 	}
-	return link_get_id2(game->link[id]);
+	return link_get_id2(game->link[id-1]);
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion encargada de proporcionar el ID de un espacio mediante una posicion determinada*/
@@ -627,7 +597,7 @@ STATUS game_callback_drop(Game* game){
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Llamada a funcion para avanzar en el espacio*/
-STATUS game_callback_following(Game* game) {
+STATUS game_callback_go(Game* game) {
   int i = 0;
   Id current_id = NO_ID;
   Id space_id_player = NO_ID;
@@ -639,10 +609,24 @@ STATUS game_callback_following(Game* game) {
     return ERROR;
   }
 
+printf("%s\n",command_get_ob(game->cmd) );
+
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++) {
   		current_id = space_get_id(game->spaces[i]);
   		if (current_id == space_id_player) {
-  			idlink = space_get_south_link(game->spaces[i]);
+        if (strcmp("South",command_get_ob(game->cmd))==0||strcmp("south",command_get_ob(game->cmd))==0||strcmp("s",command_get_ob(game->cmd))==0){
+          idlink = space_get_south_link(game->spaces[i]);
+        }
+        else if(strcmp("North",command_get_ob(game->cmd))==0||strcmp("north",command_get_ob(game->cmd))==0||strcmp("n",command_get_ob(game->cmd))==0){
+            idlink = space_get_north_link(game->spaces[i]);
+        }
+        else if (strcmp("East",command_get_ob(game->cmd))==0||strcmp("east",command_get_ob(game->cmd))==0||strcmp("e",command_get_ob(game->cmd))==0){
+            idlink = space_get_east_link(game->spaces[i]);
+        }
+        else if (strcmp("West",command_get_ob(game->cmd))==0||strcmp("west",command_get_ob(game->cmd))==0||strcmp("w",command_get_ob(game->cmd))==0){
+            idlink = space_get_west_link(game->spaces[i]);
+        }
+        else return ERROR;
   			if (idlink != NO_ID) {
   				links = game_get_link(game, idlink);
           if(link_get_idopenclose(links) == TRUE){
@@ -660,126 +644,6 @@ STATUS game_callback_following(Game* game) {
       }
     }
     return ERROR;
-  }
-
-
-/*-----------------------------------------------------------------------------------------------------------------------*/
-/*Llamada a funcion para retroceder en el espacio*/
-STATUS game_callback_previous(Game* game) {
-  int i = 0;
-  Id current_id = NO_ID;
-  Id space_id_player = NO_ID;
-  Id idlink = NO_ID;
-  Link* links = NULL;
-
-  space_id_player = game_get_player_location(game);
-  if (!space_id_player) {
-    return ERROR;
-  }
-
-  for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++) {
-  		current_id = space_get_id(game->spaces[i]);
-  		if (current_id == space_id_player) {
-  			idlink = space_get_north_link(game->spaces[i]);
-  			if (idlink != NO_ID) {
-  				links = game_get_link(game, idlink);
-          if(link_get_idopenclose(links) == TRUE){
-            if(current_id == link_get_id1(links)){
-              current_id = link_get_id2(links);
-              game_set_player_location(game, current_id);
-              return OK;
-            }else if(current_id == link_get_id2(links)){
-              current_id = link_get_id1(links);
-              game_set_player_location(game, current_id);
-              return OK;
-            }
-          }
-  			}
-      }
-    }
-    return ERROR;
-  }
-
-/*-----------------------------------------------------------------------------------------------------------------------*/
-STATUS game_callback_left(Game* game) {
-  int i;
-  Id current_id = NO_ID;
-  Id space_id = NO_ID;
-  Id link_id = NO_ID;
-  Link* link = NULL;
-
-  space_id = game_get_player_location(game);
-
-  if (NO_ID == space_id) {
-    return ERROR;
-  }
-
-  for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++) {
-    current_id = space_get_id(game->spaces[i]);
-    if (current_id == space_id) {
-      link_id = space_get_west_link(game->spaces[i]);
-      if (link_id != NO_ID) {
-        link = game_get_link(game, link_id);
-        if(!link){
-          return ERROR;
-        }
-        if(link_get_idopenclose(link) == TRUE){
-          if(current_id == link_get_id1(link)){
-            current_id = link_get_id2(link);
-            game_set_player_location(game, current_id);
-            return OK;
-          }else if(current_id == link_get_id2(link)){
-            current_id = link_get_id1(link);
-            game_set_player_location(game, current_id);
-           return OK;
-          }
-        }
-      }
-    }
-  }
-  return ERROR;
-}
-
-
-/*-----------------------------------------------------------------------------------------------------------------------*/
-STATUS game_callback_right(Game* game) {
-  int i;
-  Id current_id = NO_ID;
-  Id space_id = NO_ID;
-  Id link_id = NO_ID;
-  Link* link = NULL;
-
-  space_id = game_get_player_location(game);
-
-  if (NO_ID == space_id) {
-    return ERROR;
-  }
-
-  for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++) {
-    current_id = space_get_id(game->spaces[i]);
-    if (current_id == space_id) {
-      link_id = space_get_east_link(game->spaces[i]);
-      if (link_id != NO_ID) {
-        link = game_get_link(game, link_id);
-        if(!link){
-          return ERROR;
-        }
-        if(link_get_idopenclose(link) == TRUE){
-          if(current_id == link_get_id1(link)){
-            current_id = link_get_id2(link);
-            game_set_player_location(game, current_id);
-            return OK;
-
-          }else if(current_id == link_get_id2(link)){
-            current_id = link_get_id1(link);
-            game_set_player_location(game, current_id);
-            return OK;
-          }
-        }
-      }
-    }
-  }
-  return ERROR;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -796,6 +660,14 @@ STATUS game_callback_check(Game* game) {
   int i=0, obj=0;
 
   space_id_player = game_get_player_location(game);
+
+  if(strcmp((command_get_ob(game->cmd)),"space")==0){
+
+    for(i=0; (space_id_player)!=(space_get_id(game->spaces[i])); i++){}
+    strcpy(game->check_info, space_get_description(game->spaces[i]));
+
+    return OK;
+  }
 
   for(i=0;game->ob[i]!=NULL;i++){
 		if(strcmp(game_get_name_object(game, i+1),command_get_ob(game->cmd))==0){
