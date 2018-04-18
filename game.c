@@ -16,7 +16,7 @@
 #include "game_reader.h"
 
 
-#define N_CALLBACK 7
+#define N_CALLBACK 9
 
 
 /**
@@ -32,6 +32,9 @@ struct _Game{
   char check_info[WORD_SIZE + 1];
   Die * die; /*!<Dado que se utiliza en el juego*/
   STATUS estado;/*!<estado del comando*/
+  STATUS encendido;/*!<iluminación del objeto*/
+  STATUS apagado;/*!<iluminación del objeto*/
+  char object_info[WORD_SIZE + 1];/*!<descripción del objeto */
 };
 /**
 List of callbacks for each command in the game
@@ -90,6 +93,23 @@ STATUS game_callback_roll(Game* game);
  * @return No devuelve nada al ser una función void
  */
 STATUS game_callback_check(Game* game);
+/*---------------------------------------------------------------------------------------------*/
+/**
+ * @brief Ilumina un objeto
+ * @author Miguel Manzano
+ * @param Game game creado anteriormente
+ * @return No devuelve nada al ser una función void
+ */
+STATUS game_callback_turnon(Game* game);
+
+/*---------------------------------------------------------------------------------------------*/
+/**
+ * @brief Apaga un objeto
+ * @author Miguel Manzano
+ * @param Game game creado anteriormente
+ * @return No devuelve nada al ser una función void
+ */
+STATUS game_callback_turnoff(Game* game);
 
 /*Lista de comando que se pueden dar*/
 static callback_fn game_callback_fn_list[N_CALLBACK]={
@@ -99,8 +119,10 @@ static callback_fn game_callback_fn_list[N_CALLBACK]={
 	game_callback_take,
 	game_callback_drop,
 	game_callback_roll,
-  game_callback_go,
-  game_callback_check
+  	game_callback_go,
+  	game_callback_check,
+	game_callback_turnon,
+	game_callback_turnoff
 };
 
 /**
@@ -248,6 +270,28 @@ STATUS game_add_object(Game* game, Object* object) {
 	return OK;
 }
 
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Funcion que devuelve la iluminacion*/
+
+STATUS game_get_encendido(Game* game){
+    if (!game) {
+      return ERROR;
+    }
+    game->encendido = OK;
+    return game->encendido;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Funcion que devuelve la iluminacion*/
+
+STATUS game_get_apagado(Game* game){
+    if (!game) {
+      return ERROR;
+    }
+    game->apagado = OK;
+    return game->apagado;
+}
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función para añadir un objeto adicional*/
@@ -436,6 +480,16 @@ const char *game_get_info (Game* game) {
   }
 
   return game->check_info;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Funcion que se encarga de devolver la descricion almacenada del objeto*/
+const char *game_get_objectinfo (Game* game) {
+  if (!game) {
+    return NULL;
+  }
+
+  return game->object_info;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -689,3 +743,78 @@ STATUS game_callback_check(Game* game) {
 return ERROR;
 
 }
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Llamada a funcion en la que se ilumina un objeto*/
+
+STATUS game_callback_turnon(Game* game){
+
+	int i=0;
+	Id id_object=NO_ID;
+	Id space_id_player = NO_ID;
+	Id space_id_object = NO_ID;
+
+  space_id_player = game_get_player_location(game);
+
+	if(space_id_player == NO_ID){
+		return ERROR;
+	}
+	for(i=0;game->ob[i]!=NULL;i++){
+		if(strcmp(game_get_name_object(game, i+1),command_get_ob(game->cmd))==0){
+			break;
+		}
+	}
+  if(game->ob[i]==NULL){
+		command_interpret_input(game->cmd,command_get_ob(game->cmd));
+		return ERROR;
+	}
+  id_object = object_get_id(game->ob[i]);
+	space_id_object=game_get_object_location(game, id_object);
+	if(space_id_player==space_id_object){
+		game->encendido = OK;
+
+		return OK;
+	}
+	else{
+    return ERROR;
+	}
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Llamada a funcion en la que se apaga un objeto*/
+
+STATUS game_callback_turnoff(Game* game){
+
+	int i=0;
+	Id id_object=NO_ID;
+	Id space_id_player = NO_ID;
+	Id space_id_object = NO_ID;
+
+
+  space_id_player = game_get_player_location(game);
+
+	if(space_id_player == NO_ID){
+		return ERROR;
+	}
+	for(i=0;game->ob[i]!=NULL;i++){
+		if(strcmp(game_get_name_object(game, i+1),command_get_ob(game->cmd))==0){
+			break;
+		}
+	}
+  if(game->ob[i]==NULL){
+		command_interpret_input(game->cmd,command_get_ob(game->cmd));
+		return ERROR;
+	}
+  id_object = object_get_id(game->ob[i]);
+	space_id_object=game_get_object_location(game, id_object);
+	if(space_id_player==space_id_object){
+		game->apagado = OK;
+
+
+		return OK;
+	}
+	else{
+    return ERROR;
+	}
+}
+

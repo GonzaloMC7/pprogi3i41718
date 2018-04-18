@@ -228,7 +228,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	screen_area_puts(ge->help, str);
 	sprintf(str, " following/f, previous/p, exit/e, take/t, drop/d");
 	screen_area_puts(ge->help, str);
-	sprintf(str, " move/m(die), go/g ");
+	sprintf(str, " move/m(die), go/g, check/c, turnon/n, turnoff/f ");
 
 	screen_area_puts(ge->help, str);
 

@@ -16,11 +16,11 @@
 #include "command.h"
 
 #define CMD_LENGTH 999
-#define N_CMD 8 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 5*/
+#define N_CMD 10 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 5*/
 #define MAX 200
 
 /*Enumeración de los posibles comandos a introducir y debajo sus correspondientes abreviaturas, incluido el incorrrecto*/
-char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check"};
+char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check", "Turnon", "Turnoff"};
 
 struct _Command{
 	char vrb[MAX]; /*!< cadena de caracteres referido al comando enumerado que introduce el usuario*/
@@ -111,13 +111,47 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		cont++;
 	}
 	cont++;
-	if (input[cont]!='O' && input[cont]!='s'){/*Esa O hay que cambiarla si se cambia el nombre de los objetos por uno que no empiece por O*/
+	if (input[cont]!='O' && input[cont]!='s'){
 	cmd->command = UNKNOWN;
 	}
 	else{
 		strcpy(cmd->vrb,"check");
 		strcpy(cmd->ob,input+cont);
 	}
+
+	}else if ((strncmp("turnon", input, 4) == 0)
+            || (strncmp("n", input, 1) == 0) || (strncmp("N", input, 1) == 0)||(strcmp(input, "Turnon")==0)) {
+
+        cmd->command = TURNON;
+
+		for (i=0;input[i]!=' ';i++){
+			cont++;
+		}
+		cont++;
+		if (input[cont]!='O'){
+			cmd->command = UNKNOWN;
+		}
+		else{
+			strcpy(cmd->vrb,"turnon");
+			strcpy(cmd->ob,input+cont);
+		}
+ }else if ((strncmp("turnoff", input, 4) == 0)
+            || (strncmp("f", input, 1) == 0) || (strncmp("F", input, 1) == 0)||(strcmp(input, "Turnoff")==0)) {
+
+        cmd->command = TURNOFF;
+
+		for (i=0;input[i]!=' ';i++){
+			cont++;
+		}
+		cont++;
+		if (input[cont]!='O'){
+			cmd->command = UNKNOWN;
+		}
+		else{
+			strcpy(cmd->vrb,"turnoff");
+			strcpy(cmd->ob,input+cont);
+		}
+	
 
 } else if ((strncmp("go", input, 2) == 0)
 				|| (strncmp("g", input, 1) == 0) || (strncmp("G", input, 1) == 0)||(strcmp(input, "Go")==0)) {

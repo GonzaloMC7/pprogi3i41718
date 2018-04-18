@@ -277,5 +277,29 @@ BOOL game_find_player_object(Game* game, Id IdObject);
  * @return Devuelve la descricion almacenada en game
  */
 const char *game_get_info (Game* game);
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Obtiene la iluminación de un objeto
+ * @author Miguel Manzano
+ * @param Objeto determinado
+ * @return Id del objeto determinado
+ */
+STATUS game_get_encendido(Game* game);
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Obtiene la iluminación de un objeto
+ * @author Miguel Manzano
+ * @param Objeto determinado
+ * @return Id del objeto determinado
+ */
+STATUS game_get_apagado(Game* game);
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Obtiene la descricion almacenada del objeto
+ * @author Miguel Manzano
+ * @param El juego creado
+ * @return Devuelve la descricion almacenada en game
+ */
+const char *game_get_objectinfo (Game* game);
 
 #endif

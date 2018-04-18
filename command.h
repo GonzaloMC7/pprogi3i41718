@@ -29,7 +29,9 @@ typedef enum enum_Command {
   DROP, /*!<Dejar un objeto*/
   MOVE, /*!<Rodar el dado*/
   GO,
-  CHECK
+  CHECK,
+  TURNON,
+  TURNOFF
   } T_Command;
 
 /*---------------------------------------------------------------------------------------------*/
