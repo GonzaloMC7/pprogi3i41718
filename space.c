@@ -31,6 +31,7 @@ struct _Space {
 	char ilus2[WORD_SIZE];
 	char ilus3[WORD_SIZE];
 	char description[WORD_SIZE];
+	BOOL light;
 };
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -63,6 +64,8 @@ Space* space_create(Id id) {
 	newSpace->west = NO_ID;
 
 	newSpace->objects = set_create();
+
+	newSpace->light = TRUE; /*Al inicializarlo lo ponemos a espacio iluminado*/	
 
 	return newSpace;
 }
@@ -376,6 +379,30 @@ BOOL space_find_id(Space *space, Id IdObject){
 		return FALSE;
 
 }
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+STATUS space_set_lightON(Space * space){
+	if(!space) return ERROR;
+
+	space->light=TRUE;
+	return OK;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+STATUS space_set_lightOFF(Space * space){
+	if(!space) return ERROR;
+
+	space->light=FALSE;
+	return OK;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+BOOL space_get_light(Space * space){
+	if(!space) return FALSE;
+
+	if(space->light==TRUE){
+		return TRUE;
+	}else return FALSE;
+}
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función que imprime el estado de un espacio*/
 
@@ -432,6 +459,13 @@ STATUS space_print(Space* space) {
 	} else {
 		fprintf(stdout, "---> No object in the space.\n");
 	}
+
+	if(space_get_light(space)==TRUE){
+		fprintf(stdout, "---> Illuminated space\n");
+	}else {
+		fprintf(stdout, "---> Dark space\n");
+	}
+
 
 	return OK;
 }
