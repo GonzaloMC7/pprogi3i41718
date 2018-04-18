@@ -254,6 +254,33 @@ BOOL space_find_id(Space *space, Id IdObject);
  */
 STATUS space_destroy_object(Space* space, Id IdObject);
 
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Pone la iluminación a encendido
+ * @author Gonzalo Martinez
+ * @param Puntero a Space
+ * @return Devuelve OK si se ha asignado correctamente o ERROR en caso contrario
+ */
+STATUS space_set_lightON(Space * space);
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Pone la iluminación a apagado
+ * @author Gonzalo Martinez
+ * @param Puntero a Space
+ * @return Devuelve OK si se ha asignado correctamente o ERROR en caso contrario
+ */
+STATUS space_set_lightOFF(Space * space);
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Obtiene el estado de la iluminación (encendido/apagado)
+ * @author Gonzalo Martinez
+ * @param Puntero a Space
+ * @return Devuelve OK si se ha asignado correctamente o ERROR en caso contrario
+ */
+BOOL space_get_light(Space * space);
+
 /*-----------------------------------------------------------------------------------------------------*/
 /**
  * @brief Imprime el estado en el que se encuentra un espacio
