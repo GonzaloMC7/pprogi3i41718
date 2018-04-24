@@ -141,6 +141,42 @@ Id space_get_west_link(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
+ * @brief Asigna el Id que se le proporciona a un espacio que se encuentra en en la posicion superior
+ * @author Miguel Manzano
+ * @param Puntero a Space el cual se quiere asignar el Id, y el Id determinado que se le quiere dar
+ * @return Devuelve OK si se ha asignado correctamente, o ERROR en caso contrario
+ */
+STATUS space_set_up_link(Space* space, Id id);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Obtiene el Id de la posicion superior de un espacio
+ * @author Miguel Manzano
+ * @param Puntero a Space el cual se quiere obtener el Id
+ * @return Devuelve el Id este del espacio seleccionado
+ */
+Id space_get_up_link(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Asigna el Id que se le proporciona a un espacio que se encuentra en en la posicion inferior
+ * @author Miguel Manzano
+ * @param Puntero a Space el cual se quiere asignar el Id, y el Id determinado que se le quiere dar
+ * @return Devuelve OK si se ha asignado correctamente, o ERROR en caso contrario
+ */
+STATUS space_set_down_link(Space* space, Id id);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+ * @brief Obtiene el Id de la posicion inferior de un espacio
+ * @author Miguel Manzano
+ * @param Puntero a Space el cual se quiere obtener el Id
+ * @return Devuelve el Id este del espacio seleccionado
+ */
+Id space_get_down_link(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
  * @brief Asigna la parte superior de la ilus3acion leida a un espacio
  * @author Juan Martin
  * @param Puntero a Space y cadena de caracteres a establecer

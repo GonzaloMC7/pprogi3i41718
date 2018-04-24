@@ -680,8 +680,16 @@ printf("%s\n",command_get_ob(game->cmd) );
         else if (strcmp("West",command_get_ob(game->cmd))==0||strcmp("west",command_get_ob(game->cmd))==0||strcmp("w",command_get_ob(game->cmd))==0){
             idlink = space_get_west_link(game->spaces[i]);
         }
+	else if (strcmp("Up",command_get_ob(game->cmd))==0||strcmp("up",command_get_ob(game->cmd))==0||strcmp("u",command_get_ob(game->cmd))==0){
+            idlink = space_get_up_link(game->spaces[i]);
+        }
+	else if (strcmp("Down",command_get_ob(game->cmd))==0||strcmp("down",command_get_ob(game->cmd))==0||strcmp("d",command_get_ob(game->cmd))==0){
+            idlink = space_get_down_link(game->spaces[i]);
+        }
+
         else return ERROR;
-  			if (idlink != NO_ID) {
+
+  	if (idlink != NO_ID) {
   				links = game_get_link(game, idlink);
           if(link_get_idopenclose(links) == TRUE){
             if(current_id == link_get_id1(links)){

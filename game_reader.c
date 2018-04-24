@@ -27,7 +27,7 @@
     char ilus2[WORD_SIZE] = "";
     char ilus3[WORD_SIZE] = "";
     char description[WORD_SIZE] = "";
-    Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID;
+    Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID, up = NO_ID, down = NO_ID;
     Space *space = NULL;
     STATUS status = OK;
 
@@ -62,6 +62,10 @@
         toks = strtok(NULL, "|");
         west = atol(toks);
         toks = strtok(NULL, "|");
+	up = atol(toks);
+        toks = strtok(NULL, "|");
+	down = atol(toks);
+        toks = strtok(NULL, "|");
 
 		strcpy(ilus1,toks);
         toks = strtok(NULL, "|");
@@ -73,19 +77,21 @@
 
 
   #ifdef DEBUG
-        printf("Leido: %ld|%s|%ld|%ld|%ld|%ld|%s|%s|%s\n", id, name, north, east, south, west, ilus1, ilus2, ilus3);
+        printf("Leido: %ld|%s|%ld|%ld|%ld|%ld|%ld|%ld|%s|%s|%s\n", id, name, north, east, south, west, up, down, ilus1, ilus2, ilus3);
   #endif
         space = space_create(id);
         if (space != NULL) {
   		  space_set_name(space, name);
   		  space_set_north_link(space, north);
-        space_set_east_link(space, east);
+        	  space_set_east_link(space, east);
   		  space_set_south_link(space, south);
-        space_set_west_link(space, west);
-		    space_set_ilus1(space, ilus1);
+        	  space_set_west_link(space, west);
+		  space_set_up_link(space, up);
+		  space_set_down_link(space, down);
+		  space_set_ilus1(space, ilus1);
 	  	  space_set_ilus2(space, ilus2);
 	  	  space_set_ilus3(space, ilus3);
-        space_set_description(space, description);
+        	  space_set_description(space, description);
 
   		  game_add_space(game, space);
   	  }

@@ -30,11 +30,11 @@ Graphic_engine *graphic_engine_create(){
 	screen_init();
 	ge = (Graphic_engine *) malloc(sizeof(Graphic_engine));
 
-	ge->map      = screen_area_init( 1, 1, 48, 13);
-	ge->descript = screen_area_init(50, 1, 29, 13);
-	ge->banner   = screen_area_init(28,15, 23,  1);
-	ge->help     = screen_area_init( 1,16, 78,  2);
-	ge->feedback = screen_area_init( 1,19, 78,  3);
+	ge->map      = screen_area_init( 1, 1, 88, 40);
+	ge->descript = screen_area_init(90, 1, 39, 40);
+	ge->banner   = screen_area_init(28,42, 23,  1);
+	ge->help     = screen_area_init( 1,43, 128,  2);
+	ge->feedback = screen_area_init( 1,46, 128,  3);
 
 	return ge;
 }
