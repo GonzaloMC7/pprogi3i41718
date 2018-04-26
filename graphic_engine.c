@@ -30,10 +30,10 @@ Graphic_engine *graphic_engine_create(){
 	screen_init();
 	ge = (Graphic_engine *) malloc(sizeof(Graphic_engine));
 
-	ge->map      = screen_area_init( 1, 1, 88, 40);
-	ge->descript = screen_area_init(90, 1, 39, 40);
-	ge->banner   = screen_area_init(28,42, 23,  1);
-	ge->help     = screen_area_init( 1,43, 128,  2);
+	ge->map      = screen_area_init( 1, 1, 90, 35);
+	ge->descript = screen_area_init(94, 1,52, 35);
+	ge->banner   = screen_area_init(28,39, 43,  1);
+	ge->help     = screen_area_init( 1,42, 128,  3);
 	ge->feedback = screen_area_init( 1,46, 128,  3);
 
 	return ge;
@@ -93,93 +93,122 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 
 
 		id=NO_ID;
-		if (space_back!=NULL){
-			sprintf(str, "  |                   %ld|",id_act);
-			screen_area_puts(ge->map, str);
-		/*	sprintf(str, "  |                   %2d|",(int) id_back);
-			screen_area_puts(ge->map, str);*/
-			for(i=1; i<=MAX_OBJ; i++){
-				if(game_get_object_location(game, i) == id_back){
-					sprintf(str, "  |           O: %s    |",game_get_name_object(game,i));
-					screen_area_puts(ge->map, str);
-				}
-
-			}
-			if (id==NO_ID){
-				sprintf(str, "  |                     |");
-				screen_area_puts(ge->map, str);
-			}
-
-			sprintf(str, "  +---------------------+");
-			screen_area_puts(ge->map, str);
-			sprintf(str, "        ^ %ld",space_get_north_link(space_act));
-			screen_area_puts(ge->map, str);
-		}
-		id=NO_ID;
+		
 
 		id_east=space_get_east_link(space_act);
 		id_west=space_get_west_link(space_act);
 
 		if (id_act != NO_ID) {
-			sprintf(str, "  +---------------------+");
+			sprintf(str, " ");
+			screen_area_puts(ge->map, str);
+			sprintf(str, " ");
+			screen_area_puts(ge->map, str);
+			sprintf(str, " ");
+			screen_area_puts(ge->map, str);
+			sprintf(str, " ");
+			screen_area_puts(ge->map, str);
+			sprintf(str, " ");
+			screen_area_puts(ge->map, str);
+			sprintf(str, " ");
+			screen_area_puts(ge->map, str);
+			sprintf(str, " ");
+			screen_area_puts(ge->map, str);
+			sprintf(str, " ");
+			screen_area_puts(ge->map, str);
+			if (space_back!=NULL){
+			/*sprintf(str, "  		|                   %ld|",id_act);
+			screen_area_puts(ge->map, str);
+			for(i=1; i<=MAX_OBJ; i++){
+				if(game_get_object_location(game, i) == id_back){
+					sprintf(str, "  	|           O: %s    |",game_get_name_object(game,i));
+					screen_area_puts(ge->map, str);
+				}
+
+			}
+			if (id==NO_ID){
+				sprintf(str, "  		|                     |");
+				screen_area_puts(ge->map, str);
+			}
+
+			sprintf(str, "  		+---------------------+");
+			screen_area_puts(ge->map, str);*/
+			sprintf(str, "                                      ^%ld         ",space_get_north_link(space_act));
+			screen_area_puts(ge->map, str);
+		}
+		id=NO_ID;
+			sprintf(str, "                +------------------------------------------+");
 			screen_area_puts(ge->map, str);
 			if(id_east == NO_ID && id_west == NO_ID){
-				sprintf(str, "  | 8D                %2ld|",id_act);
+				sprintf(str, "                |                      8D                %2ld|",id_act);
 			}
 			else if(id_east != NO_ID && id_west == NO_ID){
-				sprintf(str, "  |                     |%ld",id_east);
+				sprintf(str, "                |                                          |%ld",id_east);
 					screen_area_puts(ge->map, str);
-				sprintf(str, "  | 8D                %2ld|->%ld ",id_act,game_get_link_id2(game,id_east));
+				sprintf(str, "                |                      8D                %2ld|->%ld ",id_act,game_get_link_id2(game,id_east));
 			}
 			else if(id_east != NO_ID && id_west != NO_ID){
-				sprintf(str, " %ld|                    |%ld",id_west,id_east);
+				sprintf(str, "                %ld|                                         |%ld",id_west,id_east);
 					screen_area_puts(ge->map, str);
-				sprintf(str, "%ld<-| 8D               %2ld|->%ld",game_get_link_id2(game, id_west),id_act,game_get_link_id2(game,id_east));
+				sprintf(str, "                %ld<-|                      8D               %2ld|->%ld",game_get_link_id2(game, id_west),id_act,game_get_link_id2(game,id_east));
 			}
 			else{
-				sprintf(str, " %ld |                     |",id_west);
+				sprintf(str, "                %ld |                                          |",id_west);
 					screen_area_puts(ge->map, str);
-				sprintf(str, "%ld <-| 8D                %2ld|",game_get_link_id2(game, id_west),id_act);
+				sprintf(str, "                %ld <-|                      8D                %2ld|",game_get_link_id2(game, id_west),id_act);
 			}
 			screen_area_puts(ge->map, str);
 			for(i=1; i<=MAX_OBJ; i++){
 				if(game_get_object_location(game, i) == id_act){
-					sprintf(str, "  |           O: %s    |",game_get_name_object(game,i));
+					sprintf(str, "                |                                O: %s    |",game_get_name_object(game,i));
 					screen_area_puts(ge->map, str);
 				}
 			}
 			if (id==NO_ID){
-				sprintf(str, "  |                     |");
+				sprintf(str, "                |                                          |");
+				screen_area_puts(ge->map, str);
+				sprintf(str, "                |                                          |");
+				screen_area_puts(ge->map, str);
+				sprintf(str, "                |                                          |");
+				screen_area_puts(ge->map, str);
+				sprintf(str, "                |                                          |");
+				screen_area_puts(ge->map, str);
+				sprintf(str, "                |                                          |");
+				screen_area_puts(ge->map, str);
+				sprintf(str, "                |                                          |");
+				screen_area_puts(ge->map, str);
+				sprintf(str, "                |                                          |");
+				screen_area_puts(ge->map, str);
+				sprintf(str, "                |                                          |");
 				screen_area_puts(ge->map, str);
 			}
-			sprintf(str, "  |        %s      |", space_get_ilus1(space_act));
+			sprintf(str, "                |                             %s      |", space_get_ilus1(space_act));
 			screen_area_puts(ge->map, str);
-			sprintf(str, "  |        %s      |", space_get_ilus2(space_act));
+			sprintf(str, "                |                             %s      |", space_get_ilus2(space_act));
 			screen_area_puts(ge->map, str);
-			sprintf(str, "  |        %s      |", space_get_ilus3(space_act));
+			sprintf(str, "                |                             %s      |", space_get_ilus3(space_act));
 			screen_area_puts(ge->map, str);
-			sprintf(str, "  +---------------------+");
+			sprintf(str, "                +------------------------------------------+");
 			screen_area_puts(ge->map, str);
 		}
 
 		id=NO_ID;
 		if (id_next != NO_ID) {
-			sprintf(str, "        v %ld",space_get_south_link(space_act));
+			sprintf(str, "                                      v%ld         ",space_get_south_link(space_act));
 			screen_area_puts(ge->map, str);
-			sprintf(str, "  +---------------------+");
+			/*sprintf(str, "  		+---------------------+");
 			screen_area_puts(ge->map, str);
-			sprintf(str, "  |                   %2ld|",id_next);
+			sprintf(str, "  		|                   %2ld|",id_next);
 			screen_area_puts(ge->map, str);
 			for(i=1; i<=MAX_OBJ; i++){
 				if(game_get_object_location(game, i) == id_next){
-					sprintf(str, "  |           O: %s    |",game_get_name_object(game,i));
+					sprintf(str, "  		|           O: %s    |",game_get_name_object(game,i));
 					screen_area_puts(ge->map, str);
 				}
 			}
 			if (id==NO_ID){
-				sprintf(str, "  |                     |");
+				sprintf(str, "  		|                     |");
 				screen_area_puts(ge->map, str);
-			}
+			}*/
 
 		}
 	}
@@ -220,7 +249,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
   }
 
 	/* Paint the in the banner area */
-	screen_area_puts(ge->banner, " The game of the Goose ");
+	screen_area_puts(ge->banner, "         PRISION ESCAPE: A WAY OUT ");
 
 	/* Paint the in the help area */
 	screen_area_clear(ge->help);

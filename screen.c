@@ -17,7 +17,7 @@
 #pragma GCC diagnostic ignored "-Wpedantic"
 
 #define ROWS 50
-#define COLUMNS 130
+#define COLUMNS 150
 #define TOTAL_DATA (ROWS * COLUMNS) + 1
 
 #define BG_CHAR '~'
@@ -89,10 +89,10 @@ void screen_paint(){
       /* printf("%s\n", dest); */
       for (i=0; i<COLUMNS; i++){
 	if (dest[i] == BG_CHAR){
-	  printf("\033[0;37;47m%c\033[0m", dest[i]); /* foreground:blue(34); background:blue(44) */
+	  printf("\033[0;30;40m%c\033[0m", dest[i]); /* foreground:blue(34); background:blue(44) */
 		/*Este printf sirve para imprimir los colores, al igual que el de abajo que está en el siguiente else*/
 	}else{
-	  printf("\033[0;33;50m%c\033[0m", dest[i]); /* foreground:black(30); background:white(47) */
+	  printf("\033[0;30;47m%c\033[0m", dest[i]); /* foreground:black(30); background:white(47) */
 	}
       }
       printf("\n");
