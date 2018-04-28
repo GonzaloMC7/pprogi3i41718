@@ -1,12 +1,12 @@
 /**
- * @brief It implements the functions to define a screen
- *
- * @file screen.c
- * @author Profesores PPROG
- * @version 1.0
- * @date 11-01-2017
- * @copyright GNU Public License
- */
+* @brief It implements the functions to define a screen
+*
+* @file screen.c
+* @author Profesores PPROG
+* @version 1.0
+* @date 11-01-2017
+* @copyright GNU Public License
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -66,7 +66,7 @@ void screen_init(){
 
 void screen_destroy(){
   if (__data)
-    free(__data);
+  free(__data);
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -88,12 +88,12 @@ void screen_paint(){
       memcpy(dest, src, COLUMNS);
       /* printf("%s\n", dest); */
       for (i=0; i<COLUMNS; i++){
-	if (dest[i] == BG_CHAR){
-	  printf("\033[0;30;40m%c\033[0m", dest[i]); /* foreground:blue(34); background:blue(44) */
-		/*Este printf sirve para imprimir los colores, al igual que el de abajo que está en el siguiente else*/
-	}else{
-	  printf("\033[0;30;47m%c\033[0m", dest[i]); /* foreground:black(30); background:white(47) */
-	}
+        if (dest[i] == BG_CHAR){
+          printf("\033[0;30;40m%c\033[0m", dest[i]); /* foreground:blue(34); background:blue(44) */
+          /*Este printf sirve para imprimir los colores, al igual que el de abajo que está en el siguiente else*/
+        }else{
+          printf("\033[0;30;47m%c\033[0m", dest[i]); /* foreground:black(30); background:white(47) */
+        }
       }
       printf("\n");
     }
@@ -106,7 +106,7 @@ void screen_paint(){
 void screen_gets(char *str){
   fprintf(stdout, PROMPT);
   if (fgets(str, COLUMNS, stdin))
-    *(str + strlen(str) - 1) = 0; /* Replaces newline character with '\0' */
+  *(str + strlen(str) - 1) = 0; /* Replaces newline character with '\0' */
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -118,13 +118,13 @@ Area* screen_area_init(int x, int y, int width, int height){
 
   if ( (area  = (Area*) malloc (sizeof(struct _Area))) ){
     *area = (struct _Area) {x, y, width, height, ACCESS(__data, x, y)};
-		/*^^^Inicialización del espacio para la pantalla^^^*/
+    /*^^^Inicialización del espacio para la pantalla^^^*/
 
     for (i=0; i < area->height; i++)
-      memset(ACCESS(area->cursor, 0, i), (int) FG_CHAR, (size_t) area->width);
+    memset(ACCESS(area->cursor, 0, i), (int) FG_CHAR, (size_t) area->width);
   }
 
-	/*Se devuelve el área creado en esta función*/
+  /*Se devuelve el área creado en esta función*/
   return area;
 }
 
@@ -133,7 +133,7 @@ Area* screen_area_init(int x, int y, int width, int height){
 
 void screen_area_destroy(Area* area){
   if(area)
-    free(area);
+  free(area);
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -146,7 +146,7 @@ void screen_area_clear(Area* area){
     screen_area_reset_cursor(area);
 
     for (i=0; i < area->height; i++)
-      memset(ACCESS(area->cursor, 0, i), (int) FG_CHAR, (size_t) area->width);
+    memset(ACCESS(area->cursor, 0, i), (int) FG_CHAR, (size_t) area->width);
   }
 }
 
@@ -155,7 +155,7 @@ void screen_area_clear(Area* area){
 
 void screen_area_reset_cursor(Area* area){
   if (area)
-    area->cursor = ACCESS(__data, area->x, area->y);
+  area->cursor = ACCESS(__data, area->x, area->y);
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -166,7 +166,7 @@ void screen_area_puts(Area* area, char *str){
   char *ptr = NULL;
 
   if (screen_area_cursor_is_out_of_bounds(area))
-    screen_area_scroll_up(area);
+  screen_area_scroll_up(area);
 
   screen_utils_replaces_special_chars(str);
 
@@ -183,30 +183,30 @@ void screen_area_puts(Area* area, char *str){
 
 int screen_area_cursor_is_out_of_bounds(Area* area){
   return area->cursor > ACCESS(__data,
-			       area->x + area->width,
-			       area->y + area->height - 1);
-}
-
-/*-----------------------------------------------------------------------------------------------------------------------*/
-/*Función que permite subir en el área definida*/
-
-void screen_area_scroll_up(Area* area){
-  for(area->cursor = ACCESS(__data, area->x, area->y);
-      area->cursor < ACCESS(__data, area->x + area->width, area->y + area->height - 2);
-      area->cursor += COLUMNS){
-    memcpy(area->cursor, area->cursor+COLUMNS, area->width);
+    area->x + area->width,
+    area->y + area->height - 1);
   }
-}
 
-/*-----------------------------------------------------------------------------------------------------------------------*/
-/*Esta función reemplaza los caracteres que no se identifican por el ordenador por otros que si son identificables*/
+  /*-----------------------------------------------------------------------------------------------------------------------*/
+  /*Función que permite subir en el área definida*/
 
-void screen_utils_replaces_special_chars(char* str){
-  char *pch = NULL;
+  void screen_area_scroll_up(Area* area){
+    for(area->cursor = ACCESS(__data, area->x, area->y);
+    area->cursor < ACCESS(__data, area->x + area->width, area->y + area->height - 2);
+    area->cursor += COLUMNS){
+      memcpy(area->cursor, area->cursor+COLUMNS, area->width);
+    }
+  }
 
-  /* Replaces acutes and tilde with '??' */
-  while ((pch = strpbrk (str, "ÁÉÍÓÚÑáéíóúñ")))
+  /*-----------------------------------------------------------------------------------------------------------------------*/
+  /*Esta función reemplaza los caracteres que no se identifican por el ordenador por otros que si son identificables*/
+
+  void screen_utils_replaces_special_chars(char* str){
+    char *pch = NULL;
+
+    /* Replaces acutes and tilde with '??' */
+    while ((pch = strpbrk (str, "ÁÉÍÓÚÑáéíóúñ")))
     memcpy(pch, "??", 2);
-}
+  }
 
-/*-----------------------------------------------------------------------------------------------------*/
+  /*-----------------------------------------------------------------------------------------------------*/

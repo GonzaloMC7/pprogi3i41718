@@ -45,7 +45,7 @@ Space* space_create(Id id) {
 
 	/*Control de errores del id recibido*/
 	if (id == NO_ID)
-		return NULL;
+	return NULL;
 
 	/*Creación del espacio y su correspondiente control de errores*/
 	newSpace = (Space *) malloc(sizeof (Space));
@@ -69,7 +69,7 @@ Space* space_create(Id id) {
 
 	newSpace->objects = set_create();
 
-	newSpace->light = TRUE; /*Al inicializarlo lo ponemos a espacio iluminado*/	
+	newSpace->light = TRUE; /*Al inicializarlo lo ponemos a espacio iluminado*/
 
 	return newSpace;
 }
@@ -181,6 +181,7 @@ STATUS space_set_down_link(Space* space, Id idlink) {
 	return OK;
 }
 
+
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de asignación de la parte sueprior de la ilus3acion*/
 
@@ -220,15 +221,15 @@ STATUS space_set_ilus3(Space* space, char* ilus3) {
 /*-----------------------------------------------------------------------------------------------------*/
 /*Funcion que establece una descripcion al espacio deseado*/
 STATUS space_set_description(Space* space, char* description) {
-  if (!space || !description) {
-    return ERROR;
-  }
+	if (!space || !description) {
+		return ERROR;
+	}
 
-  if (!strcpy(space->description, description)) {
-    return ERROR;
-  }
+	if (!strcpy(space->description, description)) {
+		return ERROR;
+	}
 
-  return OK;
+	return OK;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -308,7 +309,6 @@ Id space_get_west_link(Space* space) {
 	/*^^^Control de errores arriba y se devuelve el espacio oeste (debajo)^^^*/
 	return space->west;
 }
-
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención de la posición up de un espacio*/
 
@@ -330,6 +330,7 @@ Id space_get_down_link(Space* space) {
 	/*^^^Control de errores arriba y se devuelve el espacio down (debajo)^^^*/
 	return space->down;
 }
+
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de obtención de la ilus3acion superior*/
 
@@ -366,10 +367,10 @@ const char * space_get_ilus3(Space* space) {
 /*-----------------------------------------------------------------------------------------------------*/
 /*Funcion que devuelve la descripcion de un espacio, el cual se recibe por argumento.*/
 const char * space_get_description(Space* space) {
-  if (!space) {
-    return NULL;
-  }
-  return space->description;
+	if (!space) {
+		return NULL;
+	}
+	return space->description;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -383,7 +384,7 @@ int space_get_object(Space* space){
 		return set_get_top(space->objects);
 	}
 	else
-		return -1;
+	return -1;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion que sirve para obtener el id de un objeto */
@@ -425,7 +426,7 @@ BOOL space_find_id(Space *space, Id IdObject){
 		return TRUE;
 	}
 	else
-		return FALSE;
+	return FALSE;
 
 }
 
@@ -526,13 +527,10 @@ STATUS space_print(Space* space) {
 	} else {
 		fprintf(stdout, "---> No object in the space.\n");
 	}
-
 	if(space_get_light(space)==TRUE){
 		fprintf(stdout, "---> Illuminated space\n");
 	}else {
 		fprintf(stdout, "---> Dark space\n");
 	}
-
-
 	return OK;
 }
