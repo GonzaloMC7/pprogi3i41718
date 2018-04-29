@@ -178,7 +178,7 @@ Id space_get_down_link(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
-* @brief Asigna la parte superior de la ilus3acion leida a un espacio
+* @brief Asigna parte de la ilustracion al espacio dado
 * @author Juan Martin
 * @param Puntero a Space y cadena de caracteres a establecer
 * @return Devuelve un status segun el exito de la funcion
@@ -187,7 +187,7 @@ STATUS space_set_ilus1(Space* space, char* ilus1);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
-* @brief Asigna la parte superior de la ilus3acion leida a un espacio
+* @brief Devuelve la parte indicada de la ilustracion
 * @author Juan Martin
 * @param Puntero a Space y cadena de caracteres a establecer
 * @return Devuelve un status segun el exito de la funcion
@@ -196,7 +196,7 @@ const char* space_get_ilus1(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
-* @brief Asigna la parte media de la ilus3acion leida a un espacio
+* @brief Asigna parte de la ilustracion al espacio dado
 * @author Juan Martin
 * @param Puntero a Space y cadena de caracteres a establecer
 * @return Devuelve un status segun el exito de la funcion
@@ -205,7 +205,7 @@ STATUS space_set_ilus2(Space* space, char *ilus2);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
-* @brief Asigna la parte superior de la ilus3acion leida a un espacio
+* @brief Devuelve la parte indicada de la ilustracion
 * @author Juan Martin
 * @param Puntero a Space y cadena de caracteres a establecer
 * @return Devuelve un status segun el exito de la funcion
@@ -214,7 +214,7 @@ const char* space_get_ilus2(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
-* @brief Asigna la parte inferior de una ilus3acion leida a un espacio
+* @brief Asigna parte de la ilustracion al espacio dado
 * @author Juan Martin
 * @param Puntero a Space y cadena de caracteres a establecer
 * @return Devuelve un status segun el exito de la funcion
@@ -223,12 +223,155 @@ STATUS space_set_ilus3(Space* space, char *ilus3);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
-* @brief Asigna la parte superior de la ilus3acion leida a un espacio
+* @brief Devuelve la parte indicada de la ilustracion
 * @author Juan Martin
 * @param Puntero a Space y cadena de caracteres a establecer
 * @return Devuelve un status segun el exito de la funcion
 */
 const char* space_get_ilus3(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Asigna parte de la ilustracion al espacio dado
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+STATUS space_set_ilus4(Space* space, char *ilus4);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Devuelve la parte indicada de la ilustracion
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+const char* space_get_ilus4(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Asigna parte de la ilustracion al espacio dado
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+STATUS space_set_ilus5(Space* space, char *ilus5);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Devuelve la parte indicada de la ilustracion
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+const char* space_get_ilus5(Space* space);
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Asigna parte de la ilustracion al espacio dado
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+STATUS space_set_ilus6(Space* space, char *ilus6);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Devuelve la parte indicada de la ilustracion
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+const char* space_get_ilus6(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Asigna parte de la ilustracion al espacio dado
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+STATUS space_set_ilus7(Space* space, char *ilus7);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Devuelve la parte indicada de la ilustracion
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+const char* space_get_ilus7(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Asigna parte de la ilustracion al espacio dado
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+STATUS space_set_ilus8(Space* space, char *ilus8);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Devuelve la parte indicada de la ilustracion
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+const char* space_get_ilus8(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Asigna parte de la ilustracion al espacio dado
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+STATUS space_set_ilus9(Space* space, char *ilus9);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Devuelve la parte indicada de la ilustracion
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+const char* space_get_ilus9(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Asigna parte de la ilustracion al espacio dado
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+STATUS space_set_ilus10(Space* space, char *ilus10);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Devuelve la parte indicada de la ilustracion
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+const char* space_get_ilus10(Space* space);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Asigna parte de la ilustracion al espacio dado
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+STATUS space_set_ilus11(Space* space, char *ilus11);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Devuelve la parte indicada de la ilustracion
+* @author Juan Martin
+* @param Puntero a Space y cadena de caracteres a establecer
+* @return Devuelve un status segun el exito de la funcion
+*/
+const char* space_get_ilus11(Space* space);
 
 /**
 * @brief Establece una descripcion a un espacio determinado
@@ -245,6 +388,22 @@ STATUS space_set_description(Space* space, char* description1);
 * @return la descripción del espacio
 */
 const char * space_get_description(Space* space);
+
+/**
+ * @brief Establece una descripcion más detallada a un espacio determinado
+ * @author Juan Martin
+ * @param espacio y descripcion a establecer
+ * @return OK si se ha asignado correctamente y ERROR si no se ha asignado correctamente
+ */
+ STATUS space_set_description2(Space* space, char* description2);
+
+ /**
+  * @brief Devuelve la descrición de un espacio determinado
+  * @author Juan Martin
+  * @param espacio del que se quiere la descrición
+  * @return la descripción del espacio
+  */
+ const char * space_get_description2(Space* space);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**

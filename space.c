@@ -32,7 +32,16 @@ struct _Space {
 	char ilus1[WORD_SIZE];
 	char ilus2[WORD_SIZE];
 	char ilus3[WORD_SIZE];
+	char ilus4[WORD_SIZE];
+	char ilus5[WORD_SIZE];
+	char ilus6[WORD_SIZE];
+	char ilus7[WORD_SIZE];
+	char ilus8[WORD_SIZE];
+	char ilus9[WORD_SIZE];
+	char ilus10[WORD_SIZE];
+	char ilus11[WORD_SIZE];
 	char description[WORD_SIZE];
+	char description2[WORD_SIZE];
 	BOOL light;
 };
 
@@ -183,7 +192,7 @@ STATUS space_set_down_link(Space* space, Id idlink) {
 
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-/*Función de asignación de la parte sueprior de la ilus3acion*/
+/*Función de asignación de la parte 1 de la ilustracion*/
 
 STATUS space_set_ilus1(Space* space, char* ilus1) {
 	if (!space || !ilus1) {
@@ -195,7 +204,7 @@ STATUS space_set_ilus1(Space* space, char* ilus1) {
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-/*Función de asignación de la parte media de la ilus3acion*/
+/*Función de asignación de la parte 2 de la ilustracion*/
 
 STATUS space_set_ilus2(Space* space, char* ilus2) {
 	if (!space || !ilus2) {
@@ -207,7 +216,7 @@ STATUS space_set_ilus2(Space* space, char* ilus2) {
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-/*Función de asignación de la parte inferior de la ilus3acion*/
+/*Función de asignación de la parte 3 de la ilustracion*/
 
 STATUS space_set_ilus3(Space* space, char* ilus3) {
 	if (!space || !ilus3) {
@@ -215,6 +224,95 @@ STATUS space_set_ilus3(Space* space, char* ilus3) {
 	}
 	/*^^^Control de errores arriba y asignación debajo^^^*/
 	strcpy(space->ilus3, ilus3);
+	return OK;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte 4 de la ilustracion*/
+
+STATUS space_set_ilus4(Space* space, char* ilus4) {
+	if (!space || !ilus4) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus4, ilus4);
+	return OK;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte 5 de la ilustracion*/
+
+STATUS space_set_ilus5(Space* space, char* ilus5) {
+	if (!space || !ilus5) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus5, ilus5);
+	return OK;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte 6 de la ilustracion*/
+
+STATUS space_set_ilus6(Space* space, char* ilus6) {
+	if (!space || !ilus6) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus6, ilus6);
+	return OK;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte 7 de la ilustracion*/
+
+STATUS space_set_ilus7(Space* space, char* ilus7) {
+	if (!space || !ilus7) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus7, ilus7);
+	return OK;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte 8 de la ilustracion*/
+
+STATUS space_set_ilus8(Space* space, char* ilus8) {
+	if (!space || !ilus8) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus8, ilus8);
+	return OK;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte 9 de la ilustracion*/
+
+STATUS space_set_ilus9(Space* space, char* ilus9) {
+	if (!space || !ilus9) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus9, ilus9);
+	return OK;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte 10 de la ilustracion*/
+
+STATUS space_set_ilus10(Space* space, char* ilus10) {
+	if (!space || !ilus10) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus10, ilus10);
+	return OK;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de asignación de la parte 11 de la ilustracion*/
+
+STATUS space_set_ilus11(Space* space, char* ilus11) {
+	if (!space || !ilus11) {
+		return ERROR;
+	}
+	/*^^^Control de errores arriba y asignación debajo^^^*/
+	strcpy(space->ilus11, ilus11);
 	return OK;
 }
 
@@ -230,6 +328,20 @@ STATUS space_set_description(Space* space, char* description) {
 	}
 
 	return OK;
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que establece una descripcion más detallada al espacio deseado*/
+STATUS space_set_description2(Space* space, char* description2) {
+  if (!space || !description2) {
+    return ERROR;
+  }
+
+  if (!strcpy(space->description2, description2)) {
+    return ERROR;
+  }
+
+  return OK;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -332,36 +444,118 @@ Id space_get_down_link(Space* space) {
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-/*Función de obtención de la ilus3acion superior*/
+/*Función de obtención de la ilustracion 1*/
 
 const char * space_get_ilus1(Space* space) {
 	if (!space) {
 		return NULL;
 	}
-	/*^^^Control de errores arriba y se devuelve la ilus3acion (debajo)^^^*/
+	/*^^^Control de errores arriba y se devuelve la ilustracion (debajo)^^^*/
 	return space->ilus1;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-/*Función de obtención de la ilus3acion del medio*/
+/*Función de obtención de la ilustracion 2*/
 
 const char * space_get_ilus2(Space* space) {
 	if (!space) {
 		return NULL;
 	}
-	/*^^^Control de errores arriba y se devuelve la ilus3acion (debajo)^^^*/
+	/*^^^Control de errores arriba y se devuelve la ilustracion (debajo)^^^*/
 	return space->ilus2;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-/*Función de obtención de la ilus3acion inferior*/
+/*Función de obtención de la ilustracion 3*/
 
 const char * space_get_ilus3(Space* space) {
 	if (!space) {
 		return NULL;
 	}
-	/*^^^Control de errores arriba y se devuelve la ilus3acion(debajo)^^^*/
+	/*^^^Control de errores arriba y se devuelve la ilustracion(debajo)^^^*/
 	return space->ilus3;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilustracion 4*/
+
+const char * space_get_ilus4(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilustracion(debajo)^^^*/
+	return space->ilus4;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilustracion 5*/
+
+const char * space_get_ilus5(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilustracion(debajo)^^^*/
+	return space->ilus5;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilustracion 6*/
+
+const char * space_get_ilus6(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilustracion(debajo)^^^*/
+	return space->ilus6;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilustracion 7*/
+
+const char * space_get_ilus7(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilustracion(debajo)^^^*/
+	return space->ilus7;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilustracion 8*/
+
+const char * space_get_ilus8(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilustracion(debajo)^^^*/
+	return space->ilus8;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilustracion 9*/
+
+const char * space_get_ilus9(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilustracion(debajo)^^^*/
+	return space->ilus9;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilustracion 10*/
+
+const char * space_get_ilus10(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilustracion(debajo)^^^*/
+	return space->ilus10;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Función de obtención de la ilustracion 11*/
+
+const char * space_get_ilus11(Space* space) {
+	if (!space) {
+		return NULL;
+	}
+	/*^^^Control de errores arriba y se devuelve la ilustracion(debajo)^^^*/
+	return space->ilus11;
 }
 
 /*-----------------------------------------------------------------------------------------------------*/
@@ -371,6 +565,15 @@ const char * space_get_description(Space* space) {
 		return NULL;
 	}
 	return space->description;
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que devuelve la segunda descripcion de un espacio, el cual se recibe por argumento.*/
+const char * space_get_description2(Space* space) {
+  if (!space) {
+    return NULL;
+  }
+  return space->description2;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/

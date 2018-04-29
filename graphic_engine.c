@@ -138,23 +138,38 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 id=NO_ID;
 sprintf(str, "                +------------------------------------------+");
 screen_area_puts(ge->map, str);
+
+	if (id==NO_ID){
+		sprintf(str, "                |%s|", space_get_ilus1(space_act));
+		screen_area_puts(ge->map, str);
+		sprintf(str, "                |%s|", space_get_ilus2(space_act));
+		screen_area_puts(ge->map, str);
+		sprintf(str, "                |%s|", space_get_ilus3(space_act));
+	screen_area_puts(ge->map, str);
+	sprintf(str, "                |%s|", space_get_ilus4(space_act));
+	screen_area_puts(ge->map, str);
+	sprintf(str, "                |%s|", space_get_ilus5(space_act));
+	screen_area_puts(ge->map, str);
+	sprintf(str, "                |%s|", space_get_ilus6(space_act));
+	screen_area_puts(ge->map, str);
+}
 if(id_east == NO_ID && id_west == NO_ID){
-	sprintf(str, "                |                      8D                %2ld|",id_act);
+	sprintf(str, "                |                      >8{               %2ld|",id_act);
 }
 else if(id_east != NO_ID && id_west == NO_ID){
 	sprintf(str, "                |                                          |%ld",id_east);
 	screen_area_puts(ge->map, str);
-	sprintf(str, "                |                      8D                %2ld|->%ld ",id_act,game_get_link_id2(game,id_east));
+	sprintf(str, "                |                      >8{               %2ld|->%ld ",id_act,game_get_link_id2(game,id_east));
 }
 else if(id_east != NO_ID && id_west != NO_ID){
 	sprintf(str, "                %ld|                                         |%ld",id_west,id_east);
 	screen_area_puts(ge->map, str);
-	sprintf(str, "                %ld<-|                      8D               %2ld|->%ld",game_get_link_id2(game, id_west),id_act,game_get_link_id2(game,id_east));
+	sprintf(str, "                %ld<-|                      >8{               %2ld|->%ld",game_get_link_id2(game, id_west),id_act,game_get_link_id2(game,id_east));
 }
 else{
 	sprintf(str, "                %ld |                                          |",id_west);
 	screen_area_puts(ge->map, str);
-	sprintf(str, "                %ld <-|                      8D                %2ld|",game_get_link_id2(game, id_west),id_act);
+	sprintf(str, "                %ld <-|                      >8{               %2ld|",game_get_link_id2(game, id_west),id_act);
 }
 screen_area_puts(ge->map, str);
 for(i=1; i<=MAX_OBJ; i++){
@@ -163,29 +178,15 @@ for(i=1; i<=MAX_OBJ; i++){
 		screen_area_puts(ge->map, str);
 	}
 }
-if (id==NO_ID){
-	sprintf(str, "                |                                          |");
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                |                                          |");
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                |                                          |");
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                |                                          |");
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                |                                          |");
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                |                                          |");
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                |                                          |");
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                |                                          |");
-	screen_area_puts(ge->map, str);
-}
-sprintf(str, "                |                             %s      |", space_get_ilus1(space_act));
+sprintf(str, "                |%s|", space_get_ilus7(space_act));
 screen_area_puts(ge->map, str);
-sprintf(str, "                |                             %s      |", space_get_ilus2(space_act));
+sprintf(str, "                |%s|", space_get_ilus8(space_act));
 screen_area_puts(ge->map, str);
-sprintf(str, "                |                             %s      |", space_get_ilus3(space_act));
+sprintf(str, "                |%s|", space_get_ilus9(space_act));
+screen_area_puts(ge->map, str);
+sprintf(str, "                |%s|", space_get_ilus10(space_act));
+screen_area_puts(ge->map, str);
+sprintf(str, "                |%s|", space_get_ilus11(space_act));
 screen_area_puts(ge->map, str);
 sprintf(str, "                +------------------------------------------+");
 screen_area_puts(ge->map, str);

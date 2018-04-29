@@ -26,7 +26,16 @@ STATUS game_reader_load_spaces(Game* game, char* filename) {
   char ilus1[WORD_SIZE] = "";
   char ilus2[WORD_SIZE] = "";
   char ilus3[WORD_SIZE] = "";
+  char ilus4[WORD_SIZE] = "";
+  char ilus5[WORD_SIZE] = "";
+  char ilus6[WORD_SIZE] = "";
+  char ilus7[WORD_SIZE] = "";
+  char ilus8[WORD_SIZE] = "";
+  char ilus9[WORD_SIZE] = "";
+  char ilus10[WORD_SIZE] = "";
+  char ilus11[WORD_SIZE] = "";
   char description[WORD_SIZE] = "";
+  char description2[WORD_SIZE] = "";
   Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID, up = NO_ID, down = NO_ID;
   Space *space = NULL;
   STATUS status = OK;
@@ -73,7 +82,25 @@ STATUS game_reader_load_spaces(Game* game, char* filename) {
       toks = strtok(NULL, "|");
       strcpy(ilus3,toks);
       toks = strtok(NULL, "|");
+      strcpy(ilus4,toks);
+      toks = strtok(NULL, "|");
+      strcpy(ilus5,toks);
+      toks = strtok(NULL, "|");
+      strcpy(ilus6,toks);
+      toks = strtok(NULL, "|");
+      strcpy(ilus7,toks);
+      toks = strtok(NULL, "|");
+      strcpy(ilus8,toks);
+      toks = strtok(NULL, "|");
+      strcpy(ilus9,toks);
+      toks = strtok(NULL, "|");
+      strcpy(ilus10,toks);
+      toks = strtok(NULL, "|");
+      strcpy(ilus11,toks);
+      toks = strtok(NULL, "|");
       strcpy(description,toks);
+      toks = strtok(NULL, "|");
+      strcpy(description2,toks);
 
 
       #ifdef DEBUG
@@ -91,7 +118,16 @@ STATUS game_reader_load_spaces(Game* game, char* filename) {
         space_set_ilus1(space, ilus1);
         space_set_ilus2(space, ilus2);
         space_set_ilus3(space, ilus3);
+        space_set_ilus4(space, ilus4);
+        space_set_ilus5(space, ilus5);
+        space_set_ilus6(space, ilus6);
+        space_set_ilus7(space, ilus7);
+        space_set_ilus8(space, ilus8);
+        space_set_ilus9(space, ilus9);
+        space_set_ilus10(space, ilus10);
+        space_set_ilus11(space, ilus11);
         space_set_description(space, description);
+        space_set_description2(space, description2);
 
         game_add_space(game, space);
       }
