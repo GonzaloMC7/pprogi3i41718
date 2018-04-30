@@ -14,7 +14,7 @@
 #define WORD_SIZE 1000
 #define NAME_SIZE 100
 #define NO_ID -1
- 
+
 /*Definicion de tipo Id*/
 typedef long Id;
 

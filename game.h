@@ -34,7 +34,9 @@ typedef struct _Game Game;
 * game_set_object_location(Game* game, Id idSpace, Id IdObject);
 *
 * @author Javier  Martin
-* @param Puntero a las EdD Game, Id del espacio determinado y Id del objeto determinado
+* @param game puntero a las EdD Game
+* @param idSpace ID del espacio determinado
+* @param IdObject Id del objeto determinado
 * @return OK si el espacio ha sido añadido correctamente o ERROR en caso contrario
 */
 STATUS game_set_object_location(Game* game, Id idSpace, Id IdObject);
@@ -44,8 +46,8 @@ STATUS game_set_object_location(Game* game, Id idSpace, Id IdObject);
 *
 * game_get_name_link(Game* game, int idlink);
 * @author Javier  Martin
-* @param Puntero a las EdD Game,
-* @param Id del link determinado
+* @param game Puntero a las EdD Game,
+* @param idlink Id del link determinado
 * @return cadena de caracteres con el nombre
 */
 const char *game_get_name_link(Game* game, int idlink);
@@ -55,8 +57,8 @@ const char *game_get_name_link(Game* game, int idlink);
 *
 * game_get_link(Game* game, Id idLink);
 * @author Javier  Martin
-* @param Puntero a las EdD Game,
-* @param Id del link determinado
+* @param game Puntero a las EdD Game,
+* @param idLink Id del link determinado
 * @return puntero al link que se refiere
 */
 Link* game_get_link(Game* game, Id idLink);
@@ -66,8 +68,8 @@ Link* game_get_link(Game* game, Id idLink);
 *
 * game_get_link_id2(Game* game, Id idLink);
 * @author Javier  Martin
-* @param Puntero a las EdD Game,
-* @param Id del link determinado
+* @param game Puntero a las EdD Game,
+* @param idLink del link determinado
 * @return id al que se refiere
 */
 Id game_get_link_id2(Game *game,Id idLink);
@@ -89,7 +91,7 @@ STATUS game_add_object(Game* game, Object* object);
 * game_add_space(Game* game, Space* space);
 * @author Profesores PPROG
 * @param game Puntero a las EdD Game
-* @param space
+* @param space espacio determiando
 * @return OK si el espacio ha sido añadido correctamente o ERROR en caso contrario
 */
 STATUS game_add_space(Game* game, Space* space);
@@ -100,7 +102,7 @@ STATUS game_add_space(Game* game, Space* space);
 * game_add_link(Game* game, Link* link);
 * @author Javier Martin
 * @param game Puntero a las EdD Game
-* @param link
+* @param link link que se quiere añadir
 * @return OK si el objeto ha sido añadido correctamente o ERROR en caso contrario
 */
 STATUS game_add_link(Game* game, Link* link);
@@ -120,7 +122,7 @@ Game *game_create();
 *
 * game_create_from_file(Game* game, char* filename);
 * @author Javier Martin
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @param filename el archivo donde se va a representar el juego
 * @return Devuelve OK si se ha creado en el archivo correctamente y ERROR si se ha producido algún fallo
 */
@@ -131,7 +133,7 @@ STATUS game_create_from_file(Game* game, char* filename);
 *
 * game_update(Game* game);
 * @author Profesores PPROG
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return Devuelve OK si se ha creado correctamente y ERROR si se ha producido algún fallo
 */
 STATUS game_update(Game* game);
@@ -141,7 +143,7 @@ STATUS game_update(Game* game);
 *
 * game_destroy(Game* game);
 * @author Profesores PPROG
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return Devuelve OK si se ha creado correctamente y ERROR si se ha producido algún fallo
 */
 STATUS game_destroy(Game* game);
@@ -151,7 +153,7 @@ STATUS game_destroy(Game* game);
 *
 * game_get_die_lastroll(Game* game);
 * @author Gonzalo Martínez
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return Devuelve el último valor del dado
 */
 int game_get_die_lastroll(Game* game);
@@ -161,7 +163,7 @@ int game_get_die_lastroll(Game* game);
 *
 * game_is_over(Game* game);
 * @author Profesores PPROG
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return Devuelve TRUE si el juego ha terminado y sino devuelve FALSE
 */
 BOOL game_is_over(Game* game);
@@ -171,7 +173,7 @@ BOOL game_is_over(Game* game);
 *
 * game_print_screen(Game* game);
 * @author Profesores PPROG
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return No devuelve un valor especifico por ser una funcion de tipo void
 */
 void game_print_screen(Game* game);
@@ -181,7 +183,7 @@ void game_print_screen(Game* game);
 *
 * game_print_data(Game* game);
 * @author Profesores PPROG
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return No devuelve un valor especifico por ser una funcion de tipo void
 */
 void game_print_data(Game* game);
@@ -191,7 +193,8 @@ void game_print_data(Game* game);
 *
 * game_get_space(Game* game, Id id);
 * @author Profesores PPROG
-* @param El juego creado anteriormente y el id del cual queremos averiguar la localización
+* @param game El juego creado anteriormente
+* @param id el id del cual queremos averiguar la localización
 * @return Devuelve un puntero a la estructura space o NULL en caso de que se haya producido algún error
 */
 Space* game_get_space(Game* game, Id id);
@@ -201,7 +204,7 @@ Space* game_get_space(Game* game, Id id);
 *
 * game_get_player_location(Game* game);
 * @author Profesores PPROG
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return Devuelve ese id a localizar o NO_ID en caso de que se haya producido algún error
 */
 Id game_get_player_location(Game* game);
@@ -223,7 +226,7 @@ Id game_get_object_location(Game* game,Id IdObject);
 *
 * game_get_die(Game* game);
 * @author Gonzalo Martínez
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return Devuelve el Die die creado
 */
 Die * game_get_die(Game* game);
@@ -233,7 +236,7 @@ Die * game_get_die(Game* game);
 *
 * game_get_last_command(Game* game);
 * @author Profesores PPROG
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return Devuelve una variable de tipo T_Command
 */
 Command *game_get_last_command(Game* game);
@@ -243,7 +246,7 @@ Command *game_get_last_command(Game* game);
 *
 * game_get_estado(Game* game);
 * @author Javier Martin
-* @param El juego creado anteriormente
+* @param game El juego creado anteriormente
 * @return Ok o ERROR
 */
 STATUS game_get_estado(Game* game);
@@ -273,7 +276,7 @@ BOOL game_find_player_object(Game* game, Id IdObject);
 /**
 * @brief Obtiene la descricion almacenada en el juego indicado
 * @author Juan Martin
-* @param El juego creado
+* @param game El juego creado
 * @return Devuelve la descricion almacenada en game
 */
 const char *game_get_info (Game* game);
@@ -281,7 +284,7 @@ const char *game_get_info (Game* game);
 /**
 * @brief Obtiene la iluminación de un objeto
 * @author Miguel Manzano
-* @param Objeto determinado
+* @param game el juego creado
 * @return Id del objeto determinado
 */
 STATUS game_get_encendido(Game* game);
@@ -289,7 +292,7 @@ STATUS game_get_encendido(Game* game);
 /**
 * @brief Obtiene la iluminación de un objeto
 * @author Miguel Manzano
-* @param Objeto determinado
+* @param game el juego creado
 * @return Id del objeto determinado
 */
 STATUS game_get_apagado(Game* game);
@@ -297,7 +300,7 @@ STATUS game_get_apagado(Game* game);
 /**
 * @brief Obtiene la descricion almacenada del objeto
 * @author Miguel Manzano
-* @param El juego creado
+* @param game El juego creado
 * @return Devuelve la descricion almacenada en game
 */
 const char *game_get_objectinfo (Game* game);

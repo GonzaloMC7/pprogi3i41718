@@ -18,7 +18,7 @@ typedef struct _Die Die;
 /**
  * @brief Crea un Die d
  * @author Gonzalo Martinez
- * @param No recibe nada
+ * @param
  * @return El Die d creado
  */
 Die * die_create();
@@ -27,7 +27,7 @@ Die * die_create();
 /**
  * @brief Destruye el Die d que recibe
  * @author Gonzalo Martinez
- * @param El Die d que se va a destruir
+ * @param die dado a destruir
  * @return No devuelve nada ya que es una función void
  */
 void die_destroy(Die * die);
@@ -36,7 +36,7 @@ void die_destroy(Die * die);
 /**
  * @brief Función que hace rodar el dado
  * @author Gonzalo Martinez
- * @param El Die d a rodar
+ * @param die dado a rodar
  * @return El Die d después de que se haya rodado
  */
 Die *die_roll(Die * die);
@@ -45,7 +45,7 @@ Die *die_roll(Die * die);
 /**
  * @brief Devuelve el último valor del dado
  * @author Gonzalo Martinez
- * @param El Die die creado anteriormente
+ * @param die dado que se ha creado anteriormente
  * @return die->num que hace referencia al último valor del dado
  */
 int die_get_lastroll(Die * die);

@@ -1,9 +1,9 @@
-/** 
+/**
  * @brief It defines a textual graphic engine
- * 
+ *
  * @file graphic_engine.h
  * @author Profesores PPROG
- * @version 1.0 
+ * @version 1.0
  * @date 18-01-2017
  * @copyright GNU Public License
  */
@@ -21,7 +21,7 @@ typedef struct _Graphic_engine Graphic_engine;
 /**
  * @brief Crea e inicializa el motor grafico
  * @author Profesores PPROG
- * @param 
+ * @param
  * @return retorna la EdD del motor grafico si se ha podido inicializar correctamente
  */
 Graphic_engine* graphic_engine_create();
@@ -30,8 +30,8 @@ Graphic_engine* graphic_engine_create();
 /**
  * @brief Elimina los recursos del motor grafico seleccionado
  * @author Profesores PPROG
- * @param puntero al motor grafico
- * @return no devuelve un valor especifico por ser una funcion de tipo void 
+ * @param ge puntero al motor grafico
+ * @return no devuelve un valor especifico por ser una funcion de tipo void
  */
 void graphic_engine_destroy(Graphic_engine *ge);
 
@@ -39,8 +39,9 @@ void graphic_engine_destroy(Graphic_engine *ge);
 /**
  * @brief Muestra por pantalla en la terminal los espacios y comentarios necesarios
  * @author Profesores PPROG
- * @param puntero al motor grafico y a game
- * @return no devuelve un valor especifico por ser una funcion de tipo void 
+ * @param ge puntero al motor grafico
+ * @param game juego creado
+ * @return no devuelve un valor especifico por ser una funcion de tipo void
  */
 void graphic_engine_paint_game(Graphic_engine *ge, Game *game);
 
@@ -48,7 +49,8 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game);
 /**
  * @brief Muestra por pantalla el comando introducido
  * @author Profesores PPROG
- * @param puntero a motor gráfico y a la cadena que es el comando
+ * @param ge puntero a motor gráfico
+ * @param str a la cadena que es el comando
  * @return no devuelve un valor específico por ser una función tipo void
  */
 void graphic_engine_write_command(Graphic_engine *ge, char *str);
