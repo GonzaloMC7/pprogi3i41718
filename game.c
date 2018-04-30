@@ -13,10 +13,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "game.h"
-#include "game_reader.h"
+#include "game_management.h"
 
 
-#define N_CALLBACK 9
+#define N_CALLBACK 10
 
 
 /**
@@ -111,19 +111,27 @@ STATUS game_callback_turnon(Game* game);
 * @return No devuelve nada al ser una función void
 */
 STATUS game_callback_turnoff(Game* game);
+/*---------------------------------------------------------------------------------------------*/
+/**
+* @brief abre un link determinado
+* @author Javier Martin
+* @param Game game creado anteriormente
+* @return OK en caso de exito del comando
+*/
+STATUS game_callback_open_with(Game *game);
 
 /*Lista de comando que se pueden dar*/
 static callback_fn game_callback_fn_list[N_CALLBACK]={
   game_callback_unknown,
   game_callback_exit,
-
   game_callback_take,
   game_callback_drop,
   game_callback_roll,
   game_callback_go,
   game_callback_check,
   game_callback_turnon,
-  game_callback_turnoff
+  game_callback_turnoff,
+  game_callback_open_with
 };
 
 /**
@@ -185,11 +193,11 @@ STATUS game_create_from_file(Game* game, char* filename) {
     return ERROR;
   }
   /*!<Controles de errores game y file*/
-  if (game_reader_load_spaces(game, filename) == ERROR)
+  if (game_management_load_spaces(game, filename) == ERROR)
   return ERROR;
-  if (game_reader_load_objects(game, filename) == ERROR)
+  if (game_management_load_objects(game, filename) == ERROR)
   return ERROR;
-  if (game_reader_load_links(game, filename) == ERROR)
+  if (game_management_load_links(game, filename) == ERROR)
   return ERROR;
 
   game_set_player_location(game,game_get_space_id_at(game,0));
@@ -603,9 +611,15 @@ STATUS game_callback_take(Game* game){
   id_object = object_get_id(game->ob[i]);
   space_id_object=game_get_object_location(game, id_object);
   if(space_id_player==space_id_object){
-    player_set_object(game->pl, id_object);
-    space_destroy_object(game->spaces[space_id_player-1], id_object);
-    return OK;
+    if (object_get_movable(game->ob[i])==FALSE){
+      return ERROR;
+    }
+    else{
+      player_set_object(game->pl, id_object);
+      space_destroy_object(game->spaces[space_id_player-1], id_object);
+      object_set_moved(game->ob[i],1);
+      return OK;
+    }
   }
   else{
     return ERROR;
@@ -660,7 +674,6 @@ STATUS game_callback_go(Game* game) {
     return ERROR;
   }
 
-  printf("%s\n",command_get_ob(game->cmd) );
 
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++) {
     current_id = space_get_id(game->spaces[i]);
@@ -818,4 +831,57 @@ STATUS game_callback_turnoff(Game* game){
   else{
     return ERROR;
   }
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Llamada a la fincion en el aque se abre un link*/
+
+STATUS game_callback_open_with(Game *game){
+
+  Id space_id_player = NO_ID;
+  Id idlink=NO_ID;
+  Id idob=NO_ID;
+  int i=0,o=0;
+
+  space_id_player = game_get_player_location(game);
+  if (!space_id_player) {
+    return ERROR;
+  }
+
+  for(i=0;game->link[i]!=NULL;i++){
+    if(strcmp(game_get_name_link(game, i+1),command_get_ob(game->cmd))==0){
+      break;
+    }
+  }
+
+  for(o=0;game->ob[o]!=NULL;o++){
+    if(strcmp(game_get_name_object(game, o+1),command_get_ob2(game->cmd))==0){
+      break;
+    }
+  }
+
+  if(game->link[i]==NULL){
+    command_interpret_input(game->cmd,command_get_ob(game->cmd));
+    return ERROR;
+  }
+  if(game->ob[o]==NULL){
+    command_interpret_input(game->cmd,command_get_ob2(game->cmd));
+    return ERROR;
+  }
+  
+  idlink = link_get_id(game->link[i]);
+  if(idlink == NO_ID){
+    return ERROR;
+  }
+  idob=object_get_id(game->ob[o]);
+  if(idob == NO_ID){
+    return ERROR;
+  }
+  if (game_find_player_object(game, idob)==TRUE){
+    if (object_get_key(game->ob[o])==idlink){
+      link_set_idopenclose(game->link[i],1);
+      return OK;
+    }
+  }
+
+  return ERROR;
 }

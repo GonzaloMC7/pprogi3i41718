@@ -9,12 +9,12 @@ clean :
 	rm -f *.o core $(EXE)
 	rm -f *.log
 
-$(EXE) : % : %.o command.o game.o graphic_engine.o screen.o space.o game_reader.o player.o object.o set.o die.o inventory.o link.o
+$(EXE) : % : %.o command.o game.o graphic_engine.o screen.o space.o game_management.o player.o object.o set.o die.o inventory.o link.o
 	@echo "#---------------------------"
 	@echo "# Generando $@ "
 	@echo "# Depende de $^"
 	@echo "# Ha cambiado $<"
-	$(CC) $(CFLAGS) -o $@ $@.o command.o game.o graphic_engine.o screen.o space.o game_reader.o player.o object.o set.o die.o inventory.o link.o
+	$(CC) $(CFLAGS) -o $@ $@.o command.o game.o graphic_engine.o screen.o space.o game_management.o player.o object.o set.o die.o inventory.o link.o
 
  command.o : command.c command.h
 	@echo "#---------------------------"
@@ -30,7 +30,7 @@ $(EXE) : % : %.o command.o game.o graphic_engine.o screen.o space.o game_reader.
 	@echo "# Ha cambiado $<"
 	$(CC) $(CFLAGS) -c $<
 
- game_reader.o : game_reader.c game_reader.h
+ game_management.o : game_management.c game_management.h
 	@echo "#---------------------------"
 	@echo "# Generando $@"
 	@echo "# Depende de $^"

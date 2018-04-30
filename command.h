@@ -31,7 +31,8 @@ typedef enum enum_Command {
   GO, /*!<Moverse*/
   CHECK, /*!<Examinar*/
   TURNON, /*!<Encender*/
-  TURNOFF /*!<Apagar*/
+  TURNOFF, /*!<Apagar*/
+  OPEN /*!Abrir*/
   } T_Command;
 
 
@@ -86,6 +87,16 @@ void command_destroy(Command* cmd);
  * @return cadena de caracteres del "objeto" del comando introducido
  */
 char* command_get_ob(Command* cmd);
+/*---------------------------------------------------------------------------------------------*/
+/**
+ * @brief Se encarga obtener el "objeto" que se ha introducido con el comando dado
+ *
+ * command_get_ob2(Command* cmd);
+ * @author Javier Martin
+ * @param cmd comando del que se quiere obtener la informacion
+ * @return char de caracteres del "objeto" del comando introducido
+ */
+char* command_get_ob2(Command* cmd);
 /*---------------------------------------------------------------------------------------------*/
 /**
  * @brief Se encarga obtener el "comando" que se ha introducido con el comando dado

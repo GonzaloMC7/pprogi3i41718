@@ -1,12 +1,12 @@
 /**
- * @brief It implements the command interpreter
- *
- * @file command.c
- * @author Profesores PPROG
- * @version 1.0
- * @date 19-12-2014
- * @copyright GNU Public License
- */
+* @brief It implements the command interpreter
+*
+* @file command.c
+* @author Profesores PPROG
+* @version 1.0
+* @date 19-12-2014
+* @copyright GNU Public License
+*/
 
 
 
@@ -16,15 +16,16 @@
 #include "command.h"
 
 #define CMD_LENGTH 999
-#define N_CMD 10 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 5*/
+#define N_CMD 11 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 5*/
 #define MAX 200
 
 /*Enumeración de los posibles comandos a introducir y debajo sus correspondientes abreviaturas, incluido el incorrrecto*/
-char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check", "Turnon", "Turnoff"};
+char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check", "Turnon", "Turnoff","Open"};
 
 struct _Command{
 	char vrb[MAX]; /*!< cadena de caracteres referido al comando enumerado que introduce el usuario*/
 	char ob[MAX]; /*!< cadena de caracteres que se introduce al complementar un comando*/
+	char ob2[MAX]; /*!< cadena de caracteres que se introduce al complementar un comando*/
 	T_Command command; /*!<tipo enumerado de comando*/
 };
 
@@ -32,19 +33,19 @@ struct _Command{
 /*-----------------------------------------------------------------------------------------------------*/
 void command_get_user_input(Command* cmd) {
 
-    char input[CMD_LENGTH] = "";
-    int x;
+	char input[CMD_LENGTH] = "";
+	int x;
 
-    if (cmd == NULL) {
-        return;
-    }
-    do {
-        fgets(input, CMD_LENGTH - 1, stdin);
-        x = strlen(input);
-    } while (x <= 1);
+	if (cmd == NULL) {
+		return;
+	}
+	do {
+		fgets(input, CMD_LENGTH - 1, stdin);
+		x = strlen(input);
+	} while (x <= 1);
 
-    input[x - 1] = '\0';
-    command_interpret_input(cmd, input);
+	input[x - 1] = '\0';
+	command_interpret_input(cmd, input);
 }
 /*-----------------------------------------------------------------------------------------------------*/
 
@@ -59,36 +60,39 @@ Command *command_ini(){
 	c->command=NO_CMD;
 	c->vrb[0]='\0';
 	c->ob[0]='\0';
+	c->ob2[0]='\0';
 	return c;
 }
 /*-----------------------------------------------------------------------------------------------------*/
 void command_destroy(Command* cmd) {
-    if (!cmd) {
-        return;
-    }
-    free(cmd);
-    return;
+	if (!cmd) {
+		return;
+	}
+	free(cmd);
+	return;
 }
 /*-----------------------------------------------------------------------------------------------------*/
 
 STATUS command_interpret_input(Command* cmd, char* input) {
 
-	int i,cont=0;
-    if (!cmd)
-        return ERROR;
+	int i,cont=0,x=0,l=0,m;
 
-    cmd->command = NO_CMD;
-    strcpy(cmd->ob, "");
+	if (!cmd)
+	return ERROR;
+
+	cmd->command = NO_CMD;
+	strcpy(cmd->ob, "");
+	strcpy(cmd->ob2, "");
 	strcpy(cmd->vrb,"");
 
-    if (strncmp("E", input, 1) == 0 || strncmp("e", input, 1) == 0 || strncmp("exit", input, 4) == 0|| strncmp("Exit", input, 4) == 0) {
-        cmd->command = EXIT;
+	if (strncmp("E", input, 1) == 0 || strncmp("e", input, 1) == 0 || strncmp("exit", input, 4) == 0|| strncmp("Exit", input, 4) == 0) {
+		cmd->command = EXIT;
 		strcpy(cmd->vrb,"exit");
 
-    } else if ((strncmp("take", input, 4) == 0)
-            || (strncmp("t", input, 1) == 0) || (strncmp("T", input, 1) == 0)||(strcmp(input, "Take")==0)) {
+	} else if ((strncmp("take", input, 4) == 0)
+	|| (strncmp("t", input, 1) == 0) || (strncmp("T", input, 1) == 0)||(strcmp(input, "Take")==0)) {
 
-        cmd->command = TAKE;
+		cmd->command = TAKE;
 
 		for (i=0;input[i]!=' ';i++){
 			cont++;
@@ -103,26 +107,26 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		}
 
 	}else if ((strncmp("check", input, 5) == 0)
-					|| (strncmp("c", input, 1) == 0) || (strncmp("C", input, 1) == 0)||(strcmp(input, "Check")==0)) {
+	|| (strncmp("c", input, 1) == 0) || (strncmp("C", input, 1) == 0)||(strcmp(input, "Check")==0)) {
 
-			cmd->command = CHECK;
+		cmd->command = CHECK;
 
-	for (i=0;input[i]!=' ';i++){
+		for (i=0;input[i]!=' ';i++){
+			cont++;
+		}
 		cont++;
-	}
-	cont++;
-	if (input[cont]!='O' && input[cont]!='s'){
-	cmd->command = UNKNOWN;
-	}
-	else{
-		strcpy(cmd->vrb,"check");
-		strcpy(cmd->ob,input+cont);
-	}
+		if (input[cont]!='O' && input[cont]!='s'){
+			cmd->command = UNKNOWN;
+		}
+		else{
+			strcpy(cmd->vrb,"check");
+			strcpy(cmd->ob,input+cont);
+		}
 
 	}else if ((strncmp("turnon", input, 4) == 0)
-            || (strncmp("n", input, 1) == 0) || (strncmp("N", input, 1) == 0)||(strcmp(input, "Turnon")==0)) {
+	|| (strncmp("n", input, 1) == 0) || (strncmp("N", input, 1) == 0)||(strcmp(input, "Turnon")==0)) {
 
-        cmd->command = TURNON;
+		cmd->command = TURNON;
 
 		for (i=0;input[i]!=' ';i++){
 			cont++;
@@ -135,10 +139,10 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			strcpy(cmd->vrb,"turnon");
 			strcpy(cmd->ob,input+cont);
 		}
- }else if ((strncmp("turnoff", input, 4) == 0)
-            || (strncmp("f", input, 1) == 0) || (strncmp("F", input, 1) == 0)||(strcmp(input, "Turnoff")==0)) {
+	}else if ((strncmp("turnoff", input, 4) == 0)
+	|| (strncmp("f", input, 1) == 0) || (strncmp("F", input, 1) == 0)||(strcmp(input, "Turnoff")==0)) {
 
-        cmd->command = TURNOFF;
+		cmd->command = TURNOFF;
 
 		for (i=0;input[i]!=' ';i++){
 			cont++;
@@ -153,28 +157,28 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		}
 
 
-} else if ((strncmp("go", input, 2) == 0)
-				|| (strncmp("g", input, 1) == 0) || (strncmp("G", input, 1) == 0)||(strcmp(input, "Go")==0)) {
+	} else if ((strncmp("go", input, 2) == 0)
+	|| (strncmp("g", input, 1) == 0) || (strncmp("G", input, 1) == 0)||(strcmp(input, "Go")==0)) {
 
 		cmd->command = GO;
 
-for (i=0;input[i]!=' ';i++){
-	cont++;
-}
-cont++;
+		for (i=0;input[i]!=' ';i++){
+			cont++;
+		}
+		cont++;
 
-	strcpy(cmd->vrb,"go");
-	strcpy(cmd->ob,input+cont);
+		strcpy(cmd->vrb,"go");
+		strcpy(cmd->ob,input+cont);
 
 
-} else if (!strcmp(input, "M") || !strcmp(input, "m") || !strcmp(input, "move")||(strcmp(input, "Move")==0)) {
-        cmd->command = MOVE;
+	} else if (!strcmp(input, "M") || !strcmp(input, "m") || !strcmp(input, "move")||(strcmp(input, "Move")==0)) {
+		cmd->command = MOVE;
 		strcpy(cmd->vrb,"move");
 
 	} else if ((strncmp("drop", input, 4) == 0)
-            || (strncmp("d", input, 1) == 0) || (strncmp("D", input, 1) == 0)||(strcmp(input, "Drop")==0)) {
+	|| (strncmp("d", input, 1) == 0) || (strncmp("D", input, 1) == 0)||(strcmp(input, "Drop")==0)) {
 
-        cmd->command = DROP;
+		cmd->command = DROP;
 
 		for (i=0;input[i]!=' ';i++){
 			cont++;
@@ -188,33 +192,67 @@ cont++;
 			strcpy(cmd->ob,input+cont);
 		}
 
-    } else {
-        cmd->command = UNKNOWN;
-    }
+	}else if ((strncmp("open", input, 4) == 0)
+	|| (strncmp("o", input, 1) == 0) || (strncmp("O", input, 1) == 0)||(strcmp(input, "Open")==0)) {
 
-    return OK;
+		cmd->command = OPEN;
+
+		strcpy(cmd->vrb,"open");
+
+		for ( i = 0; input[i]!=' '; i++) {
+			cont++;
+		}
+		cont++;
+
+		for ( i = cont,x=0; input[i]!=' '; i++,x++) {
+			cmd->ob[x]=input[i];
+		}
+		i++;
+
+		for ( l = i;input[l]!=' '; l++) {
+		}
+		l++;
+
+		for (m=l,x=0;input[m]!='\0';m++,x++){
+			cmd->ob2[x]=input[m];
+		}
+
+	} else {
+		cmd->command = UNKNOWN;
+	}
+
+	return OK;
 }
 /*-----------------------------------------------------------------------------------------------------*/
 
 char* command_get_ob(Command* cmd) {
-    if (!cmd) {
-        return NULL;
-    }
-    return cmd->ob;
+	if (!cmd) {
+		return NULL;
+	}
+	return cmd->ob;
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+
+char* command_get_ob2(Command* cmd) {
+	if (!cmd) {
+		return NULL;
+	}
+	return cmd->ob2;
 }
 /*-----------------------------------------------------------------------------------------------------*/
 
 T_Command command_get_type(Command* cmd) {
 
-    if (!cmd) {
-        return UNKNOWN;
-    }
-    return cmd->command;
+	if (!cmd) {
+		return UNKNOWN;
+	}
+	return cmd->command;
 }
 /*-----------------------------------------------------------------------------------------------------*/
 char* command_get_vrb(Command* cmd) {
-    if (!cmd) {
-        return NULL;
-    }
-    return cmd->vrb;
+	if (!cmd) {
+		return NULL;
+	}
+	return cmd->vrb;
 }

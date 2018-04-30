@@ -132,19 +132,19 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 
 	sprintf(str, "  		+---------------------+");
 	screen_area_puts(ge->map, str);*/
-	sprintf(str, "                                      ^%ld         ",space_get_north_link(space_act));
+	sprintf(str, "                                      ^%s         ",game_get_name_link(game,space_get_north_link(space_act)));
 	screen_area_puts(ge->map, str);
 }
 id=NO_ID;
 sprintf(str, "                +------------------------------------------+");
 screen_area_puts(ge->map, str);
 
-	if (id==NO_ID){
-		sprintf(str, "                |%s|", space_get_ilus1(space_act));
-		screen_area_puts(ge->map, str);
-		sprintf(str, "                |%s|", space_get_ilus2(space_act));
-		screen_area_puts(ge->map, str);
-		sprintf(str, "                |%s|", space_get_ilus3(space_act));
+if (id==NO_ID){
+	sprintf(str, "                |%s|", space_get_ilus1(space_act));
+	screen_area_puts(ge->map, str);
+	sprintf(str, "                |%s|", space_get_ilus2(space_act));
+	screen_area_puts(ge->map, str);
+	sprintf(str, "                |%s|", space_get_ilus3(space_act));
 	screen_area_puts(ge->map, str);
 	sprintf(str, "                |%s|", space_get_ilus4(space_act));
 	screen_area_puts(ge->map, str);
@@ -194,7 +194,7 @@ screen_area_puts(ge->map, str);
 
 id=NO_ID;
 if (id_next != NO_ID) {
-	sprintf(str, "                                      v%ld         ",space_get_south_link(space_act));
+	sprintf(str, "                                      v%s          ",game_get_name_link(game,space_get_south_link(space_act)));
 	screen_area_puts(ge->map, str);
 	/*sprintf(str, "  		+---------------------+");
 	screen_area_puts(ge->map, str);

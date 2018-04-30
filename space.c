@@ -333,15 +333,15 @@ STATUS space_set_description(Space* space, char* description) {
 /*-----------------------------------------------------------------------------------------------------*/
 /*Funcion que establece una descripcion más detallada al espacio deseado*/
 STATUS space_set_description2(Space* space, char* description2) {
-  if (!space || !description2) {
-    return ERROR;
-  }
+	if (!space || !description2) {
+		return ERROR;
+	}
 
-  if (!strcpy(space->description2, description2)) {
-    return ERROR;
-  }
+	if (!strcpy(space->description2, description2)) {
+		return ERROR;
+	}
 
-  return OK;
+	return OK;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -570,10 +570,10 @@ const char * space_get_description(Space* space) {
 /*-----------------------------------------------------------------------------------------------------*/
 /*Funcion que devuelve la segunda descripcion de un espacio, el cual se recibe por argumento.*/
 const char * space_get_description2(Space* space) {
-  if (!space) {
-    return NULL;
-  }
-  return space->description2;
+	if (!space) {
+		return NULL;
+	}
+	return space->description2;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/

@@ -60,7 +60,13 @@ int main(int argc, char *argv[]){
     graphic_engine_paint_game(gengine, game);
     command_get_user_input(game_get_last_command(game));
     game_update(game);
-    fprintf(fp, "%s %s\n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD],command_get_ob(game_get_last_command(game)));
+    if (command_get_type(game_get_last_command(game))==OPEN){
+      fprintf(fp, "%s %s with %s \n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD],command_get_ob(game_get_last_command(game)),command_get_ob2(game_get_last_command(game)));
+    }
+    else{
+      fprintf(fp, "%s %s \n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD],command_get_ob(game_get_last_command(game)));
+
+    }
   }
   game_destroy(game);
   graphic_engine_destroy(gengine);
