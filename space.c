@@ -42,6 +42,9 @@ struct _Space {
 	char ilus11[WORD_SIZE];
 	char description[WORD_SIZE];
 	char description2[WORD_SIZE];
+	char dialogue1[WORD_SIZE];
+	char dialogue2[WORD_SIZE];
+	char dialogue3[WORD_SIZE];
 	BOOL light;
 };
 
@@ -344,6 +347,49 @@ STATUS space_set_description2(Space* space, char* description2) {
 	return OK;
 }
 
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que establece el dialogo al espacio deseado*/
+STATUS space_set_dialogue1(Space* space, char* dialogue1) {
+	if (!space || !dialogue1) {
+		return ERROR;
+	}
+
+	if (!strcpy(space->dialogue1, dialogue1)) {
+		return ERROR;
+	}
+
+	return OK;
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que establece el dialogo al espacio deseado*/
+STATUS space_set_dialogue2(Space* space, char* dialogue2) {
+	if (!space || !dialogue2) {
+		return ERROR;
+	}
+
+	if (!strcpy(space->dialogue2, dialogue2)) {
+		return ERROR;
+	}
+
+	return OK;
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que establece el dialogo al espacio deseado*/
+STATUS space_set_dialogue3(Space* space, char* dialogue3) {
+	if (!space || !dialogue3) {
+		return ERROR;
+	}
+
+	if (!strcpy(space->dialogue3, dialogue3)) {
+		return ERROR;
+	}
+
+	return OK;
+}
+
+
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Función de asignación del objeto en una posición*/
 
@@ -574,6 +620,22 @@ const char * space_get_description2(Space* space) {
 		return NULL;
 	}
 	return space->description2;
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*Funcion que devuelve el dialogo de un espacio, el cual se recibe por argumento.*/
+const char * space_get_dialogue(Space* space, int die) {
+	if (!space) {
+		return NULL;
+	}
+
+	if(die == 1){
+	return space->dialogue1;
+	}else if(die == 2){
+	return space->dialogue2;
+	}else{
+	return space->dialogue3;
+	}
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/

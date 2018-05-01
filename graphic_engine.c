@@ -60,7 +60,7 @@ void graphic_engine_destroy(Graphic_engine *ge){
 void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 	Id id_act = NO_ID, id_back = NO_ID, id_next = NO_ID, ply_loc = NO_ID, id = NO_ID, id_west = NO_ID, id_east = NO_ID;
 	Space* space_act = NULL;
-	Space* space_next=NULL;
+	/*Space* space_next=NULL;*/
 	Space *space_back=NULL;
 	char str[999];
 	int i=0;
@@ -89,7 +89,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game){
 
 
 		space_back = game_get_space(game, id_back);
-		space_next = game_get_space(game, id_next);
+		/*space_next = game_get_space(game, id_next);*/
 
 
 		id=NO_ID;
@@ -217,14 +217,9 @@ screen_area_puts(ge->map, str);
 
 /* Paint the in the description area */
 screen_area_clear(ge->descript);
-sprintf(str, "  Object's location:       ");
+sprintf(str, "  Dialogue: %s       ",game_get_dialogue(game));
 screen_area_puts(ge->descript, str);
-for(i=1; i<=MAX_OBJ; i++){
-	if(game_get_object_location(game, i) != NO_ID){
-		sprintf(str, "   %s esta en espacio %ld",game_get_name_object(game,i), game_get_object_location(game, i));
-		screen_area_puts(ge->descript, str);
-	}
-}
+
 sprintf(str, " ");
 screen_area_puts(ge->descript, str);
 
@@ -233,8 +228,8 @@ if ((ply_loc = game_get_player_location(game)) != NO_ID){
 	sprintf(str, "  Player location:%d", (int)ply_loc);
 	screen_area_puts(ge->descript, str);
 }
-sprintf(str, "  Last roll:%d", game_get_die_lastroll(game));
-screen_area_puts(ge->descript, str);
+/*sprintf(str, "  Last roll:%d", game_get_die_lastroll(game));
+screen_area_puts(ge->descript, str);*/
 sprintf(str, "  Descripcion:");
 screen_area_puts(ge->descript, str);
 sprintf(str, "  %s",game_get_info (game));
@@ -256,9 +251,9 @@ screen_area_puts(ge->banner, "         PRISION ESCAPE: A WAY OUT ");
 screen_area_clear(ge->help);
 sprintf(str, " The commands you can use are:");
 screen_area_puts(ge->help, str);
-sprintf(str, " following/f, previous/p, exit/e, take/t, drop/d");
+sprintf(str, " following/f, previous/p, exit/e, take/t, drop/d, hablar/h");
 screen_area_puts(ge->help, str);
-sprintf(str, " move/m(die), go/g, check/c, turnon/n, turnoff/f ");
+sprintf(str, " move/m(die), go/g, check/c, turnon/n, turnoff/f, open with/o ");
 
 screen_area_puts(ge->help, str);
 

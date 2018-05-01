@@ -16,7 +16,7 @@
 #include "game_management.h"
 
 
-#define N_CALLBACK 10
+#define N_CALLBACK 11
 
 
 /**
@@ -35,6 +35,7 @@ struct _Game{
   STATUS encendido;/*!<iluminación del objeto*/
   STATUS apagado;/*!<iluminación del objeto*/
   char object_info[WORD_SIZE + 1];/*!<descripción del objeto */
+  char space_dialogue[WORD_SIZE + 1];/*!<linea de dialogo*/
 };
 /**
 List of callbacks for each command in the game
@@ -58,6 +59,13 @@ STATUS game_callback_unknown(Game* game);
 */
 STATUS game_callback_exit(Game* game);
 
+/*---------------------------------------------------------------------------------------------*/
+/**
+* @brief Desplaza al jugador al espacio situado en la direccion indicada
+* @author Javier Martin
+* @param Game game creado anteriormente
+* @return No devuelve nada al ser una función void
+*/
 STATUS game_callback_go(Game *game);
 
 /*---------------------------------------------------------------------------------------------*/
@@ -111,6 +119,7 @@ STATUS game_callback_turnon(Game* game);
 * @return No devuelve nada al ser una función void
 */
 STATUS game_callback_turnoff(Game* game);
+
 /*---------------------------------------------------------------------------------------------*/
 /**
 * @brief abre un link determinado
@@ -119,6 +128,15 @@ STATUS game_callback_turnoff(Game* game);
 * @return OK en caso de exito del comando
 */
 STATUS game_callback_open_with(Game *game);
+
+/*---------------------------------------------------------------------------------------------*/
+/**
+* @brief Muestra el diálogo del espacio
+* @author Juan Martin
+* @param Game game creado anteriormente
+* @return No devuelve nada al ser una función void
+*/
+STATUS game_callback_talk(Game* game);
 
 /*Lista de comando que se pueden dar*/
 static callback_fn game_callback_fn_list[N_CALLBACK]={
@@ -131,7 +149,8 @@ static callback_fn game_callback_fn_list[N_CALLBACK]={
   game_callback_check,
   game_callback_turnon,
   game_callback_turnoff,
-  game_callback_open_with
+  game_callback_open_with,
+  game_callback_talk
 };
 
 /**
@@ -182,7 +201,8 @@ Game *game_create() {
   game->cmd = command_ini();
   game->die = die_create();
   game->check_info[0]='\0';
-  /*Se devuelve OK si el juego se ha creado correctamente (falta control de errores)*/
+  game->space_dialogue[0]='\0';
+
   return game;
 }
 
@@ -488,6 +508,15 @@ const char *game_get_info (Game* game) {
   return game->check_info;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
+/*Funcion que se encarga de devolver la descricion almacenada en game*/
+const char *game_get_dialogue (Game* game) {
+  if (!game) {
+    return NULL;
+  }
+
+  return game->space_dialogue;
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
 /*Funcion que se encarga de devolver la descricion almacenada del objeto*/
 const char *game_get_objectinfo (Game* game) {
   if (!game) {
@@ -668,6 +697,9 @@ STATUS game_callback_go(Game* game) {
   Id space_id_player = NO_ID;
   Id idlink = NO_ID;
   Link* links = NULL;
+
+  game->check_info[0]='\0';
+  game->space_dialogue[0]='\0';
 
   space_id_player = game_get_player_location(game);
   if (!space_id_player) {
@@ -867,7 +899,7 @@ STATUS game_callback_open_with(Game *game){
     command_interpret_input(game->cmd,command_get_ob2(game->cmd));
     return ERROR;
   }
-  
+
   idlink = link_get_id(game->link[i]);
   if(idlink == NO_ID){
     return ERROR;
@@ -884,4 +916,20 @@ STATUS game_callback_open_with(Game *game){
   }
 
   return ERROR;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+STATUS game_callback_talk(Game* game) {
+  Id space_id_player = NO_ID;
+  int i=0, die;
+
+  space_id_player = game_get_player_location(game);
+  die_roll(game->die);
+  die = game_get_die_lastroll(game);
+
+    for(i=0; (space_id_player)!=(space_get_id(game->spaces[i])); i++){}
+    strcpy(game->space_dialogue, space_get_dialogue(game->spaces[i], die));
+
+    return OK;
+
 }

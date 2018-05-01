@@ -282,6 +282,14 @@ BOOL game_find_player_object(Game* game, Id IdObject);
 const char *game_get_info (Game* game);
 /*-----------------------------------------------------------------------------------------------------*/
 /**
+* @brief Obtiene el dialogo almacenado en el juego indicado
+* @author Juan Martin
+* @param game El juego creado
+* @return Devuelve el dialogo almacenada en game
+*/
+const char *game_get_dialogue (Game* game);
+/*-----------------------------------------------------------------------------------------------------*/
+/**
 * @brief Obtiene la iluminación de un objeto
 * @author Miguel Manzano
 * @param game el juego creado

@@ -422,6 +422,45 @@ STATUS space_set_description2(Space* space, char* description2);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
+* @brief Establece el dialogo a un espacio determinado
+* @author Juan Martin
+* @param space espacio determinado
+* @param description1 descripcion a establecer
+* @return OK si se ha asignado correctamente y ERROR si no se ha asignado correctamente
+*/
+STATUS space_set_dialogue(Space* space, char* dialogue);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Establece el dialogo a un espacio determinado
+* @author Juan Martin
+* @param space espacio determinado
+* @param description1 descripcion a establecer
+* @return OK si se ha asignado correctamente y ERROR si no se ha asignado correctamente
+*/
+STATUS space_set_dialogue2(Space* space, char* dialogue2);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Establece el dialogo a un espacio determinado
+* @author Juan Martin
+* @param space espacio determinado
+* @param description1 descripcion a establecer
+* @return OK si se ha asignado correctamente y ERROR si no se ha asignado correctamente
+*/
+STATUS space_set_dialogue3(Space* space, char* dialogue3);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
+* @brief Devuelve el dialogo de un espacio determinado
+* @author Juan Martin
+* @param space espacio del que se quiere la descrición
+* @return la descripción del espacio
+*/
+const char * space_get_dialogue(Space* space, int die);
+
+/*-----------------------------------------------------------------------------------------------------*/
+/**
 * @brief Devuelve la descrición de un espacio determinado
 * @author Juan Martin
 * @param space espacio del que se quiere la descrición

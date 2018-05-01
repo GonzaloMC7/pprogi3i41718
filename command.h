@@ -32,7 +32,8 @@ typedef enum enum_Command {
   CHECK, /*!<Examinar*/
   TURNON, /*!<Encender*/
   TURNOFF, /*!<Apagar*/
-  OPEN /*!Abrir*/
+  OPEN, /*!Abrir*/
+  TALK /*!Hablar*/
   } T_Command;
 
 

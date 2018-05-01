@@ -45,7 +45,7 @@ Die * die_roll(Die * die){
 
   if(!die) return NULL;
 
-  random = (rand() % 6) + 1;
+  random = (rand() % 3) + 1;
   die->num=random;
 
   return die;

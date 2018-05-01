@@ -36,6 +36,9 @@ STATUS game_management_load_spaces(Game* game, char* filename) {
   char ilus11[WORD_SIZE] = "";
   char description[WORD_SIZE] = "";
   char description2[WORD_SIZE] = "";
+  char dialogue1[WORD_SIZE] = "";
+  char dialogue2[WORD_SIZE] = "";
+  char dialogue3[WORD_SIZE] = "";
   Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID, up = NO_ID, down = NO_ID;
   Space *space = NULL;
   STATUS status = OK;
@@ -101,6 +104,12 @@ STATUS game_management_load_spaces(Game* game, char* filename) {
       strcpy(description,toks);
       toks = strtok(NULL, "|");
       strcpy(description2,toks);
+      toks = strtok(NULL, "|");
+      strcpy(dialogue1,toks);
+      toks = strtok(NULL, "|");
+      strcpy(dialogue2,toks);
+      toks = strtok(NULL, "|");
+      strcpy(dialogue3,toks);
 
 
 
@@ -129,6 +138,9 @@ STATUS game_management_load_spaces(Game* game, char* filename) {
         space_set_ilus11(space, ilus11);
         space_set_description(space, description);
         space_set_description2(space, description2);
+        space_set_dialogue1(space, dialogue1);
+        space_set_dialogue2(space, dialogue2);
+        space_set_dialogue3(space, dialogue3);
 
         game_add_space(game, space);
       }

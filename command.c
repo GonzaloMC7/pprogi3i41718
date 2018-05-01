@@ -16,11 +16,11 @@
 #include "command.h"
 
 #define CMD_LENGTH 999
-#define N_CMD 11 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 5*/
+#define N_CMD 12 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 11*/
 #define MAX 200
 
 /*Enumeración de los posibles comandos a introducir y debajo sus correspondientes abreviaturas, incluido el incorrrecto*/
-char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check", "Turnon", "Turnoff","Open"};
+char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check", "Turnon", "Turnoff","Open","Talk"};
 
 struct _Command{
 	char vrb[MAX]; /*!< cadena de caracteres referido al comando enumerado que introduce el usuario*/
@@ -217,7 +217,13 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			cmd->ob2[x]=input[m];
 		}
 
-	} else {
+	}else if ((strncmp("hablar", input, 4) == 0)
+	|| (strncmp("h", input, 2) == 0) || (strncmp("h", input, 2) == 0)||(strcmp(input, "Hablar")==0)) {
+
+		cmd->command = TALK;
+		strcpy(cmd->vrb,"talk");
+
+	}else {
 		cmd->command = UNKNOWN;
 	}
 
