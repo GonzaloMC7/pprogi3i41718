@@ -1,0 +1,34 @@
+
+
+
+
+|                                          |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+
+
+ Esta es la casilla 1|Estas en la recepcion|Circule caballero|¿Que miras?|¿Que haces fuera de la carcel?|
+
+
+
+|                                          |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+
+  Esta es la casilla 1|Estas en la recepcion|Circule caballero|¿Que miras?|¿Que haces fuera de la carcel?|

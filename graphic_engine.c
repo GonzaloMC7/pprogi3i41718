@@ -154,22 +154,16 @@ if (id==NO_ID){
 	screen_area_puts(ge->map, str);
 }
 if(id_east == NO_ID && id_west == NO_ID){
-	sprintf(str, "                |                      >8{               %2ld|",id_act);
+	sprintf(str, "                |                      >8{                 |");
 }
 else if(id_east != NO_ID && id_west == NO_ID){
-	sprintf(str, "                |                                          |%ld",id_east);
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                |                      >8{               %2ld|->%ld ",id_act,game_get_link_id2(game,id_east));
+	sprintf(str, "                |                      >8{                 |->%s ",game_get_name_link(game,space_get_east_link(space_act)));
 }
 else if(id_east != NO_ID && id_west != NO_ID){
-	sprintf(str, "                %ld|                                         |%ld",id_west,id_east);
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                %ld<-|                      >8{               %2ld|->%ld",game_get_link_id2(game, id_west),id_act,game_get_link_id2(game,id_east));
+	sprintf(str, "     %s <-      |                      >8{                 |->%s",game_get_name_link(game,space_get_west_link(space_act)),game_get_name_link(game,space_get_east_link(space_act)));
 }
 else{
-	sprintf(str, "                %ld |                                          |",id_west);
-	screen_area_puts(ge->map, str);
-	sprintf(str, "                %ld <-|                      >8{               %2ld|",game_get_link_id2(game, id_west),id_act);
+	sprintf(str, "    %s <-       |                      >8{                 |",game_get_name_link(game,space_get_west_link(space_act)));
 }
 screen_area_puts(ge->map, str);
 for(i=1; i<=MAX_OBJ; i++){
@@ -225,7 +219,7 @@ screen_area_puts(ge->descript, str);
 
 
 if ((ply_loc = game_get_player_location(game)) != NO_ID){
-	sprintf(str, "  Player location:%d", (int)ply_loc);
+	sprintf(str, "  Player location:%s", space_get_name(space_act));
 	screen_area_puts(ge->descript, str);
 }
 /*sprintf(str, "  Last roll:%d", game_get_die_lastroll(game));
@@ -251,7 +245,7 @@ screen_area_puts(ge->banner, "         PRISION ESCAPE: A WAY OUT ");
 screen_area_clear(ge->help);
 sprintf(str, " The commands you can use are:");
 screen_area_puts(ge->help, str);
-sprintf(str, " following/f, previous/p, exit/e, take/t, drop/d, hablar/h");
+sprintf(str, " following/f, previous/p, exit/e, take/t, drop/d, speak/s");
 screen_area_puts(ge->help, str);
 sprintf(str, " move/m(die), go/g, check/c, turnon/n, turnoff/f, open with/o ");
 

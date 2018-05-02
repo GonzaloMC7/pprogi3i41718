@@ -136,7 +136,7 @@ STATUS game_callback_open_with(Game *game);
 * @param Game game creado anteriormente
 * @return No devuelve nada al ser una función void
 */
-STATUS game_callback_talk(Game* game);
+STATUS game_callback_speak(Game* game);
 
 /*Lista de comando que se pueden dar*/
 static callback_fn game_callback_fn_list[N_CALLBACK]={
@@ -150,7 +150,7 @@ static callback_fn game_callback_fn_list[N_CALLBACK]={
   game_callback_turnon,
   game_callback_turnoff,
   game_callback_open_with,
-  game_callback_talk
+  game_callback_speak
 };
 
 /**
@@ -783,12 +783,12 @@ STATUS game_callback_check(Game* game) {
   id_object = object_get_id(game->ob[obj]);
   space_id_object=game_get_object_location(game, id_object);
 
-  if(space_id_player==space_id_object){
+  if(space_id_player==space_id_object || player_find_object(game->pl, id_object)){
     strcpy(game->check_info, object_get_description(game->ob[obj]));
     return OK;
   }
-  return ERROR;
 
+  return ERROR;
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -919,7 +919,7 @@ STATUS game_callback_open_with(Game *game){
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-STATUS game_callback_talk(Game* game) {
+STATUS game_callback_speak(Game* game) {
   Id space_id_player = NO_ID;
   int i=0, die;
 

@@ -33,7 +33,7 @@ typedef enum enum_Command {
   TURNON, /*!<Encender*/
   TURNOFF, /*!<Apagar*/
   OPEN, /*!Abrir*/
-  TALK /*!Hablar*/
+  SPEAK /*!Hablar*/
   } T_Command;
 
 

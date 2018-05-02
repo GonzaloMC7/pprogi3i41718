@@ -20,7 +20,7 @@
 #define MAX 200
 
 /*Enumeración de los posibles comandos a introducir y debajo sus correspondientes abreviaturas, incluido el incorrrecto*/
-char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check", "Turnon", "Turnoff","Open","Talk"};
+char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check", "Turnon", "Turnoff","Open","Speak"};
 
 struct _Command{
 	char vrb[MAX]; /*!< cadena de caracteres referido al comando enumerado que introduce el usuario*/
@@ -76,6 +76,8 @@ void command_destroy(Command* cmd) {
 STATUS command_interpret_input(Command* cmd, char* input) {
 
 	int i,cont=0,x=0,l=0,m;
+	char auxiliar[CMD_LENGTH]="";
+	char auxiliar2[CMD_LENGTH]="";
 
 	if (!cmd)
 	return ERROR;
@@ -98,13 +100,10 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			cont++;
 		}
 		cont++;
-		if (input[cont]!='O'){
-			cmd->command = UNKNOWN;
-		}
-		else{
+
+
 			strcpy(cmd->vrb,"take");
 			strcpy(cmd->ob,input+cont);
-		}
 
 	}else if ((strncmp("check", input, 5) == 0)
 	|| (strncmp("c", input, 1) == 0) || (strncmp("C", input, 1) == 0)||(strcmp(input, "Check")==0)) {
@@ -204,9 +203,15 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		}
 		cont++;
 
+
 		for ( i = cont,x=0; input[i]!=' '; i++,x++) {
-			cmd->ob[x]=input[i];
+			auxiliar[x]=input[i];
 		}
+		if (auxiliar[x]==' '){
+			cmd->command = UNKNOWN;
+		}
+		strcpy(cmd->ob,auxiliar);
+
 		i++;
 
 		for ( l = i;input[l]!=' '; l++) {
@@ -214,14 +219,17 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		l++;
 
 		for (m=l,x=0;input[m]!='\0';m++,x++){
-			cmd->ob2[x]=input[m];
+			auxiliar2[x]=input[m];
 		}
+		if (auxiliar2[x]==' '){
+			cmd->command = UNKNOWN;
+		}
+		strcpy(cmd->ob2,auxiliar2);
+	}else if ((strncmp("speak", input, 5) == 0)
+	|| (strncmp("s", input, 2) == 0) || (strncmp("S", input, 2) == 0)||(strcmp(input, "Speak")==0)) {
 
-	}else if ((strncmp("hablar", input, 4) == 0)
-	|| (strncmp("h", input, 2) == 0) || (strncmp("h", input, 2) == 0)||(strcmp(input, "Hablar")==0)) {
-
-		cmd->command = TALK;
-		strcpy(cmd->vrb,"talk");
+		cmd->command = SPEAK;
+		strcpy(cmd->vrb,"speak");
 
 	}else {
 		cmd->command = UNKNOWN;
