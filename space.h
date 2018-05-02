@@ -428,7 +428,7 @@ STATUS space_set_description2(Space* space, char* description2);
 * @param description1 descripcion a establecer
 * @return OK si se ha asignado correctamente y ERROR si no se ha asignado correctamente
 */
-STATUS space_set_dialogue(Space* space, char* dialogue);
+STATUS space_set_dialogue1(Space* space, char* dialogue);
 
 /*-----------------------------------------------------------------------------------------------------*/
 /**
