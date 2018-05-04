@@ -154,21 +154,21 @@ if (id==NO_ID){
 	screen_area_puts(ge->map, str);
 }
 if(id_east == NO_ID && id_west == NO_ID){
-	sprintf(str, "                |                      >8{                 |");
+	sprintf(str, "                                   >8{                     |");
 }
 else if(id_east != NO_ID && id_west == NO_ID){
-	sprintf(str, "                |                      >8{                 |->%s ",game_get_name_link(game,space_get_east_link(space_act)));
+	sprintf(str, "                                   >8{                     |->%s ",game_get_name_link(game,space_get_east_link(space_act)));
 }
 else if(id_east != NO_ID && id_west != NO_ID){
-	sprintf(str, "     %s <-      |                      >8{                 |->%s",game_get_name_link(game,space_get_west_link(space_act)),game_get_name_link(game,space_get_east_link(space_act)));
+	sprintf(str, "     %s <-                         >8{                     |->%s",game_get_name_link(game,space_get_west_link(space_act)),game_get_name_link(game,space_get_east_link(space_act)));
 }
 else{
-	sprintf(str, "    %s <-       |                      >8{                 |",game_get_name_link(game,space_get_west_link(space_act)));
+	sprintf(str, "    %s <-                          >8{                     |",game_get_name_link(game,space_get_west_link(space_act)));
 }
 screen_area_puts(ge->map, str);
 for(i=1; i<=MAX_OBJ; i++){
 	if(game_get_object_location(game, i) == id_act){
-		sprintf(str, "                |                                O: %s    |",game_get_name_object(game,i));
+		sprintf(str, "                |                                   %s    |",game_get_name_object(game,i));
 		screen_area_puts(ge->map, str);
 	}
 }
@@ -245,9 +245,9 @@ screen_area_puts(ge->banner, "         PRISION ESCAPE: A WAY OUT ");
 screen_area_clear(ge->help);
 sprintf(str, " The commands you can use are:");
 screen_area_puts(ge->help, str);
-sprintf(str, " following/f, previous/p, exit/e, take/t, drop/d, speak/s");
+sprintf(str, " exit/e, take/t, drop/d, speak/s, open with/o ");
 screen_area_puts(ge->help, str);
-sprintf(str, " move/m(die), go/g, check/c, turnon/n, turnoff/f, open with/o ");
+sprintf(str, " move/m(die), go/g, check/c, turnon/n, turnoff/f");
 
 screen_area_puts(ge->help, str);
 
