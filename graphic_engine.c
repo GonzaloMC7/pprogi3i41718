@@ -160,10 +160,10 @@ else if(id_east != NO_ID && id_west == NO_ID){
 	sprintf(str, "                                   >8{                     |->%s ",game_get_name_link(game,space_get_east_link(space_act)));
 }
 else if(id_east != NO_ID && id_west != NO_ID){
-	sprintf(str, "     %s <-                         >8{                     |->%s",game_get_name_link(game,space_get_west_link(space_act)),game_get_name_link(game,space_get_east_link(space_act)));
+	sprintf(str, "%s <-                              >8{                     |->%s",game_get_name_link(game,space_get_west_link(space_act)),game_get_name_link(game,space_get_east_link(space_act)));
 }
 else{
-	sprintf(str, "    %s <-                          >8{                     |",game_get_name_link(game,space_get_west_link(space_act)));
+	sprintf(str, "%s <-                              >8{                     |",game_get_name_link(game,space_get_west_link(space_act)));
 }
 screen_area_puts(ge->map, str);
 for(i=1; i<=MAX_OBJ; i++){
