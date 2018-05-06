@@ -14,7 +14,7 @@
 #include <string.h>
 #include "player.h"
 
-#define inv_tam 5
+#define inv_tam 7
 
 
 /*Estructura de un jugador, con su nombre, el id, el id del objeto que puede portar, y su localización*/

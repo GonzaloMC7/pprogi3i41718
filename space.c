@@ -696,20 +696,12 @@ BOOL space_find_id(Space *space, Id IdObject){
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
-STATUS space_set_lightON(Space * space){
+STATUS space_set_light(Space * space, BOOL cond){
 	if(!space) return ERROR;
-
-	space->light=TRUE;
+	space->light=cond;
 	return OK;
 }
 
-/*-----------------------------------------------------------------------------------------------------------------------*/
-STATUS space_set_lightOFF(Space * space){
-	if(!space) return ERROR;
-
-	space->light=FALSE;
-	return OK;
-}
 /*-----------------------------------------------------------------------------------------------------------------------*/
 BOOL space_get_light(Space * space){
 	if(!space) return FALSE;

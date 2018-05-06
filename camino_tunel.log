@@ -1,0 +1,107 @@
+Go e
+Go s
+Go e
+Go d
+Go s
+Go w
+Take Carta
+Go e
+Go n
+Go u
+Go w
+Go n
+Go n
+Go n
+Go n
+o Cel5-Pas w Carta
+Go w
+Take Farol
+Drop Carta
+Go e
+Go s
+Go s
+Go s
+Go s
+Go e
+Go d
+Go s
+Go e
+Go e
+Go e
+Go e
+n Farol
+Take Jabon
+Drop Farol
+Go w
+Go s
+Take Ll.Invernadero
+Go n
+Go w
+Go w
+Go w
+Go n
+Go u
+Go w
+Go n
+Go n
+Go n
+o Pas-Cel4 w Jabon
+Go e
+Take Cigarros
+Drop Jabon
+Go w
+Go s
+o Cel3-Pas w Cigarros
+Go w
+Take Porra
+Drop Cigarros
+Go e
+Go s
+Go s
+Go e
+Go d
+Go s
+Go e
+Go e
+o P-Guardias w Porra
+Go n
+Take Ll.Enfermeria
+Drop Porra
+Go s
+Go w
+Go w
+o P-Enfermeria w Ll.Enfermeria
+Go s
+Take Medicina
+Go n
+Go n
+Go u
+Go w
+Go n
+o Pas-Cel2 w Medicina
+Go e
+Take Cartera
+Drop Medicina
+Go w
+Go s
+Go e
+Go u
+Go n
+o Pas-Cel6 w Cartera
+Go e
+Take Pala
+Drop Cartera
+Go w
+Go s
+Go d
+Go d
+Go s
+Go w
+o Recreo-Invernadero w Ll.Invernadero
+Go n
+o Tunel w Pala
+Go n
+Go n
+Go n
+Go n
+Exit

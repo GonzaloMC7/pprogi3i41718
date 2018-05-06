@@ -1,6 +1,6 @@
 CC = gcc -ansi -pedantic -g
 CFLAGS = -Wall
-EXE = game_loop set_test die_test space_test link_test inv_test
+EXE = game_loop set_test die_test space_test link_test inv_test game_management_test object_test player_test game_test command_test
 
 all : $(EXE)
 
@@ -113,6 +113,18 @@ set_test_:
 	@echo Ejecutando set_test
 	@ ./set_test
 
+game_management_test_:
+	@echo Ejecutando game_management_test
+	@ ./game_management_test
+
+object_test_:
+	@echo Ejecutando object_test
+	@ ./object_test
+
+player_test_:
+	@echo Ejecutando player_test
+	@ ./player_test
+
 die_test_:
 	@echo Ejecutando set_die
 	@ ./die_test
@@ -128,6 +140,14 @@ link_test_:
 inv_test_:
 	@echo Ejecutando inv_test
 	@ ./inv_test
+
+game_test_:
+	@echo Ejecutando game_test
+	@ ./game_test
+
+command_test_:
+	@echo Ejecutando command_test
+	@ ./command_test
 
 
 doxy:

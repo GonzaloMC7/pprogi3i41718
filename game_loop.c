@@ -61,10 +61,10 @@ int main(int argc, char *argv[]){
     command_get_user_input(game_get_last_command(game));
     game_update(game);
     if (command_get_type(game_get_last_command(game))==OPEN){
-      fprintf(fp, "%s %s with %s \n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD],command_get_ob(game_get_last_command(game)),command_get_ob2(game_get_last_command(game)));
+      fprintf(fp, "%s %s with %s\n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD],command_get_ob(game_get_last_command(game)),command_get_ob2(game_get_last_command(game)));
     }
     else{
-      fprintf(fp, "%s %s \n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD],command_get_ob(game_get_last_command(game)));
+      fprintf(fp, "%s %s\n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD],command_get_ob(game_get_last_command(game)));
 
     }
   }

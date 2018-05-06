@@ -121,9 +121,14 @@ const char * object_get_description(Object* object) {
 /*-----------------------------------------------------------------------------------------------------*/
 /*Funcion que establece un id al objeto deseado*/
 STATUS object_set_id(Object* object, Id id) {
-  if (!object || !id) {
+  if (!object) {
     return ERROR;
   }
+
+  if (id==NO_ID){
+    return ERROR;
+  }
+  
   object->id=id;
   return OK;
 }
@@ -143,13 +148,10 @@ STATUS object_print(Object* object) {
 /*-----------------------------------------------------------------------------------------------------*/
 
 STATUS object_set_movable(Object * object, BOOL cond){
-  if(!object) return ERROR;
-
-  if(cond==TRUE){
-    object->movable=TRUE;
-  }else if(cond==FALSE){
-    object->movable=FALSE;
+  if(object == NULL){
+      return ERROR;
   }
+  object->movable=cond;
   return OK;
 }
 
@@ -175,7 +177,7 @@ STATUS object_set_hidden(Object * object, BOOL cond){
   if(cond==TRUE){
     object->hidden=TRUE; /*Esto lo pone a oculto*/
   }else if(cond==FALSE){
-    object->hidden=FALSE;;
+    object->hidden=FALSE;
   }
   return OK;
 }
@@ -196,11 +198,7 @@ STATUS object_set_key(Object * object, Id id){
 STATUS object_set_light(Object * object, BOOL cond){
   if(!object) return ERROR;
 
-  if(cond==TRUE){
-    object->light=TRUE; /*Entonces podría encender espacios*/
-  }else if(cond==FALSE){
-    object->light=FALSE;
-  }
+  object->light=cond;
   return OK;
 }
 
@@ -211,9 +209,9 @@ STATUS object_set_on(Object * object, BOOL cond){
   if(object_get_light(object)==FALSE) return ERROR;
 
   if(cond==TRUE){
-    object->movable=TRUE;
+    object->on=TRUE;
   }else if(cond==FALSE){
-    object->movable=FALSE;
+    object->on=FALSE;
   }
   return OK;
 }
@@ -222,12 +220,8 @@ STATUS object_set_on(Object * object, BOOL cond){
 /*-----------------------------------------------------------------------------------------------------*/
 
 BOOL object_get_movable(Object * object){
-  if(!object) return FALSE;
-
-  if(object->movable==TRUE){
-    return TRUE;
-  }else return FALSE;
-
+  if(object==NULL) return FALSE;
+  return object->movable;
 }
 
 /*-----------------------------------------------------------------------------------------------------*/

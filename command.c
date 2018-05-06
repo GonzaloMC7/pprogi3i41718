@@ -16,11 +16,11 @@
 #include "command.h"
 
 #define CMD_LENGTH 999
-#define N_CMD 12 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 11*/
+#define N_CMD 13 /*Dependerá del número de comandos diferentes que se pueden introducir en el juego, en este caso 11*/
 #define MAX 200
 
 /*Enumeración de los posibles comandos a introducir y debajo sus correspondientes abreviaturas, incluido el incorrrecto*/
-char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check", "Turnon", "Turnoff","Open","Speak"};
+char *cmd_to_str[N_CMD] = {"No command", "Unknown", "Exit","Take","Drop","Move","Go","Check", "Turnon", "Turnoff","Open","Speak","Save"};
 
 struct _Command{
 	char vrb[MAX]; /*!< cadena de caracteres referido al comando enumerado que introduce el usuario*/
@@ -91,7 +91,11 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		cmd->command = EXIT;
 		strcpy(cmd->vrb,"exit");
 
-	} else if ((strncmp("take", input, 4) == 0)
+	} else if ((strncmp("save", input, 4) == 0)) {
+		cmd->command = SAVE;
+		strcpy(cmd->vrb,"save");
+
+	}else if ((strncmp("take", input, 4) == 0)
 	|| (strncmp("t", input, 1) == 0) || (strncmp("T", input, 1) == 0)||(strcmp(input, "Take")==0)) {
 
 		cmd->command = TAKE;
@@ -102,8 +106,8 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		cont++;
 
 
-			strcpy(cmd->vrb,"take");
-			strcpy(cmd->ob,input+cont);
+		strcpy(cmd->vrb,"take");
+		strcpy(cmd->ob,input+cont);
 
 	}else if ((strncmp("check", input, 5) == 0)
 	|| (strncmp("c", input, 1) == 0) || (strncmp("C", input, 1) == 0)||(strcmp(input, "Check")==0)) {
@@ -114,13 +118,10 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			cont++;
 		}
 		cont++;
-		if (input[cont]!='O' && input[cont]!='s'){
-			cmd->command = UNKNOWN;
-		}
-		else{
-			strcpy(cmd->vrb,"check");
-			strcpy(cmd->ob,input+cont);
-		}
+
+		strcpy(cmd->vrb,"check");
+		strcpy(cmd->ob,input+cont);
+
 
 	}else if ((strncmp("turnon", input, 4) == 0)
 	|| (strncmp("n", input, 1) == 0) || (strncmp("N", input, 1) == 0)||(strcmp(input, "Turnon")==0)) {
@@ -131,13 +132,10 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			cont++;
 		}
 		cont++;
-		if (input[cont]!='O'){
-			cmd->command = UNKNOWN;
-		}
-		else{
-			strcpy(cmd->vrb,"turnon");
-			strcpy(cmd->ob,input+cont);
-		}
+
+		strcpy(cmd->vrb,"turnon");
+		strcpy(cmd->ob,input+cont);
+
 	}else if ((strncmp("turnoff", input, 4) == 0)
 	|| (strncmp("f", input, 1) == 0) || (strncmp("F", input, 1) == 0)||(strcmp(input, "Turnoff")==0)) {
 
@@ -147,13 +145,10 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			cont++;
 		}
 		cont++;
-		if (input[cont]!='O'){
-			cmd->command = UNKNOWN;
-		}
-		else{
-			strcpy(cmd->vrb,"turnoff");
-			strcpy(cmd->ob,input+cont);
-		}
+
+		strcpy(cmd->vrb,"turnoff");
+		strcpy(cmd->ob,input+cont);
+
 
 
 	} else if ((strncmp("go", input, 2) == 0)
@@ -183,16 +178,12 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 			cont++;
 		}
 		cont++;
-		if (input[cont]!='O'){
-			cmd->command = UNKNOWN;
-		}
-		else{
-			strcpy(cmd->vrb,"drop");
-			strcpy(cmd->ob,input+cont);
-		}
+
+		strcpy(cmd->vrb,"drop");
+		strcpy(cmd->ob,input+cont);
 
 	}else if ((strncmp("open", input, 4) == 0)
-	|| (strncmp("o", input, 1) == 0) || (strncmp("O", input, 1) == 0)||(strcmp(input, "Open")==0)) {
+	|| (strncmp("o", input, 1) == 0) || (strncmp("O", input, 1) == 0)||(strncmp(input, "Open",4)==0)) {
 
 		cmd->command = OPEN;
 
@@ -226,7 +217,7 @@ STATUS command_interpret_input(Command* cmd, char* input) {
 		}
 		strcpy(cmd->ob2,auxiliar2);
 	}else if ((strncmp("speak", input, 5) == 0)
-	|| (strncmp("s", input, 2) == 0) || (strncmp("S", input, 2) == 0)||(strcmp(input, "Speak")==0)) {
+	|| (strncmp("s", input, 1) == 0) || (strncmp("S", input, 1) == 0)||(strcmp(input, "Speak")==0)) {
 
 		cmd->command = SPEAK;
 		strcpy(cmd->vrb,"speak");

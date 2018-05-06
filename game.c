@@ -16,7 +16,7 @@
 #include "game_management.h"
 
 
-#define N_CALLBACK 11
+#define N_CALLBACK 12
 
 
 /**
@@ -25,6 +25,7 @@ Define the function type for the callbacks
 typedef STATUS (*callback_fn)(Game* game);
 struct _Game{
   Player * pl; /*!<Jugador*/
+  int entero;
   Object * ob[MAX_OBJ+1]; /*!<Objetos del jugador*/
   Space* spaces[MAX_SPACES + 1]; /*!<Espacios del juego*/
   Link *link[MAX_LINK + 1]; /*!<Enlaces del juego */
@@ -137,6 +138,7 @@ STATUS game_callback_open_with(Game *game);
 * @return No devuelve nada al ser una función void
 */
 STATUS game_callback_speak(Game* game);
+STATUS game_callback_save(Game* game);
 
 /*Lista de comando que se pueden dar*/
 static callback_fn game_callback_fn_list[N_CALLBACK]={
@@ -150,7 +152,8 @@ static callback_fn game_callback_fn_list[N_CALLBACK]={
   game_callback_turnon,
   game_callback_turnoff,
   game_callback_open_with,
-  game_callback_speak
+  game_callback_speak,
+  game_callback_save
 };
 
 /**
@@ -202,6 +205,7 @@ Game *game_create() {
   game->die = die_create();
   game->check_info[0]='\0';
   game->space_dialogue[0]='\0';
+  game->entero=0;
 
   return game;
 }
@@ -637,6 +641,7 @@ STATUS game_callback_take(Game* game){
     command_interpret_input(game->cmd,command_get_ob(game->cmd));
     return ERROR;
   }
+
   id_object = object_get_id(game->ob[i]);
   space_id_object=game_get_object_location(game, id_object);
   if(space_id_player==space_id_object){
@@ -644,10 +649,16 @@ STATUS game_callback_take(Game* game){
       return ERROR;
     }
     else{
-      player_set_object(game->pl, id_object);
-      space_destroy_object(game->spaces[space_id_player-1], id_object);
-      object_set_moved(game->ob[i],1);
-      return OK;
+      if (game->entero<7){
+        player_set_object(game->pl, id_object);
+        space_destroy_object(game->spaces[space_id_player-1], id_object);
+        object_set_moved(game->ob[i],1);
+        game->entero++;
+        return OK;
+      }
+      else{
+        return ERROR;
+      }
     }
   }
   else{
@@ -682,6 +693,7 @@ STATUS game_callback_drop(Game* game){
 
     game_set_object_location(game, game_get_space_id_at(game, space_id_player-1), id_object);
     player_destroy_object (game->pl, id_object);
+    game->entero--;
     return OK;
   }
   else {
@@ -817,14 +829,17 @@ STATUS game_callback_turnon(Game* game){
   }
   id_object = object_get_id(game->ob[i]);
   space_id_object=game_get_object_location(game, id_object);
-  if(space_id_player==space_id_object){
-    game->encendido = OK;
 
-    return OK;
+  if (player_find_object(game->pl,id_object)==TRUE){
+    if (object_get_light(game->ob[i])==TRUE){
+      object_set_on(game->ob[i], TRUE);
+      space_set_light(game->spaces[space_id_player-1],1);
+      return OK;
+    }
   }
-  else{
-    return ERROR;
-  }
+
+  return ERROR;
+
 }
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
@@ -854,15 +869,15 @@ STATUS game_callback_turnoff(Game* game){
   }
   id_object = object_get_id(game->ob[i]);
   space_id_object=game_get_object_location(game, id_object);
-  if(space_id_player==space_id_object){
-    game->apagado = OK;
 
-
-    return OK;
+  if (player_find_object(game->pl,id_object)==TRUE){
+    if (object_get_light(game->ob[i])==TRUE){
+      object_set_on(game->ob[i], FALSE);
+      space_set_light(game->spaces[space_id_player-1],0);
+      return OK;
+    }
   }
-  else{
-    return ERROR;
-  }
+  return ERROR;
 }
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /*Llamada a la fincion en el aque se abre un link*/
@@ -878,19 +893,16 @@ STATUS game_callback_open_with(Game *game){
   if (!space_id_player) {
     return ERROR;
   }
-
   for(i=0;game->link[i]!=NULL;i++){
     if(strcmp(game_get_name_link(game, i+1),command_get_ob(game->cmd))==0){
       break;
     }
   }
-
   for(o=0;game->ob[o]!=NULL;o++){
     if(strcmp(game_get_name_object(game, o+1),command_get_ob2(game->cmd))==0){
       break;
     }
   }
-
   if(game->link[i]==NULL){
     command_interpret_input(game->cmd,command_get_ob(game->cmd));
     return ERROR;
@@ -908,6 +920,7 @@ STATUS game_callback_open_with(Game *game){
   if(idob == NO_ID){
     return ERROR;
   }
+
   if (game_find_player_object(game, idob)==TRUE){
     if (object_get_key(game->ob[o])==idlink){
       link_set_idopenclose(game->link[i],1);
@@ -927,9 +940,28 @@ STATUS game_callback_speak(Game* game) {
   die_roll(game->die);
   die = game_get_die_lastroll(game);
 
-    for(i=0; (space_id_player)!=(space_get_id(game->spaces[i])); i++){}
-    strcpy(game->space_dialogue, space_get_dialogue(game->spaces[i], die));
+  for(i=0; (space_id_player)!=(space_get_id(game->spaces[i])); i++){}
+  strcpy(game->space_dialogue, space_get_dialogue(game->spaces[i], die));
 
-    return OK;
+  return OK;
 
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
+STATUS game_callback_save(Game* game){
+  FILE *fp;
+  extern char *cmd_to_str[];
+
+  fp=fopen("laprueba.log","w");
+
+  while (command_get_type(game_get_last_command(game))!=SAVE ){
+    if (command_get_type(game_get_last_command(game))==OPEN){
+      fprintf(fp, "%s %s with %s \n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD],command_get_ob(game_get_last_command(game)),command_get_ob2(game_get_last_command(game)));
+    }
+    else{
+      fprintf(fp, "%s %s\n",cmd_to_str[command_get_type(game_get_last_command(game))-NO_CMD],command_get_ob(game_get_last_command(game)));
+    }
+  }
+  fclose(fp);
+  return OK;
 }

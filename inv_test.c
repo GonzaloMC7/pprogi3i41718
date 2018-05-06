@@ -53,7 +53,6 @@ int main(int argc, char** argv) {
     if (all || test == 17) test2_inv_full();
     if (all || test == 18) test3_inv_full();
     if (all || test == 19) test4_inv_full();
-
     PRINT_PASSED_PERCENTAGE;
 
     return 1;

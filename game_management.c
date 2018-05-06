@@ -39,7 +39,7 @@ STATUS game_management_load_spaces(Game* game, char* filename) {
   char dialogue1[WORD_SIZE] = "";
   char dialogue2[WORD_SIZE] = "";
   char dialogue3[WORD_SIZE] = "";
-  Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID, up = NO_ID, down = NO_ID;
+  Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID, up = NO_ID, down = NO_ID, light=NO_ID;
   Space *space = NULL;
   STATUS status = OK;
 
@@ -110,11 +110,13 @@ STATUS game_management_load_spaces(Game* game, char* filename) {
       strcpy(dialogue2,toks);
       toks = strtok(NULL, "|");
       strcpy(dialogue3,toks);
+      toks = strtok(NULL, "|");
+      light = atol(toks);
 
 
 
       #ifdef DEBUG
-      printf("Leido: %ld|%s|%ld|%ld|%ld|%ld|%ld|%ld|%s|%s|%s\n", id, name, north, east, south, west, up, down, ilus1, ilus2, ilus3);
+      printf("Leido: %ld|%s|%ld|%ld|%ld|%ld|%ld|%ld|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%d\n", id, name, north, east, south, west, up, down, ilus1, ilus2, ilus3,ilus4,ilus5,ilus6,ilus7,ilus8,ilus9,ilus10,ilus11,description,description2,dialogue1,dialogue2,dialogue3,light);
       #endif
       space = space_create(id);
       if (space != NULL) {
@@ -141,6 +143,7 @@ STATUS game_management_load_spaces(Game* game, char* filename) {
         space_set_dialogue1(space, dialogue1);
         space_set_dialogue2(space, dialogue2);
         space_set_dialogue3(space, dialogue3);
+        space_set_light(space,light);
 
         game_add_space(game, space);
       }
@@ -213,6 +216,7 @@ STATUS game_management_load_objects(Game* game, char* filename) {
       printf("Leido: %ld|%s|%ld|%s|%d|%d|%d|%d|%d|%d\n", idObject, name, idspace_object,description,movable,moved,hidden,light,on,key);
       #endif
       object= object_create(idObject);
+
       if (object != NULL) {
         object_set_name(object, name);
         object_set_description(object, description);

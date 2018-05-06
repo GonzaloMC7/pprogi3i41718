@@ -523,16 +523,7 @@ STATUS space_destroy_object(Space* space, Id IdObject);
 * @param space Puntero a Space
 * @return Devuelve OK si se ha asignado correctamente o ERROR en caso contrario
 */
-STATUS space_set_lightON(Space * space);
-
-/*-----------------------------------------------------------------------------------------------------------------------*/
-/**
-* @brief Pone la iluminación a apagado
-* @author Gonzalo Martinez
-* @param space Puntero a Space
-* @return Devuelve OK si se ha asignado correctamente o ERROR en caso contrario
-*/
-STATUS space_set_lightOFF(Space * space);
+STATUS space_set_light(Space * space, BOOL cond);
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 /**
